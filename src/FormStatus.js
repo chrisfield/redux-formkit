@@ -1,11 +1,11 @@
 import {connect} from 'react-redux';
 
-const FieldWrapperStatus = (props) => (
+const formStatus = (props) => (
   props.children({...props})
 );
 
 const mapStateToProps = (state, ownProps) => {
-  const formName = ownProps.fieldWrapper.name;
+  const formName = ownProps.form.name;
   if (!state.form[formName]) {
     return {isValid: false};
   }
@@ -19,4 +19,4 @@ const mapStateToProps = (state, ownProps) => {
 
 export default connect(
   mapStateToProps
-)(FieldWrapperStatus);
+)(formStatus);

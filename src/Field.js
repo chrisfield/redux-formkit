@@ -15,7 +15,7 @@ class Field extends Component {
   }
 
   componentDidMount() {;
-    this.props.fieldWrapper.registerField(this);
+    this.props.form.registerField(this);
     this.props.register(this.props.name);
     this.validateValue(this.props.value, false);
   }
@@ -35,7 +35,7 @@ class Field extends Component {
 
   componentWillUnmount() {
     this.props.deregister(this.props.name);
-    this.props.fieldWrapper.deregisterField(this);
+    this.props.form.deregisterField(this);
     if (this.props.error) {
       this.props.incrementErrorCount(-1);
     }    
@@ -44,7 +44,7 @@ class Field extends Component {
   validate(event) {
     this.validateValue(this.getEventValue(event), true);
     if (this.props.onValidate) {
-      this.props.onValidate(this.props.fieldWrapper);
+      this.props.onValidate(this.props.form);
     } 
   }
 
@@ -56,7 +56,7 @@ class Field extends Component {
   }
 
   validateValue(value, touched) {
-    const getFieldValues = this.props.fieldWrapper.fieldValues;
+    const getFieldValues = this.props.form.fieldValues;
     const fieldValues = getFieldValues && getFieldValues();
     let validateError;
     if (this.props.validate) {
@@ -115,7 +115,7 @@ Field.propTypes = {
 
 
 const mapStateToProps = (state, ownProps) => {
-  const formState = getFormState(state, ownProps.fieldWrapper.name);
+  const formState = getFormState(state, ownProps.form.name);
   const fieldStatus = getFieldValue(formState.status, ownProps.name) || {touched: false};
 
   return {
@@ -126,7 +126,7 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  const formName = ownProps.fieldWrapper.name;
+  const formName = ownProps.form.name;
   return {
     register: () => {dispatch(registerField(formName, ownProps.name))},
     deregister: () => {dispatch(deregisterField(formName, ownProps.name))},

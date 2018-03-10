@@ -16,18 +16,18 @@ class FieldArray extends Component {
     this.propsForForm = {
       registerField: this.registerField,
       deregisterField: this.deregisterField,
-      name: this.props.fieldWrapper.name   
+      name: this.props.form.name   
     }
   }
 
   componentDidMount() {
-    this.props.fieldWrapper.registerField(this);
+    this.props.form.registerField(this);
     this.props.register(this.props.name);
   }
 
   componentWillUnmount() {
     this.props.deregister(this.props.name);
-    this.props.fieldWrapper.deregisterField(this);
+    this.props.form.deregisterField(this);
   }
 
   registerField(field) {
@@ -55,7 +55,7 @@ class FieldArray extends Component {
 
     if (this.props.component) {
       const Component = this.props.component;
-      return <Component {...this.props} fieldWrapper={this.propsForForm} fields={fields} />
+      return <Component {...this.props} form={this.propsForForm} fields={fields} />
     }
     
     return this.props.children({
@@ -67,7 +67,7 @@ class FieldArray extends Component {
 
 
 FieldArray.propTypes = {
-  fieldWrapper: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired,
+  form: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired,
   name: PropTypes.string.isRequired,
   register: PropTypes.func.isRequired,
   component: PropTypes.oneOfType([PropTypes.func, PropTypes.string])
@@ -75,7 +75,7 @@ FieldArray.propTypes = {
 
 
 const mapStateToProps = (state, ownProps) => {
-  const formState = getFormState(state, ownProps.fieldWrapper.name);
+  const formState = getFormState(state, ownProps.form.name);
 
   return {
     fields: getFieldValue(formState.value, ownProps.name) || []
@@ -83,7 +83,7 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  const form = ownProps.fieldWrapper.name;
+  const form = ownProps.form.name;
   return {
     push: () => {dispatch(arrayPush(form, ownProps.name, {}))},
     remove: (index) => { 

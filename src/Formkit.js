@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 
-const Form = (form, name, validator) => {
+const Formkit = (form, name, validator) => {
 
   class BaseForm extends Component {
     constructor(props) {
@@ -99,7 +99,7 @@ const Form = (form, name, validator) => {
 
     render() {
       const TheForm = form;
-      return <TheForm {...this.props} fieldWrapper={this}/>;
+      return <TheForm {...this.props} form={this}/>;
     }
   }
 
@@ -121,4 +121,4 @@ const Form = (form, name, validator) => {
   return connect(mapStateToProps, mapDispatchToProps)(BaseForm);
 };
 
-export default Form;
+export default Formkit;

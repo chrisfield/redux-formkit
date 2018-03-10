@@ -1,5 +1,5 @@
-import Form from "./Form";
-export {Form};
+import Formkit from "./Formkit";
+export {Formkit};
 
 import FormStatus from "./FormStatus";
 export {FormStatus};
