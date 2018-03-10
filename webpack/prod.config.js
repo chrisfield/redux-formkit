@@ -19,10 +19,6 @@ module.exports = {
   },
   plugins: [
   ],
-	externals: {
-		'react': 'react',
-		'react-dom': 'react-dom'
-	},
   resolve: {
     extensions: ['*', '.js', '.jsx']
   },
