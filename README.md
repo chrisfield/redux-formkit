@@ -4,5 +4,6 @@ Includes support for field-arrays and provides access to the form's status as fi
 
 
 ## Getting Started
+npm install [redux-formkit](https://www.npmjs.com/package/redux-formkit) --save
 
  See [redux-formkit examples](https://github.com/chrisfield/formapp).
