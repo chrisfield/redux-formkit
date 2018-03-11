@@ -103,7 +103,7 @@ class Field extends Component {
 Field.propTypes = {
   fieldContainer: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   name: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string.isRequired, PropTypes.bool]).isRequired,
   error: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   touched: PropTypes.bool.isRequired,
   register: PropTypes.func.isRequired,
