@@ -52,6 +52,9 @@ class Field extends Component {
     if (event.target.type === "checkbox") {
       return event.target.checked;
     }
+    if (this.props.format) {
+      return this.props.format(event.target.value);
+    }
     return event.target.value;
   }
 
@@ -83,7 +86,23 @@ class Field extends Component {
     if (this.props.component) {
       const Component = this.props.component;
       if (typeof Component === 'string') {
-        return <Component onChange={this.update} onBlur={this.validate} value={this.props.value} placeholder={this.props.placeholder}/>
+        const {
+          form,
+          component,
+          register,
+          deregister,
+          validate,
+          format,
+          formatFromStore,
+          updateValue,
+          setError,
+          incrementErrorCount,
+          touched,
+          value,
+          error,
+          ...givenProps
+        } = this.props;
+        return <Component onChange={this.update} onBlur={this.validate} value={value} {...givenProps} />
       } else {
         return <Component {...this.props} update={this.update} validate={this.validate} />
       }
@@ -101,16 +120,20 @@ class Field extends Component {
 
 
 Field.propTypes = {
-  fieldContainer: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  form: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
-  value: PropTypes.oneOfType([PropTypes.string.isRequired, PropTypes.bool]).isRequired,
-  error: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  touched: PropTypes.bool.isRequired,
+  component: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
   register: PropTypes.func.isRequired,
   deregister: PropTypes.func.isRequired,
+  validate: PropTypes.oneOfType([PropTypes.func, PropTypes.array]),
+  format: PropTypes.func,
+  formatFromStore: PropTypes.func,
   updateValue: PropTypes.func.isRequired,
   setError: PropTypes.func.isRequired,
-  component: PropTypes.oneOfType([PropTypes.func, PropTypes.string])
+  incrementErrorCount: PropTypes.func.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string.isRequired, PropTypes.bool, PropTypes.number]).isRequired,
+  touched: PropTypes.bool.isRequired,
+  error: PropTypes.oneOfType([PropTypes.object, PropTypes.string])
 }
 
 
@@ -119,7 +142,7 @@ const mapStateToProps = (state, ownProps) => {
   const fieldStatus = getFieldValue(formState.status, ownProps.name) || {touched: false};
 
   return {
-    value: getFieldValue(formState.value, ownProps.name) || "",  // todo prob needs a refactor
+    value: getFieldValue(formState.value, ownProps.name, ownProps.formatFromStore) || "",
     error: fieldStatus.error,
     touched: fieldStatus.touched
   };

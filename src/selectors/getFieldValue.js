@@ -1,6 +1,6 @@
 import { toPath } from 'lodash'
 
-const getFieldValue = (state, field) => {
+const getFieldValue = (state, field, format) => {
   if (!state) {
     return state
   }
@@ -14,6 +14,10 @@ const getFieldValue = (state, field) => {
   let result = state
   for (let i = 0; i < length && result; ++i) {
     result = result[path[i]]
+  }
+
+  if (format) {
+    return format(result);
   }
 
   return result
