@@ -1,16 +1,12 @@
 import {connect} from 'react-redux';
+import getFormState from './selectors/getFormState';
 
 const formStatus = (props) => (
   props.children({...props})
 );
 
 const mapStateToProps = (state, ownProps) => {
-  const formName = ownProps.form.name;
-  if (!state.form[formName]) {
-    return {isValid: false};
-  }
-  const formStatus = state.form[formName].status;
-
+  const formStatus = getFormState(state, ownProps.form.name).status;
   return {
     errorCount: formStatus.errorCount,
     isValid: formStatus.errorCount === 0
@@ -20,3 +16,4 @@ const mapStateToProps = (state, ownProps) => {
 export default connect(
   mapStateToProps
 )(formStatus);
+
