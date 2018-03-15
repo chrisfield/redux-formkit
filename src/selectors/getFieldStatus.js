@@ -1,5 +1,9 @@
-const getFieldStatus = (state, form, model) => (
-  state.form[form].status[model]
+import getFieldValue from './getFieldValue';
+
+const initialFieldStatus = {touched: false}
+
+const getFieldStatus = (state, field) => (
+  getFieldValue(state, field) || initialFieldStatus
 );
 
 export default getFieldStatus;

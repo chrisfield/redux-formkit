@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
+import {updateFields} from './actions/field';
 
-const Formkit = (form, name, validator) => {
+const Formkit = (form, name, {initialValues, validate, submit}) => {
 
   class BaseForm extends Component {
     constructor(props) {
@@ -17,25 +18,15 @@ const Formkit = (form, name, validator) => {
     }
 
 
-    componentDidMount() {
+    componentWillMount() {
       this.props.register();
+      if (initialValues) {
+        this.props.updateFields(initialValues);
+      }
     }
     
     componentWillUnMount() {
       this.props.deregister();
-    }
-
-    shouldComponentUpdateOld(nextProps) {
-      const {theFieldValues: a, ...next} = nextProps;
-      const {theFieldValues: b, ...previous} = this.props;
-      let nextKeyCount = 0;
-      for(let key in next) {
-        nextKeyCount += 1;
-        if(next[key] !== previous[key]) {
-          return true;
-        }
-      }
-      return nextKeyCount === Object.keys(this.props).length;
     }
     
     registerField(field) {
@@ -48,7 +39,6 @@ const Formkit = (form, name, validator) => {
         this.fields.splice(index, 1);
       }
     }
-    
 
     getField(name) {
       for (let i = 0; i < this.fields.length; i++) {
@@ -58,25 +48,26 @@ const Formkit = (form, name, validator) => {
       };
     }
 
-
     validate() {
-      validator(this.fieldValues());
-      return this.validateFields(this.fields);
+      let isValid = true;
+      if (validate) {
+        isValid = validate(this.fieldValues());
+      }
+      return this.validateFields(this.fields) && isValid;
     }
     
-    validateFields(fields) {
+    validateFields(fields, touched=true) {
       let isValid = true;
       for (let i=0; i<fields.length; i++) {
-
         if (fields[i].fields) {
-          isValid = this.validateFields(fields[i].fields) && isValid
+          isValid = this.validateFields(fields[i].fields, touched) && isValid
         } else {
           const fieldProps = fields[i].props;
           let error;
           if (fieldProps.touched) {
             error = fieldProps.error;
           } else {
-            error = fields[i].validateValue(fields[i].props.value, true);
+            error = fields[i].validateValue(fields[i].props.value, touched);
           }
           if (error) {
             isValid = false;
@@ -87,13 +78,20 @@ const Formkit = (form, name, validator) => {
     }
 
     fieldValues() {
-      return this.props.theFieldValues;
+      return this.props.fieldValues;
     }
 
     submit(event) {
       const isValid = this.validate();
-      if (!isValid) {
+      if (!isValid || submit) {
         event.preventDefault();
+      }
+      if (submit && isValid) {
+        submit(this.props.fieldValues);
+        if (initialValues) {
+          this.props.updateFields(initialValues || {});
+          //this.validateFields(this.fields, false)
+        }        
       }
     }
 
@@ -107,14 +105,15 @@ const Formkit = (form, name, validator) => {
   function mapStateToProps(state, ownProps) {
     const formState = state.form[name];
     return {
-      theFieldValues: formState ? formState.value: undefined
+      fieldValues: formState ? formState.value: {}
     };
   }
 
   function mapDispatchToProps(dispatch) {
     return {
       register: (form) => {console.log(`register form ${name}`);},
-      deregister: (form) => {console.log(`deregister form ${name}`);}
+      deregister: (form) => {console.log(`deregister form ${name}`);},
+      updateFields: (values) => {dispatch(updateFields(name, values))}
     };
   }
 

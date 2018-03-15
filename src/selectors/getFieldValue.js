@@ -1,22 +1,17 @@
 import { toPath } from 'lodash'
 
-const getFieldValue = (state, field, format) => {
-  let result = state;
+const getFieldValue = (state, field) => {
   const path = toPath(field)
   const length = path.length
   if (!length) {
-    result = undefined;
-  } else {
-    for (let i = 0; i < length && result; ++i) {
-      result = result[path[i]]
-    }
+    return undefined;
   }
 
-  if (format) {
-    return format(result);
+  let result = state;
+  for (let i = 0; i < length && result; ++i) {
+    result = result[path[i]]
   }
-
-  return result || '';
+  return result;
 }
 
 export default getFieldValue;

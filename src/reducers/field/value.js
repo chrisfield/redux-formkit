@@ -6,10 +6,7 @@ export const initialState = {};
 const fieldValueReducer = (state = initialState, action) => {
   switch (action.type) {
     case FIELDS_UPDATE:
-      return {
-        ...state,
-        ...action.payload
-      };
+      return action.payload;
     case FIELD_UPDATE:
       return setField(state, action.field, action.value);
     case REGISTER_FIELD_ARRAY:

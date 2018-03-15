@@ -21,6 +21,9 @@ class Field extends Component {
   }
 
   componentDidUpdate(prevProps) {
+    if (this.props.value !== prevProps.value) {
+      this.validateValue(this.props.value);
+    }
     let errorChange = 0;
     if (prevProps.error) {
       errorChange--;
@@ -42,14 +45,14 @@ class Field extends Component {
   }
 
   validate(event) {
-    this.validateValue(this.getEventValue(event), true);
+    this.validateValue(this.getEventValue(event), true);  //todo: Simplify - Can probabaly just mark as touched
     if (this.props.onValidate) {
       this.props.onValidate(this.props.form);
     } 
   }
 
   getEventValue(event) {
-    if (event.target.type === "checkbox") {
+    if (event.target.type === "checkbox") { // todo: refactor
       return event.target.checked;
     }
     if (this.props.format) {
@@ -77,9 +80,19 @@ class Field extends Component {
 
   update(event) {
     this.props.updateValue(this.getEventValue(event));
-    if (this.props.error) {
-      this.validate(event);
+    if (this.props.error) {  
+      this.validate(event); // todo: refactor to 
     }
+  }
+
+  getFormattedValue() {
+    if (this.props.formatFromStore) {
+      return this.props.formatFromStore(this.props.value);
+    }
+    if (this.props.value === undefined) {
+      return '';
+    }
+    return this.props.value;
   }
 
   render() {
@@ -103,16 +116,16 @@ class Field extends Component {
           error,
           ...givenProps
         } = this.props;
-        return <Component onChange={this.update} onBlur={this.validate} value={value} {...givenProps} />
+        return <Component onChange={this.update} onBlur={this.validate} value={this.getFormattedValue()} {...givenProps} />
       } else {
-        return <Component {...this.props} update={this.update} validate={this.validate} />
+        return <Component {...this.props} value={this.getFormattedValue()} update={this.update} validate={this.validate} />
       }
     }
     
     return this.props.children({
       update: this.update,
       validate: this.validate,
-      value: this.props.value,
+      value: this.getFormattedValue(),
       error: this.props.error,
       touched: this.props.touched
     });
@@ -133,7 +146,7 @@ Field.propTypes = {
   updateValue: PropTypes.func.isRequired,
   setError: PropTypes.func.isRequired,
   incrementErrorCount: PropTypes.func.isRequired,
-  value: PropTypes.oneOfType([PropTypes.string.isRequired, PropTypes.bool, PropTypes.number]).isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.bool, PropTypes.number]),
   touched: PropTypes.bool.isRequired,
   error: PropTypes.oneOfType([PropTypes.object, PropTypes.string])
 }
@@ -144,7 +157,7 @@ const mapStateToProps = (state, ownProps) => {
   const fieldStatus = getFieldValue(formState.status, ownProps.name) || {touched: false};
 
   return {
-    value: getFieldValue(formState.value, ownProps.name, ownProps.formatFromStore) || "",
+    value: getFieldValue(formState.value, ownProps.name),
     error: fieldStatus.error,
     touched: fieldStatus.touched
   };
