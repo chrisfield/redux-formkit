@@ -90,7 +90,6 @@ const Formkit = (form, name, {initialValues, validate, submit}) => {
         submit(this.props.fieldValues);
         if (initialValues) {
           this.props.updateFields(initialValues || {});
-          //this.validateFields(this.fields, false)
         }        
       }
     }

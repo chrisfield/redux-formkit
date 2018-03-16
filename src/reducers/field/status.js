@@ -16,7 +16,6 @@ export const initialState = {
 };
 
 const fieldStatusReducer = (state = initialState, action) => {
-  console.log(action.type);
   switch (action.type) {
     case INCREMENT_ERROR_COUNT:
       return {
