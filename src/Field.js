@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {updateField, setFieldError, registerField, deregisterField, incrementErrorCount} from './actions/field';
+import {updateField, setFieldError, registerField, deregisterField, incrementErrorCount, touchField} from './actions/field';
 import getFormState from './selectors/getFormState';
 import getFieldValue from './selectors/getFieldValue';
 
@@ -14,7 +14,7 @@ class Field extends Component {
     this.update = this.update.bind(this);
   }
 
-  componentDidMount() {;
+  componentDidMount() {
     this.props.form.registerField(this);
     this.props.register(this.props.name);
     this.validateValue(this.props.value, false);
@@ -45,7 +45,7 @@ class Field extends Component {
   }
 
   validate(event) {
-    this.validateValue(this.getEventValue(event), true);  //todo: Simplify - Can probabaly just mark as touched
+    this.props.touchField(true);
     if (this.props.onValidate) {
       this.props.onValidate(this.props.form);
     } 
@@ -80,9 +80,7 @@ class Field extends Component {
 
   update(event) {
     this.props.updateValue(this.getEventValue(event));
-    if (this.props.error) {  
-      this.validate(event); // todo: refactor to 
-    }
+    this.props.touchField(false);
   }
 
   getFormattedValue() {
@@ -170,6 +168,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     deregister: () => {dispatch(deregisterField(formName, ownProps.name))},
     updateValue: (value) => {dispatch(updateField(formName, ownProps.name, value))},
     setError: (error, touched) => {dispatch(setFieldError(formName, ownProps.name, error, touched))},
+    touchField: (touched) => {dispatch(touchField(formName, ownProps.name, touched))},
     incrementErrorCount: (amount) => {dispatch(incrementErrorCount(formName, amount))}
   }
 };

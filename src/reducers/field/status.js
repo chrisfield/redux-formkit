@@ -1,4 +1,11 @@
-import {FIELD_SET_ERROR, REGISTER_FIELD, DEREGISTER_FIELD, ARRAY_REMOVE, INCREMENT_ERROR_COUNT, FIELDS_UPDATE} from '../../actions/types';
+import {
+  FIELD_SET_ERROR,
+  REGISTER_FIELD,
+  DEREGISTER_FIELD,
+  ARRAY_REMOVE,
+  INCREMENT_ERROR_COUNT,
+  FIELDS_UPDATE,
+  TOUCH_FIELD} from '../../actions/types';
 import setField from '../../morphers/setField';
 import getFieldStatus from '../../selectors/getFieldStatus';
 import getFieldValue from '../../selectors/getFieldValue';
@@ -9,6 +16,7 @@ export const initialState = {
 };
 
 const fieldStatusReducer = (state = initialState, action) => {
+  console.log(action.type);
   switch (action.type) {
     case INCREMENT_ERROR_COUNT:
       return {
@@ -35,6 +43,17 @@ const fieldStatusReducer = (state = initialState, action) => {
         fieldCount: state.fieldCount,
         errorCount: 0
       };
+    }
+    case TOUCH_FIELD: {
+      const fieldStatus = getFieldStatus(state, action.field);
+      if (fieldStatus.error && !action.touched) {
+        return state;
+      }
+      return setField(
+        state,
+        action.field, 
+        {...fieldStatus, touched: action.touched}
+      );
     }
     case FIELD_SET_ERROR: {
       const fieldStatus = getFieldStatus(state, action.field);

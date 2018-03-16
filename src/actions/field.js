@@ -2,6 +2,7 @@ import {
   FIELD_UPDATE,
   FIELDS_UPDATE,
   FIELD_SET_ERROR,
+  TOUCH_FIELD,
   REGISTER_FIELD,
   DEREGISTER_FIELD,
   REGISTER_FIELD_ARRAY,
@@ -15,6 +16,7 @@ export const fieldActionTypes = [
   FIELD_UPDATE,
   FIELDS_UPDATE,
   FIELD_SET_ERROR,
+  TOUCH_FIELD,
   REGISTER_FIELD,
   DEREGISTER_FIELD,
   REGISTER_FIELD_ARRAY,
@@ -27,6 +29,11 @@ export const fieldActionTypes = [
 export const updateField = (form, field, value) => (
   {type: FIELD_UPDATE, form:form, field: field, value: value}
 );
+
+export const touchField = (form, field, touched) => (
+  {type: TOUCH_FIELD, form:form, field: field, touched: touched}
+);
+
 
 export const updateFields = (form, payload) => (
   {type: FIELDS_UPDATE, form: form, payload}
