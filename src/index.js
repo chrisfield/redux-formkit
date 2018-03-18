@@ -10,8 +10,14 @@ export {Field};
 import FieldArray from "./FieldArray";
 export {FieldArray};
 
+import ValidationBlock from './ValidationBlock';
+export {ValidationBlock}
+
 import formReducer from './reducers/form';
 export {formReducer};
+
+import SubmissionError from './SubmissionError';
+export {SubmissionError};
 
 import {updateFields} from './actions/field';
 export {updateFields};

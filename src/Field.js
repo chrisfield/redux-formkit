@@ -10,8 +10,9 @@ class Field extends Component {
   constructor(props) {
     super(props);
     this.validate = this.validate.bind(this);
+    this.revalidate = this.revalidate.bind(this);
     this.validateValue = this.validateValue.bind(this);
-    this.update = this.update.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
@@ -46,6 +47,13 @@ class Field extends Component {
 
   validate(event) {
     this.props.touchField(true);
+    if (this.props.onChange) {
+      this.props.onChange(this.props.form);
+    } 
+  }
+
+  revalidate() {
+    this.validateValue(this.props.value);
     if (this.props.onValidate) {
       this.props.onValidate(this.props.form);
     } 
@@ -78,8 +86,11 @@ class Field extends Component {
     return validateError;
   }  
 
-  update(event) {
+  handleChange(event) {
     this.props.updateValue(this.getEventValue(event));
+    if (this.props.onChange) {
+      this.props.onChange(this.props.form);
+    }
     this.props.touchField(false);
   }
 
@@ -103,7 +114,7 @@ class Field extends Component {
           register,
           deregister,
           validate,
-          onValidate,
+          onChange,
           format,
           formatFromStore,
           updateValue,
@@ -115,14 +126,14 @@ class Field extends Component {
           error,
           ...givenProps
         } = this.props;
-        return <Component onChange={this.update} onBlur={this.validate} value={this.getFormattedValue()} {...givenProps} />
+        return <Component onChange={this.handleChange} onBlur={this.validate} value={this.getFormattedValue()} {...givenProps} />
       } else {
-        return <Component {...this.props} value={this.getFormattedValue()} update={this.update} validate={this.validate} />
+        return <Component {...this.props} value={this.getFormattedValue()} update={this.handleChange} validate={this.validate} />
       }
     }
     
     return this.props.children({
-      update: this.update,
+      update: this.handleChange,
       validate: this.validate,
       value: this.getFormattedValue(),
       error: this.props.error,
@@ -141,7 +152,7 @@ Field.propTypes = {
   validate: PropTypes.oneOfType([PropTypes.func, PropTypes.array]),
   format: PropTypes.func,
   formatFromStore: PropTypes.func,
-  onValidate: PropTypes.func,
+  onChange: PropTypes.func,
   touchField: PropTypes.func.isRequired,
   updateValue: PropTypes.func.isRequired,
   setError: PropTypes.func.isRequired,
@@ -158,7 +169,7 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     value: getFieldValue(formState.value, ownProps.name),
-    error: fieldStatus.error,
+    error: fieldStatus.error || getFieldValue(formState.error, ownProps.name),
     touched: fieldStatus.touched
   };
 };

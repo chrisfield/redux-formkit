@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import {updateFields} from './actions/field';
+import {updateFields, stopSubmit} from './actions/field';
 
-const Formkit = (form, name, {initialValues, validate, submit}) => {
+const Formkit = (form, name, {initialValues, validate, onSubmit}) => {
 
   class BaseForm extends Component {
     constructor(props) {
@@ -12,11 +12,10 @@ const Formkit = (form, name, {initialValues, validate, submit}) => {
       this.registerField = this.registerField.bind(this);
       this.deregisterField = this.deregisterField.bind(this);      
       this.validate = this.validate.bind(this);
-      this.submit = this.submit.bind(this);
+      this.handleSubmit = this.handleSubmit.bind(this);
       this.fieldValues = this.fieldValues.bind(this);
       this.name = name;
     }
-
 
     componentWillMount() {
       this.props.register();
@@ -81,16 +80,22 @@ const Formkit = (form, name, {initialValues, validate, submit}) => {
       return this.props.fieldValues;
     }
 
-    submit(event) {
+    handleSubmit(event) {
       const isValid = this.validate();
-      if (!isValid || submit) {
+      if (!isValid || onSubmit) {
         event.preventDefault();
       }
-      if (submit && isValid) {
-        submit(this.props.fieldValues);
-        if (initialValues) {
-          this.props.updateFields(initialValues || {});
-        }        
+      if (onSubmit && isValid) {
+        let submitErrors = {};
+        try {
+          onSubmit(this.props.fieldValues);
+          if (initialValues) {
+            this.props.updateFields(initialValues || {});
+          }
+        } catch (submitError) {
+          submitErrors = submitError.errors;
+        }
+        this.props.stopSubmit(submitErrors);
       }
     }
 
@@ -99,7 +104,6 @@ const Formkit = (form, name, {initialValues, validate, submit}) => {
       return <TheForm {...this.props} form={this}/>;
     }
   }
-
 
   function mapStateToProps(state, ownProps) {
     const formState = state.form[name];
@@ -112,7 +116,8 @@ const Formkit = (form, name, {initialValues, validate, submit}) => {
     return {
       register: (form) => {console.log(`register form ${name}`);},
       deregister: (form) => {console.log(`deregister form ${name}`);},
-      updateFields: (values) => {dispatch(updateFields(name, values))}
+      updateFields: (values) => {dispatch(updateFields(name, values))},
+      stopSubmit: (errors) => {dispatch(stopSubmit(name, errors))}
     };
   }
 

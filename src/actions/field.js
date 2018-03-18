@@ -9,7 +9,8 @@ import {
   DEREGISTER_FIELD_ARRAY,
   ARRAY_PUSH,
   ARRAY_REMOVE,
-  INCREMENT_ERROR_COUNT
+  INCREMENT_ERROR_COUNT,
+  STOP_SUBMIT
 } from './types';
 
 export const fieldActionTypes = [
@@ -23,7 +24,8 @@ export const fieldActionTypes = [
   DEREGISTER_FIELD_ARRAY,
   ARRAY_PUSH,
   ARRAY_REMOVE,
-  INCREMENT_ERROR_COUNT
+  INCREMENT_ERROR_COUNT,
+  STOP_SUBMIT
 ];
 
 export const updateField = (form, field, value) => (
@@ -33,7 +35,6 @@ export const updateField = (form, field, value) => (
 export const touchField = (form, field, touched) => (
   {type: TOUCH_FIELD, form:form, field: field, touched: touched}
 );
-
 
 export const updateFields = (form, payload) => (
   {type: FIELDS_UPDATE, form: form, payload}
@@ -69,5 +70,9 @@ export const arrayPush = (form, fieldArray, payload) => (
 
 export const arrayRemove = (form, fieldArray, index) => (
   {type: ARRAY_REMOVE, form: form, fieldArray: fieldArray, index: index}
+);
+
+export const stopSubmit = (form, errors) => (
+  {type: STOP_SUBMIT, form: form, errors: errors}
 );
 

@@ -9,4 +9,5 @@ export const ARRAY_PUSH = 'ARRAY_PUSH';
 export const ARRAY_REMOVE = 'ARRAY_REMOVE';
 export const INCREMENT_ERROR_COUNT = 'INCREMENT_ERROR_COUNT';
 export const TOUCH_FIELD = 'TOUCH_FIELD';
+export const STOP_SUBMIT = 'STOP_SUBMIT';
 
