@@ -1,6 +1,6 @@
 {
   "name": "redux-formkit",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "Light-weight React components to manage Redux form state and form validation",
   "main": "lib/index.js",
   "repository": {
