@@ -33,19 +33,18 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
-    "lodash": "^4.17.5",
     "react": "^16.2.0",
     "react-redux": "^5.0.7",
     "redux": "^3.7.2",
     "rimraf": "^2.6.2"
   },
   "peerDependencies": {
-    "lodash": "^4.17.5",
     "react": "^16.2.0",
     "react-redux": "^5.0.7",
     "redux": "^3.7.2"
   },
   "dependencies": {
-    "es6-error": "^4.1.1"
+    "es6-error": "^4.1.1",
+    "lodash.topath": "^4.5.2"
   }
 }

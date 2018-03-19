@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 class Field extends Component {
   constructor(props) {
     super(props);
+    this.state = {};
     this.validate = this.validate.bind(this);
     this.revalidate = this.revalidate.bind(this);
     this.validateValue = this.validateValue.bind(this);
@@ -87,11 +88,30 @@ class Field extends Component {
   }  
 
   handleChange(event) {
+    const target = event.target; 
+    const start = target.selectionStart;
+    const end = target.selectionEnd;
+    const cursorIsAtEnd = start === target.value.length;
     this.props.updateValue(this.getEventValue(event));
     if (this.props.onChange) {
       this.props.onChange(this.props.form);
     }
     this.props.touchField(false);
+    this.setState(this.state, () => {
+      try {
+        if (cursorIsAtEnd) {
+          target.setSelectionRange(target.value.length, target.value.length);
+        } else {
+          target.setSelectionRange(start, end);
+        }
+      } catch(err) {
+        if (err instanceof DOMException && err.name === "InvalidStateError") {
+          // setSelectionRange does not apply
+        } else {
+          throw err;
+        }
+      }
+    });
   }
 
   getFormattedValue() {
