@@ -3,13 +3,15 @@
 [![NPM Version](https://img.shields.io/npm/v/redux-formkit.svg?style=flat)](https://www.npmjs.com/package/redux-formkit)
 [![NPM Downloads](https://img.shields.io/npm/dm/redux-formkit.svg?style=flat)](https://npmcharts.com/compare/redux-formkit?minimal=true)
 
-Light-weight React components making it easy to write html forms connected to the Redux store. Includes validation, field-arrays and access to the valid/not-valid form status as fields are changed. 
+Light-weight React components making it easy to write html forms connected to the Redux store. Includes validation, field-arrays, current valid/not-valid status and asynchronous submission. 
 
 
 ## Getting Started
+Clone, run and edit this [redux-formkit example](https://github.com/chrisfield/formapp) to see how stright forward it really is.
+
+To use it on you own project:
 `npm install --save redux-formkit`
 
-Try the [redux-formkit example](https://github.com/chrisfield/formapp). It runs with [create-react-app](https://github.com/facebook/create-react-app) so is easy to clone, install, start and edit. The example contains text fields, a numeric field, checkbox and radio inputs and a field-array with add/remove buttons. It has field and inter-field valiation, shows the current error count and the submit button goes green when the form is valid.
 
 # Features
 - Lightweight and fast
