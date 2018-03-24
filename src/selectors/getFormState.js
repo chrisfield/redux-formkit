@@ -1,7 +1,7 @@
 const fallbackValues = {
   register: {},
-  value: {},
-  status: {},
+  values: {},
+  status: {}
 };
 
 const getFormState = (state, form) => {

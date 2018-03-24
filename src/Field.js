@@ -71,8 +71,7 @@ class Field extends Component {
   }
 
   validateValue(value, touched) {
-    const getFieldValues = this.props.form.fieldValues;
-    const fieldValues = getFieldValues && getFieldValues();
+    const fieldValues = this.props.form.props? this.props.form.props.fieldValues: undefined;
     let validateError;
     if (this.props.validate) {
       if (Array.isArray(this.props.validate)) {
@@ -188,8 +187,8 @@ const mapStateToProps = (state, ownProps) => {
   const fieldStatus = getFieldValue(formState.status, ownProps.name) || {touched: false};
 
   return {
-    value: getFieldValue(formState.value, ownProps.name),
-    error: fieldStatus.error || getFieldValue(formState.error, ownProps.name),
+    value: getFieldValue(formState.values, ownProps.name),
+    error: fieldStatus.error || getFieldValue(formState.errors, ownProps.name),
     touched: fieldStatus.touched
   };
 };

@@ -27,7 +27,7 @@ const mapStateToProps = (state, ownProps) => {
   const fieldStatus = getFieldValue(formState.status, ownProps.name) || {};
 
   return {
-    error: fieldStatus.error || getFieldValue(formState.error, ownProps.name),
+    error: fieldStatus.error || getFieldValue(formState.errors, ownProps.name),
   };
 };
 

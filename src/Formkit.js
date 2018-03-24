@@ -136,7 +136,7 @@ const Formkit = (form, name, {initialValues, validate, onSubmit, onSubmitSuccess
   function mapStateToProps(state, ownProps) {
     const formState = state.form[name];
     return {
-      fieldValues: formState ? formState.value: {}
+      fieldValues: formState ? formState.values: {}
     };
   }
 

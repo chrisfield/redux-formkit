@@ -78,7 +78,7 @@ const mapStateToProps = (state, ownProps) => {
   const formState = getFormState(state, ownProps.form.name);
 
   return {
-    fields: getFieldValue(formState.value, ownProps.name) || []
+    fields: getFieldValue(formState.values, ownProps.name) || []
   };
 };
 
