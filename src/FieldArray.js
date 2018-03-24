@@ -16,6 +16,7 @@ class FieldArray extends Component {
     this.propsForForm = {
       registerField: this.registerField,
       deregisterField: this.deregisterField,
+      props: this.props.form.props,
       name: this.props.form.name   
     }
   }

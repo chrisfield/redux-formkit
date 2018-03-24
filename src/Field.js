@@ -68,7 +68,7 @@ class Field extends Component {
   }
 
   validateValue(value, touched) {
-    const fieldValues = this.props.form.props? this.props.form.props.fieldValues: undefined;
+    const fieldValues = this.props.form.props.fieldValues: undefined;
     let validateError;
     if (this.props.validate) {
       if (Array.isArray(this.props.validate)) {
