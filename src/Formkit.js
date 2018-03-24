@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import {updateFields, stopSubmit} from './actions/field';
+import isPromise from 'is-promise'
+import {updateFields, startSubmit, stopSubmit} from './actions/field';
+import SubmissionError from './SubmissionError';
 
-const Formkit = (form, name, {initialValues, validate, onSubmit}) => {
+const Formkit = (form, name, {initialValues, validate, onSubmit, onSubmitSuccess}) => {
 
   class BaseForm extends Component {
     constructor(props) {
@@ -13,7 +15,6 @@ const Formkit = (form, name, {initialValues, validate, onSubmit}) => {
       this.deregisterField = this.deregisterField.bind(this);      
       this.validate = this.validate.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
-      this.fieldValues = this.fieldValues.bind(this);
       this.name = name;
     }
 
@@ -76,26 +77,53 @@ const Formkit = (form, name, {initialValues, validate, onSubmit}) => {
       return isValid;
     }
 
-    fieldValues() {
-      return this.props.fieldValues;
-    }
-
     handleSubmit(event) {
       const isValid = this.validate();
       if (!isValid || onSubmit) {
         event.preventDefault();
       }
       if (onSubmit && isValid) {
-        let submitErrors = {};
+        this.props.startSubmit();
+        let result;
         try {
-          onSubmit(this.props.fieldValues);
-          if (initialValues) {
-            this.props.updateFields(initialValues || {});
-          }
+          result = onSubmit(this.props.fieldValues);
         } catch (submitError) {
-          submitErrors = submitError.errors;
+          const errors =
+            submitError instanceof SubmissionError
+              ? submitError.errors
+              : undefined
+          this.props.stopSubmit(errors);
+          if (!errors) {
+            throw submitError
+          }
+          return;
         }
-        this.props.stopSubmit(submitErrors);
+        if (!isPromise(result)) {
+          this.props.stopSubmit();
+          if (onSubmitSuccess) {
+            onSubmitSuccess(this);
+          }
+          return;
+        }
+        return result.then(
+          (submitResult) => {
+            this.props.stopSubmit();
+            if (onSubmitSuccess) {
+              onSubmitSuccess(this);
+            }
+            return;
+          },
+          (submitError) => {
+            const errors =
+              submitError instanceof SubmissionError
+                ? submitError.errors
+                : undefined
+            this.props.stopSubmit(errors)
+            if (!errors) {
+              throw submitError;
+            }
+          }
+        );        
       }
     }
 
@@ -117,6 +145,7 @@ const Formkit = (form, name, {initialValues, validate, onSubmit}) => {
       register: (form) => {console.log(`register form ${name}`);},
       deregister: (form) => {console.log(`deregister form ${name}`);},
       updateFields: (values) => {dispatch(updateFields(name, values))},
+      startSubmit: () => {dispatch(startSubmit(name))},
       stopSubmit: (errors) => {dispatch(stopSubmit(name, errors))}
     };
   }

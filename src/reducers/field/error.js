@@ -1,5 +1,6 @@
 import {
   FIELD_SET_ERROR,
+  START_SUBMIT,
   STOP_SUBMIT
 } from '../../actions/types';
 import setField from '../../morphers/setField';
@@ -10,8 +11,10 @@ const initialState = {};
 
 const fieldErrorReducer = (state = initialState, action) => {
   switch (action.type) {
+    case START_SUBMIT:
+      return {};
     case STOP_SUBMIT:
-      return action.errors
+      return action.errors;
     case FIELD_SET_ERROR: {
       const fieldStatus = getFieldStatus(state, action.field);
       return setField(

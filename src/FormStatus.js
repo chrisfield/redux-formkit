@@ -9,7 +9,8 @@ const mapStateToProps = (state, ownProps) => {
   const formStatus = getFormState(state, ownProps.form.name).status;
   return {
     errorCount: formStatus.errorCount,
-    isValid: formStatus.errorCount === 0
+    isValid: formStatus.errorCount === 0,
+    isSubmitting: formStatus.isSubmitting
   }
 };
 

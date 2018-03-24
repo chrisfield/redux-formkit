@@ -5,12 +5,15 @@ import {
   ARRAY_REMOVE,
   INCREMENT_ERROR_COUNT,
   FIELDS_UPDATE,
-  TOUCH_FIELD} from '../../actions/types';
+  TOUCH_FIELD,
+  START_SUBMIT,
+  STOP_SUBMIT} from '../../actions/types';
 import setField from '../../morphers/setField';
 import getFieldStatus from '../../selectors/getFieldStatus';
 import getFieldValue from '../../selectors/getFieldValue';
 
 export const initialState = {
+  isSubmitting: false,
   fieldCount: 0,
   errorCount: 0
 };
@@ -40,6 +43,7 @@ const fieldStatusReducer = (state = initialState, action) => {
     case FIELDS_UPDATE: {
       return {
         fieldCount: state.fieldCount,
+        isSubmitting: state.isSubmitting,
         errorCount: 0
       };
     }
@@ -66,6 +70,16 @@ const fieldStatusReducer = (state = initialState, action) => {
         {touched: fieldStatus.touched, valid: !action.error, error: action.error, ...touchedPayload}
       );
     }
+    case START_SUBMIT:
+      return {
+        ...state,
+        isSubmitting: true
+      };
+    case STOP_SUBMIT :
+      return {
+        ...state,
+        isSubmitting: false
+      };
     case ARRAY_REMOVE: {
       const fieldArray = getFieldValue(state, action.fieldArray);
       const fieldArray2 = fieldArray.slice();

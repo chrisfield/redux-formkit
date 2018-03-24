@@ -10,6 +10,7 @@ import {
   ARRAY_PUSH,
   ARRAY_REMOVE,
   INCREMENT_ERROR_COUNT,
+  START_SUBMIT,
   STOP_SUBMIT
 } from './types';
 
@@ -25,6 +26,7 @@ export const fieldActionTypes = [
   ARRAY_PUSH,
   ARRAY_REMOVE,
   INCREMENT_ERROR_COUNT,
+  START_SUBMIT,
   STOP_SUBMIT
 ];
 
@@ -72,7 +74,12 @@ export const arrayRemove = (form, fieldArray, index) => (
   {type: ARRAY_REMOVE, form: form, fieldArray: fieldArray, index: index}
 );
 
+export const startSubmit = (form) => {
+  return {type: START_SUBMIT, form: form}
+};
+
 export const stopSubmit = (form, errors) => (
   {type: STOP_SUBMIT, form: form, errors: errors}
 );
+
 
