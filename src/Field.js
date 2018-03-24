@@ -54,10 +54,7 @@ class Field extends Component {
   }
 
   revalidate() {
-    this.validateValue(this.props.value);
-    if (this.props.onValidate) {
-      this.props.onValidate(this.props.form);
-    } 
+    this.validateValue(this.props.value); 
   }
 
   getEventValue(event) {
