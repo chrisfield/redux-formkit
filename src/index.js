@@ -22,3 +22,6 @@ export {SubmissionError};
 import {updateFields} from './actions/field';
 export {updateFields};
 
+import getFieldValue from './selectors/getFieldValue';
+export {getFieldValue};
+
