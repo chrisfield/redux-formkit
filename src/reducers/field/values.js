@@ -1,4 +1,5 @@
 import {FIELD_UPDATE, FIELDS_UPDATE, ARRAY_PUSH, ARRAY_REMOVE, REGISTER_FIELD_ARRAY} from '../../actions/types';
+import getFieldValue from '../../selectors/getFieldValue';
 import setField from '../../morphers/setField';
 
 export const initialState = {};
@@ -9,29 +10,16 @@ const fieldValueReducer = (state = initialState, action) => {
       return action.payload;
     case FIELD_UPDATE:
       return setField(state, action.field, action.value);
-    case REGISTER_FIELD_ARRAY:
-      return {
-        [action.fieldArray]: [],
-        ...state
-      };
     case ARRAY_PUSH: {
-      const originalArray = state[action.fieldArray] || []
+      const originalArray = getFieldValue(state, action.fieldArray) || [];
       const nextArray = originalArray.slice();
       nextArray.push(action.payload);
-      const nextState = {
-        ...state,
-        [action.fieldArray]: nextArray
-      };
-      return nextState;
+      return setField(state, action.fieldArray, nextArray);
     }
     case ARRAY_REMOVE: {
-      const originalArray = state[action.fieldArray] || []
+      const originalArray = getFieldValue(state, action.fieldArray) || [];
       const nextArray = originalArray.filter((item, index) => (index !== action.index));
-      const nextState = {
-        ...state,
-        [action.fieldArray]: nextArray
-      };
-      return nextState;
+      return setField(state, action.fieldArray, nextArray);
     }
     default:
       return state;

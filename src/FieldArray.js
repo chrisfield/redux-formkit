@@ -8,41 +8,23 @@ import PropTypes from 'prop-types';
 
 class FieldArray extends Component {
 
-  constructor(props) {
-    super(props);
-    this.fields = [];
-    this.registerField = this.registerField.bind(this);
-    this.deregisterField = this.deregisterField.bind(this);      ;
-    this.propsForForm = {
-      registerField: this.registerField,
-      deregisterField: this.deregisterField,
-      props: this.props.form.props,
-      name: this.props.form.name   
-    }
-  }
-
   componentDidMount() {
-    this.props.form.registerField(this);
     this.props.register(this.props.name);
   }
 
   componentWillUnmount() {
     this.props.deregister(this.props.name);
-    this.props.form.deregisterField(this);
   }
 
-  registerField(field) {
-    this.fields.push(field);
-  }
-
-  deregisterField(field) { 
-    const index = this.fields.indexOf(field);
-    if (index > -1) {
-      this.fields.splice(index, 1);
-    }
-  }
 
   render() {
+    const propsForForm = {
+      registerField: this.props.form.registerField,
+      deregisterField: this.props.form.deregisterField,
+      props: this.props.form.props,
+      name: this.props.form.name   
+    };
+
     const fields = {
       map: callback => (
         (this.props.fields || []).map((item, index) =>
@@ -56,12 +38,13 @@ class FieldArray extends Component {
 
     if (this.props.component) {
       const Component = this.props.component;
-      return <Component {...this.props} form={this.propsForForm} fields={fields} />
+      return <Component {...this.props} form={propsForForm} fields={fields} />
     }
     
     return this.props.children({
-      fields: this.props.fields,
-      push: this.props.push
+      ...this.props, 
+      form: propsForForm,
+      fields: fields
     });
   }
 }
@@ -86,7 +69,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   const form = ownProps.form.name;
   return {
-    push: () => {dispatch(arrayPush(form, ownProps.name, {}))},
+    push: () => {dispatch(arrayPush(form, ownProps.name))},
     remove: (index) => { 
       dispatch(arrayRemove(form, ownProps.name, index))
     },
