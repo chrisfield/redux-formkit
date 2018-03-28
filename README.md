@@ -7,7 +7,7 @@ Light-weight React components making it easy to write html forms connected to th
 
 
 ## Getting Started
-Clone, run and edit the [redux-formkit examples](https://github.com/chrisfield/redux-formkit/examples) to try it out.
+Clone `redux-formkit` and run/edit the [examples](https://github.com/chrisfield/redux-formkit/tree/master/examples) to try it out.
 
 To use it on you own project:
 `npm install --save redux-formkit`
