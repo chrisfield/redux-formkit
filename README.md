@@ -110,4 +110,5 @@ const Input = props => (
 - Asynchronous validation
 - Stores redux values as semantic types, eg number fields will store numbers
 - Format values, eg to put commas in numbers
+- Sets cursor focus at start and after sumbit validation
 
