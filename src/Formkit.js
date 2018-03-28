@@ -19,15 +19,21 @@ const Formkit = ({name, initialValues, validate, onSubmit, onSubmitSuccess}) => 
       }
 
       componentWillMount() {
-        this.props.register();
         if (initialValues) {
           this.props.updateFields(initialValues);
         }
       }
-      
-      componentWillUnMount() {
-        this.props.deregister();
+
+      componentDidMount() {
+        const fields = this.fields;
+        for (let i=0; i < fields.length; i++) {
+          if (fields[i].element && fields[i].element.focus) {
+            fields[i].element.focus();
+            break;
+          }
+        }        
       }
+     
       
       registerField(field) {
         this.fields.push(field);
@@ -53,34 +59,48 @@ const Formkit = ({name, initialValues, validate, onSubmit, onSubmitSuccess}) => 
         if (validate) {
           isValid = validate(this.fieldValues());
         }
-        return this.validateFields(this.fields) && isValid;
+        return this.validateFields() && isValid;
       }
       
-      validateFields(fields, touched=true) {
+      validateFields() {
+        const fields = this.fields;
         let isValid = true;
         for (let i=0; i<fields.length; i++) {
-          if (fields[i].fields) {
-            isValid = this.validateFields(fields[i].fields, touched) && isValid
+          const fieldProps = fields[i].props;
+          let error;
+          if (fieldProps.touched) {
+            error = fieldProps.error;
           } else {
-            const fieldProps = fields[i].props;
-            let error;
-            if (fieldProps.touched) {
-              error = fieldProps.error;
-            } else {
-              error = fields[i].validateValue(fields[i].props.value, touched);
-            }
-            if (error) {
-              isValid = false;
-            }
+            error = fields[i].validateValue(fields[i].props.value, true);
+          }
+          if (error) {
+            isValid = false;
           }
         }
         return isValid;
       }
 
+
+      focusOnFieldWithError() {
+        const fields = this.fields;
+        for (let i=0; i<fields.length; i++) {
+          if (fields[i].props.error) {
+            const element = fields[i].element;
+            if (element && element.focus) {
+              element.focus();
+            }
+            if (element.scrollIntoView) {
+              element.scrollIntoView();
+            }
+            break;
+          } 
+        }
+      }
+
       handleSubmit(event) {
         const isValid = this.validate();
-        if (!isValid || onSubmit) {
-          event.preventDefault();
+        if (!isValid) {
+          this.focusOnFieldWithError();
         }
         if (onSubmit && isValid) {
           this.props.startSubmit();
@@ -96,6 +116,7 @@ const Formkit = ({name, initialValues, validate, onSubmit, onSubmitSuccess}) => 
             if (!errors) {
               throw submitError
             }
+            this.focusOnFieldWithError();
             return;
           }
           if (!isPromise(result)) {
@@ -122,6 +143,7 @@ const Formkit = ({name, initialValues, validate, onSubmit, onSubmitSuccess}) => 
               if (!errors) {
                 throw submitError;
               }
+              this.focusOnFieldWithError();
             }
           );        
         }
@@ -142,8 +164,6 @@ const Formkit = ({name, initialValues, validate, onSubmit, onSubmitSuccess}) => 
 
     function mapDispatchToProps(dispatch) {
       return {
-        register: (form) => {console.log(`register form ${name}`);},
-        deregister: (form) => {console.log(`deregister form ${name}`);},
         updateFields: (values) => {dispatch(updateFields(name, values))},
         startSubmit: () => {dispatch(startSubmit(name))},
         stopSubmit: (errors) => {dispatch(stopSubmit(name, errors))}

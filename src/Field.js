@@ -14,6 +14,7 @@ class Field extends Component {
     this.revalidate = this.revalidate.bind(this);
     this.validateValue = this.validateValue.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.setElementRef = this.setElementRef.bind(this);
   }
 
   componentDidMount() {
@@ -120,6 +121,12 @@ class Field extends Component {
     return this.props.value;
   }
 
+
+  setElementRef(element) {
+    this.element = element
+  };
+
+
   render() {
     if (this.props.component) {
       const Component = this.props.component;
@@ -142,9 +149,9 @@ class Field extends Component {
           error,
           ...givenProps
         } = this.props;
-        return <Component onChange={this.handleChange} onBlur={this.validate} value={this.getFormattedValue()} {...givenProps} />
+        return <Component {...givenProps} onChange={this.handleChange} onBlur={this.validate} value={this.getFormattedValue()}  />
       } else {
-        return <Component {...this.props} value={this.getFormattedValue()} update={this.handleChange} validate={this.validate} />
+        return <Component elementRef={this.setElementRef} {...this.props}  value={this.getFormattedValue()} update={this.handleChange} validate={this.validate} />
       }
     }
     
