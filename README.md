@@ -3,7 +3,7 @@
 [![NPM Version](https://img.shields.io/npm/v/redux-formkit.svg?style=flat)](https://www.npmjs.com/package/redux-formkit)
 [![NPM Downloads](https://img.shields.io/npm/dm/redux-formkit.svg?style=flat)](https://npmcharts.com/compare/redux-formkit?minimal=true)
 
-Light-weight React components making it easy to write html forms connected to the Redux store. Includes validation, field-arrays, current valid/not-valid status and asynchronous submission. 
+Light-weight React components making it easy to write html forms connected to the Redux store. Includes validation, field-arrays, current valid/not-valid status and asynchronous submission.
 
 
 ## Getting Started
@@ -102,7 +102,7 @@ const Input = props => (
 - Mimimal by design, leaves you in control
 - Not cluttered with ui components
 - Simple to use API
-- Uses new context api
+- Now uses the new Context Api (from React 16.3) 
 - Field-arrays for repeated rows with add/remove
 - Nested FieldArrays in case a repeated row has child repeatring rows.
 - Form error-count/valid-status is easy to access, eg to put a tick next to the submit button
