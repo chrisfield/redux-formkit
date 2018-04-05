@@ -76,7 +76,8 @@ export default Formkit({
 
 
 /*
-  The following functions would normally be imported from separate files and reused across a project 
+  The following functions would normally be imported from separate files 
+  and reused across a project 
 */
 const required = value => {
   return value && value.trim && value.trim().length > 0 ? undefined: 'required'
