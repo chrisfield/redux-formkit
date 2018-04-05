@@ -1,11 +1,15 @@
-import React, {Component} from 'react';
+import React, {Component, createContext} from 'react';
 import { connect } from 'react-redux';
 import isPromise from 'is-promise'
 import {updateFields, startSubmit, stopSubmit} from './actions/field';
 import SubmissionError from './SubmissionError';
 
+export const FormContext = React.createContext();
+
+
 const Formkit = ({name, initialValues, validate, onSubmit, onSubmitSuccess}) => {
   return (form) => {
+
     class BaseForm extends Component {
       constructor(props) {
         super(props);
@@ -89,7 +93,7 @@ const Formkit = ({name, initialValues, validate, onSubmit, onSubmitSuccess}) => 
             if (element && element.focus) {
               element.focus();
             }
-            if (element.scrollIntoView) {
+            if (element && element.scrollIntoView) {
               element.scrollIntoView();
             }
             break;
@@ -151,7 +155,12 @@ const Formkit = ({name, initialValues, validate, onSubmit, onSubmitSuccess}) => 
 
       render() {
         const TheForm = form;
-        return <TheForm {...this.props} form={this}/>;
+        return (
+          <FormContext.Provider value={this} >
+            <TheForm {...this.props} form={this}/>
+          </FormContext.Provider>
+
+        );
       }
     }
 
@@ -173,5 +182,6 @@ const Formkit = ({name, initialValues, validate, onSubmit, onSubmitSuccess}) => 
     return connect(mapStateToProps, mapDispatchToProps)(BaseForm);
   };
 };
+
 
 export default Formkit;

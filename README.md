@@ -42,7 +42,6 @@ const ExampleForm = (props) => (
     <Field
       label="First Field"
       name="field1"
-      form={props.form}
       component={Input}
       validate={required}
     />
@@ -103,6 +102,7 @@ const Input = props => (
 - Mimimal by design, leaves you in control
 - Not cluttered with ui components
 - Simple to use API
+- Uses new context api
 - Field-arrays for repeated rows with add/remove
 - Nested FieldArrays in case a repeated row has child repeatring rows.
 - Form error-count/valid-status is easy to access, eg to put a tick next to the submit button

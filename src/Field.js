@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {updateField, setFieldError, registerField, deregisterField, incrementErrorCount, touchField} from './actions/field';
 import getFormState from './selectors/getFormState';
 import getFieldValue from './selectors/getFieldValue';
+import {FormContext} from './Formkit'; 
 
 import PropTypes from 'prop-types';
 
@@ -209,7 +210,16 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 };
 
-export default connect(
+
+const ConnectedField = connect(
   mapStateToProps,
   mapDispatchToProps
 )(Field);
+
+
+export default React.forwardRef((props, ref) => (
+  <FormContext.Consumer>
+    {form => <ConnectedField {...props} form={form} ref={ref} />}
+  </FormContext.Consumer>
+));
+

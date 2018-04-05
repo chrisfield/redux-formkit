@@ -1,7 +1,9 @@
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import getFormState from './selectors/getFormState';
+import {FormContext} from './Formkit';
 
-const formStatus = (props) => (
+const FormStatus = (props) => (
   props.children({...props})
 );
 
@@ -14,7 +16,13 @@ const mapStateToProps = (state, ownProps) => {
   }
 };
 
-export default connect(
+const ConnectedFormStatus = connect(
   mapStateToProps
-)(formStatus);
+)(FormStatus);
+
+export default React.forwardRef((props, ref) => (
+  <FormContext.Consumer>
+    {form => <ConnectedFormStatus {...props} form={form} ref={ref} />}
+  </FormContext.Consumer>
+));
 

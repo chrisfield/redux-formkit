@@ -11,7 +11,6 @@ const ExampleForm = (props) => (
       <Field
         label="First Field"
         name="field1"
-        form={props.form}
         component={Input}
         validate={[requiredStr, maxLength5]}
       />
@@ -20,7 +19,6 @@ const ExampleForm = (props) => (
       <InputField
         name="theNumber"
         label="Numeric Field"
-        form={props.form}
         format={number}
         formatFromStore={addCommas}
         validate={requiredNum}
@@ -29,17 +27,16 @@ const ExampleForm = (props) => (
       <InputField
         name="capitals"
         label="Uppercase Field"
-        form={props.form}
         format={upper}
       />
 
 
-      <CheckboxField name="isAgreed" label="Do you agree?" form={props.form}/>
+      <CheckboxField name="isAgreed" label="Do you agree?"/>
       
       <div className="example-form_item_group">
-        <RadioField name="rb2" label="Red" value="R" form={props.form} />
-        <RadioField name="rb2" label="Green" value="G" form={props.form} />
-        <RadioField name="rb2" label="Blue" value="B" form={props.form} />
+        <RadioField name="rb2" label="Red" value="R" />
+        <RadioField name="rb2" label="Green" value="G" />
+        <RadioField name="rb2" label="Blue" value="B" />
       </div>
 
     </fieldset>
@@ -146,6 +143,6 @@ const CheckboxField = props => (
 );
 
 const RadioField = props => (
-  <Field name={props.name} radioValue={props.value} component={RadioButton} label={props.label} form={props.form} />
+  <Field name={props.name} radioValue={props.value} component={RadioButton} label={props.label} />
 );
 

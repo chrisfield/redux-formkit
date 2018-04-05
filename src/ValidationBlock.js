@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import getFormState from './selectors/getFormState';
 import getFieldValue from './selectors/getFieldValue';
-
+import {FormContext} from './Formkit';
 
 const ValidationBlock = (props) => {
   const {Component, ...otherProps} = props;
@@ -31,6 +31,12 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default connect(
+const ConnectedValidationBlock = connect(
   mapStateToProps
 )(ValidationBlock);
+
+export default React.forwardRef((props, ref) => (
+  <FormContext.Consumer>
+    {form => <ConnectedValidationBlock {...props} form={form} ref={ref} />}
+  </FormContext.Consumer>
+));

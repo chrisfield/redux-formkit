@@ -15,29 +15,27 @@ const ExampleForm = (props) => (
         label="First Field"
         name="field1"
         onChange={form => (form.getField('field2').revalidate())}
-        form={props.form}
         validate={[requiredStr, maxLength5]}
       />
 
-      <InputField label="2nd Field > 1st field" name="field2" form={props.form} validate={greaterThanField1}/>
+      <InputField label="2nd Field > 1st field" name="field2" validate={greaterThanField1}/>
       <div className="example-form_item_group">
-        <CheckboxField name="isAgreed" label="Can the server have a number bigger than 42?" form={props.form} onChange={form => (form.getField('theNumber').revalidate())}/>
-        <CheckboxField name="isAdditionalField" label="Is Additional Field?" form={props.form} />
+        <CheckboxField name="isAgreed" label="Can the server have a number bigger than 42?" onChange={form => (form.getField('theNumber').revalidate())}/>
+        <CheckboxField name="isAdditionalField" label="Is Additional Field?"/>
         {  
           props.form.props.fieldValues.isAdditionalField 
-          && <Field component="input" name="additionalField" placeholder="Additional field" form={props.form}/>
+          && <Field component="input" name="additionalField" placeholder="Additional field"/>
         }
       </div>
       
       <div className="example-form_item_group">
-        <RadioField name="rb2" label="Red" value="R" form={props.form} />
-        <RadioField name="rb2" label="Green" value="G" form={props.form} />
-        <RadioField name="rb2" label="Blue" value="B" form={props.form} />
+        <RadioField name="rb2" label="Red" value="R"/>
+        <RadioField name="rb2" label="Green" value="G"/>
+        <RadioField name="rb2" label="Blue" value="B"/>
       </div>
       <InputField
         name="theNumber"
         label="Numeric Field"
-        form={props.form}
         format={number}
         formatFromStore={addCommas}
         validate={requiredNum}
@@ -45,20 +43,18 @@ const ExampleForm = (props) => (
       <InputField
         name="capitals"
         label="Uppercase Field"
-        form={props.form}
         format={upper}
       />
     </fieldset>
     
     <FieldArray
-      form={props.form}
       name="hobbies"
       component={renderHobbies}
       hobbies={props.hobbies}
     />
-    <FormErrorSection name="formError" form={props.form}/>
+    <FormErrorSection name="formError"/>
     <div className="example-form_item">
-      <FormStatus form={props.form}>
+      <FormStatus>
         {({isValid, errorCount, isSubmitting}) => {
           return(
             <button
@@ -86,7 +82,6 @@ const renderHobbies = ({form, fields, hobbies}) => (
       <div key={hobby}>
         <InputField
           key={hobby}
-          form={form}
           name={`${hobby}.description`}
           validate={requiredStr}
           label={`Hobby #${index + 1}`}
@@ -94,10 +89,9 @@ const renderHobbies = ({form, fields, hobbies}) => (
           <button type="button" title="Remove Hobby" onClick={() => fields.remove(index)}>-</button>
         </InputField>
         <FieldArray
-          form={form}
           name={`${hobby}.equipment`}
           component={renderEquipment}
-          hobbyName={hobbies[index]? hobbies[index].description: 'this Hobby'}
+          hobbyName={hobbies[index] && hobbies[index].description? hobbies[index].description: 'this Hobby'}
         />
         {/*Can add more fields here*/}
       </div>
@@ -116,7 +110,6 @@ const renderEquipment = ({form, fields, hobbyName}) => (
     {fields.map((equipment, index) => (
       <InputField
         key={equipment}
-        form={form}
         name={`${equipment}`}
         validate={requiredStr}
         label={`Equipment #${index + 1}`}
@@ -168,7 +161,8 @@ const mapStateToProps = (state) => {
 };
 
 
-/* This connect is not being used by redux-formkit but is there to show that you can connect to the store if you want */
+/* This connect is not being used by redux-formkit but is there to 
+   show that you can connect to the store if you want */
 export default connect(mapStateToProps)(Formkit({
   name: 'exampleF',
   initialValues: initialValues,
@@ -179,7 +173,8 @@ export default connect(mapStateToProps)(Formkit({
 
 
 /*
-  The following functions would normally be imported from separate files and reused across a project 
+  The following functions would normally be imported from separate files 
+  and reused across a project 
 */
 const upper = str => str.toUpperCase();
 const number = str => parseInt(str.replace(/[^\d.-]/g, ""), 10);
@@ -264,7 +259,7 @@ const CheckboxField = props => (
 );
 
 const RadioField = props => (
-  <Field name={props.name} radioValue={props.value} component={RadioButton} label={props.label} form={props.form} />
+  <Field name={props.name} radioValue={props.value} component={RadioButton} label={props.label}/>
 );
 
 

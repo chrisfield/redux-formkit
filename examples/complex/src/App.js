@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import ExampleForm from './components/ExampleForm';
-// import {Form} from 'redux-formkit';
 
 class App extends Component {
   render() {
