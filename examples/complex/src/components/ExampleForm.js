@@ -11,16 +11,25 @@ const ExampleForm = (props) => (
       <legend className="example-form_title">
         Example form
       </legend>
+      <FormStatus>
+        {({isValid, isSubmitting, errorCount}) => {
+          return(
+            <div className="example-form_status">
+              Form is {isValid? '': 'not yet '}valid. Error count: {errorCount}. Submitting: {isSubmitting + ''}
+            </div>
+          )
+        }}
+      </FormStatus>
       <InputField
         label="First Field"
         name="field1"
-        onChange={form => (form.getField('field2').revalidate())}
-        validate={[requiredStr, maxLength5]}
+        onChange={revalidateField2}
+        validate={requiredMaxLength5}
       />
 
       <InputField label="2nd Field > 1st field" name="field2" validate={greaterThanField1}/>
       <div className="example-form_item_group">
-        <CheckboxField name="isAgreed" label="Can the server have a number bigger than 42?" onChange={form => (form.getField('theNumber').revalidate())}/>
+        <CheckboxField name="isAgreed" label="Can the server have a number bigger than 42?" onChange={revalidateTheNumber}/>
         <CheckboxField name="isAdditionalField" label="Is Additional Field?"/>
         {  
           props.form.props.fieldValues.isAdditionalField 
@@ -55,7 +64,7 @@ const ExampleForm = (props) => (
     <FormErrorSection name="formError"/>
     <div className="example-form_item">
       <FormStatus>
-        {({isValid, errorCount, isSubmitting}) => {
+        {({isSubmitting, isValid}) => {
           return(
             <button
               type="button"
@@ -63,7 +72,7 @@ const ExampleForm = (props) => (
               className={`example-form_button ${isValid? 'example-form_button-valid': ''}`}
               disabled={isSubmitting}
             >
-              Send {isValid? ':)': `(Todo: ${errorCount})`} Submitting: {isSubmitting + ''}
+              Send
             </button>
           )
         }}
@@ -171,6 +180,9 @@ export default connect(mapStateToProps)(Formkit({
 })(ExampleForm));
 
 
+const revalidateField2 = form => (form.getField('field2').revalidate());
+const revalidateTheNumber = form => (form.getField('theNumber').revalidate());
+
 
 /*
   The following functions would normally be imported from separate files 
@@ -197,6 +209,8 @@ const maxLength5 = (value, values) => (
 const requiredStr = value => {
   return value && value.trim && value.trim().length > 0 ? undefined: 'required'
 };
+
+const requiredMaxLength5 = [requiredStr, maxLength5];
 
 const requiredNum = value => {
   if (value === null || isNaN(value)) {

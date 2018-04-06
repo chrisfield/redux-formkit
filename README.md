@@ -103,9 +103,10 @@ const Input = props => (
 - Mimimal by design, leaves you in control
 - Not cluttered with ui components
 - Simple to use API
+- Easy to migrate from/to redux-form
 - Now uses the new Context Api (from React 16.3) 
 - Field-arrays for repeated rows with add/remove
-- Nested FieldArrays in case a repeated row has child repeatring rows.
+- Nested FieldArrays in case a repeated row has child repeating rows.
 - Form error-count/valid-status is easy to access, eg to put a tick next to the submit button
 - Synchronous validation including flexible support for inter-field valiation
 - Asynchronous validation

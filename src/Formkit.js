@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import isPromise from 'is-promise'
 import {updateFields, startSubmit, stopSubmit} from './actions/field';
 import SubmissionError from './SubmissionError';
+import getFormState from './selectors/getFormState';
 
 export const FormContext = React.createContext();
 
@@ -164,10 +165,10 @@ const Formkit = ({name, initialValues, validate, onSubmit, onSubmitSuccess}) => 
       }
     }
 
-    function mapStateToProps(state, ownProps) {
-      const formState = state.form[name];
+    function mapStateToProps(state) {
+      const formState = getFormState(state, name);
       return {
-        fieldValues: formState ? formState.values: {}
+        fieldValues: formState.values
       };
     }
 

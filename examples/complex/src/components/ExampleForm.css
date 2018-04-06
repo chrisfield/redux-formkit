@@ -41,6 +41,11 @@
   margin: 0 auto;
 }
 
+.example-form_status {
+  background-color: LightBlue;
+  text-align: center;
+}
+
 .example-form_button-valid {
   background-color: LightGreen;
 }
