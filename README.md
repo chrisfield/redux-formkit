@@ -7,7 +7,7 @@ Light-weight React components making it easy to write html forms connected to th
 
 
 ## Getting Started
-Clone `redux-formkit` and run/edit the [examples](https://github.com/chrisfield/redux-formkit/tree/master/examples) to try it out.
+To try it out clone `redux-formkit` and run/edit the [examples](https://github.com/chrisfield/redux-formkit/tree/master/examples).
 
 To use it on you own project:
 `npm install --save redux-formkit`
@@ -113,4 +113,5 @@ const Input = props => (
 - Stores redux values as semantic types, eg number fields will store numbers
 - Format values, eg to put commas in numbers
 - Sets cursor focus at start and after sumbit validation
+- Works with NextJS. Values quickly entered into SSR fields are used when the client JS loads. 
 

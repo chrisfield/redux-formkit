@@ -31,12 +31,20 @@ const Formkit = ({name, initialValues, validate, onSubmit, onSubmitSuccess}) => 
 
       componentDidMount() {
         const fields = this.fields;
-        for (let i=0; i < fields.length; i++) {
-          if (fields[i].element && fields[i].element.focus) {
-            fields[i].element.focus();
-            break;
+        let elementToFocus;
+        let elementWithFocus;
+        for (let i = fields.length-1; i >= 0; i--) {
+          const element = fields[i].element;
+          if (element && element.focus) {
+            elementToFocus = element;
+            if (document.activeElement === element) {
+              return;
+            }
           }
-        }        
+        }
+        if (elementToFocus) {
+          elementToFocus.focus();
+        }
       }
      
       

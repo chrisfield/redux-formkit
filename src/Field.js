@@ -21,6 +21,14 @@ class Field extends Component {
   componentDidMount() {
     this.props.form.registerField(this);
     this.props.register(this.props.name);
+    if (this.element) {
+      const actualValue = this.getElementValue(this.element, this.element.value);
+      if (actualValue !== this.getFormattedValue()) {
+        this.handleElementChange(this.element, this.element.value);
+        this.validateValue(actualValue, false);
+        return;
+      }
+    }
     this.validateValue(this.props.value, false);
   }
 
@@ -59,14 +67,14 @@ class Field extends Component {
     this.validateValue(this.props.value); 
   }
 
-  getEventValue(event) {
-    if (event.target.type === "checkbox") { // todo: refactor
-      return event.target.checked;
+  getElementValue(element, value) {
+    if (element.type === "checkbox") {
+      return element.checked;
     }
     if (this.props.format) {
-      return this.props.format(event.target.value);
+      return this.props.format(element.value);
     }
-    return event.target.value;
+    return element.value;
   }
 
   validateValue(value, touched) {
@@ -86,11 +94,14 @@ class Field extends Component {
   }  
 
   handleChange(event) {
-    const target = event.target; 
+    this.handleElementChange(event.target, event.target.value);
+  }
+
+  handleElementChange(target, value) {
     const start = target.selectionStart;
     const end = target.selectionEnd;
-    const cursorIsAtEnd = start === target.value.length;
-    this.props.updateValue(this.getEventValue(event));
+    const cursorIsAtEnd = start === value.length;
+    this.props.updateValue(this.getElementValue(target, value));
     if (this.props.onChange) {
       this.props.onChange(this.props.form);
     }
@@ -98,7 +109,7 @@ class Field extends Component {
     this.setState(this.state, () => {
       try {
         if (cursorIsAtEnd) {
-          target.setSelectionRange(target.value.length, target.value.length);
+          target.setSelectionRange(value.length, value.length);
         } else {
           target.setSelectionRange(start, end);
         }
@@ -124,7 +135,7 @@ class Field extends Component {
 
 
   setElementRef(element) {
-    this.element = element
+    this.element = element;
   };
 
 
