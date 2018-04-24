@@ -25,7 +25,7 @@ class Field extends Component {
       const actualValue = this.getElementValue(this.element, this.element.value);
       if (actualValue !== this.getFormattedValue()) {
         this.handleElementChange(this.element, this.element.value);
-        this.validateValue(actualValue, false);
+        this.validateValue(actualValue, true);
         return;
       }
     }
@@ -109,7 +109,7 @@ class Field extends Component {
     this.setState(this.state, () => {
       try {
         if (cursorIsAtEnd) {
-          target.setSelectionRange(value.length, value.length);
+          target.setSelectionRange(target.value.length, target.value.length);
         } else {
           target.setSelectionRange(start, end);
         }

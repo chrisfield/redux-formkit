@@ -4,6 +4,8 @@
 /node_modules
 /examples/simple/node_modules
 /examples/complex/node_modules
+/examples/nextjs/node_modules
+/examples/nextjs/.next
 
 # testing
 /coverage

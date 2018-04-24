@@ -34,3 +34,10 @@ Complex form includes:
 * Asynchronous validation with server-side messages displayed next to the relevant field
 * Flexible positioning of other server-side validation messages
 
+## The [next-js form](https://github.com/chrisfield/redux-formkit/blob/master/examples/nextjs/src/components/ExampleForm.js) includes:
+
+Next-JS form includes:
+* All the features of Complex form
+* Server Side rendering with Next JS
+* Isomorphic initialisation so fields can be used while the client JS is downloading
+
