@@ -262,7 +262,7 @@ const InputField = props => (
 const Checkbox = props => (
   <div className="example-form_item">
     <label htmlFor={props.name}>{props.label}</label>
-    <input id={props.name} type="checkbox" checked={props.value} onChange={props.update}/>
+    <input id={props.name} ref={props.elementRef} type="checkbox" checked={props.value} onChange={props.update}/>
   </div>
 );
 
@@ -271,7 +271,7 @@ const RadioButton = props => {
   return (
      <div className="example-form_item">
       <label htmlFor={id}>{props.label}</label>
-      <input id={id} type="radio" name={props.name} value={props.radioValue} checked={props.radioValue===props.value} onChange={props.update}/>
+      <input id={id} type="radio" name={props.name} ref={props.elementRef} value={props.radioValue} checked={props.radioValue===props.value} onChange={props.update}/>
     </div>
   );
 };
