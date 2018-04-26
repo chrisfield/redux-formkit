@@ -1,6 +1,6 @@
 {
   "name": "redux-formkit",
-  "version": "1.2.9",
+  "version": "1.2.10",
   "description": "Light-weight React components to manage Redux form state and form validation",
   "main": "lib/index.js",
   "repository": {
@@ -22,7 +22,9 @@
     "form",
     "field",
     "validation",
-    "kit"
+    "kit",
+    "next",
+    "isomorphic"
   ],
   "author": "Chris Field",
   "license": "ISC",
