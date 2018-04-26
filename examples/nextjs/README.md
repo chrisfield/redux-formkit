@@ -21,9 +21,9 @@ yarn dev
 
 ## The idea behind the example
 
-Next.js will server render the form so that the page received by the browser contains the html-mark-up for the form. The advantage of this is that the form (prepopulated with any default values etc) will display while the js bundle downloads. At this point the JS is still downloading but the user can enter use the form controls as thought it was a plain html form.
+Next.js will server render the form so that when the page reaches the browser it already contains the form mark-up. The advantage of this is that the form (prepopulated with any default values etc) will display while the js bundle downloads. At this point the JS is still downloading but the user can enter/use the form controls as thought it was a plain html form.
 
-When the js bundle downloads redux-formkit will compare the value of each actual field with the initial value provided from the redux-store. Where these values are different redux-formkit will run the validation and formatting code with the user entered value.
+When the js bundle downloads redux-formkit will compare the value of each actual field with the initial value provided from the redux-store. Where these values are different redux-formkit will run the validation, the formatting and update the redux store with the user entered value.
 
 No extra code is required for this to happen other than passing 'ref={props.elementRef}' to the form input/select etc.
 
