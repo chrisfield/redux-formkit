@@ -1,11 +1,9 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
-/examples/simple/node_modules
-/examples/complex/node_modules
-/examples/nextjs/node_modules
-/examples/nextjs/.next
+**/node_modules
+examples/**/package-lock.json
+examples/nextjs/.next
 
 # testing
 /coverage

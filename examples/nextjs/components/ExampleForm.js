@@ -2,6 +2,7 @@ import React from 'react';
 import {Field, FieldArray, FormStatus, ValidationBlock, SubmissionError, Formkit} from 'redux-formkit';
 import { connect } from 'react-redux';
 
+import './ExampleForm.css';
 
 const ExampleForm = (props) => (
   <form className="example-form"> {/*No need for this to be a form. It can be a div/section etc */}
