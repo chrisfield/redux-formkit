@@ -6,7 +6,7 @@
 Light-weight React components making it easy to write html forms connected to the Redux store. Includes validation, field-arrays, current valid/not-valid status and asynchronous submission.
 
 ## Motivation
-Form management, with such a large number of use cases, is pretty hard problem to solve in a generic way with a simple API. [redux-form](https://github.com/erikras/redux-form) provides an great solution. Redux-Formkit aims to provide simular functionality but with a slightly lower level API which can implemented with a much smaller codebase.
+Redux-Formkit aims to provide simular functionality to the excellent [Redux-form](https://github.com/erikras/redux-form) but with a slightly lower level API implemented with a much smaller codebase.
 
 ## Features
 - Lightweight and fast
