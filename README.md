@@ -5,14 +5,35 @@
 
 Light-weight React components making it easy to write html forms connected to the Redux store. Includes validation, field-arrays, current valid/not-valid status and asynchronous submission.
 
+## Motivation
+Form management, with such a large number of use cases, is pretty hard problem to solve in a generic way with a simple API. [redux-form](https://github.com/erikras/redux-form) provides an great solution. Redux-Formkit aims to provide simular functionality but with a slightly lower level API which can implemented with a much smaller codebase.
+
+## Features
+- Lightweight and fast
+- Mimimal by design, leaves you in control
+- Not cluttered with ui components
+- Simple to use API
+- Easy to migrate from/to redux-form
+- Now uses the new Context Api (from React 16.3) 
+- Field-arrays for repeated rows with add/remove
+- Nested FieldArrays in case a repeated row has child repeating rows.
+- Form error-count/valid-status is easy to access, eg to put a tick next to the submit button
+- Synchronous validation including flexible support for inter-field valiation
+- Asynchronous validation
+- Stores redux values as semantic types, eg number fields will store numbers
+- Format values, eg to put commas in numbers
+- Sets cursor focus at start and after sumbit validation
+- Works with NextJS. Values quickly entered into SSR fields are used when the client JS loads. 
+
 
 ## Getting Started
-To try it out clone `redux-formkit` and run/edit the [examples](https://github.com/chrisfield/redux-formkit/tree/master/examples).
+Take a lookm at the [examples](https://github.com/chrisfield/redux-formkit/tree/master/examples).
 
 To use it on you own project:
 `npm install --save redux-formkit`
 
 
+## The Gist
 Add formReducer to your own reducer
 ```javascript
 import { formReducer } from 'redux-formkit';
@@ -97,21 +118,4 @@ const Input = props => (
   </div>
 );
 ```
-
-## Features
-- Lightweight and fast
-- Mimimal by design, leaves you in control
-- Not cluttered with ui components
-- Simple to use API
-- Easy to migrate from/to redux-form
-- Now uses the new Context Api (from React 16.3) 
-- Field-arrays for repeated rows with add/remove
-- Nested FieldArrays in case a repeated row has child repeating rows.
-- Form error-count/valid-status is easy to access, eg to put a tick next to the submit button
-- Synchronous validation including flexible support for inter-field valiation
-- Asynchronous validation
-- Stores redux values as semantic types, eg number fields will store numbers
-- Format values, eg to put commas in numbers
-- Sets cursor focus at start and after sumbit validation
-- Works with NextJS. Values quickly entered into SSR fields are used when the client JS loads. 
 
