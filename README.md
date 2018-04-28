@@ -176,7 +176,68 @@ form.getField('confirmPassword').revalidate();
 
 
 ### Field
-Very simular to redux-form
+Field is api is very simular to the one in redux-form. There are a few ways to use it but typically you would define a custom component which can be simply used like this:
+```
+  <InputField
+    name="username"
+    label="Username"
+    validate={required}
+  />
+```
+
+
+An example of how you coud define InputField is:
+
+```
+const Input = props => (
+   <div>
+     <label htmlFor={props.name}>{props.label}</label>
+     <input
+       id={props.name}
+       ref={props.elementRef}
+       value={props.value}
+       onChange={props.update}
+       onBlur={props.validate}/>
+     {props.error && props.touched && <p>{props.error}</p>}
+   </div>
+);
+
+const InputField = props => (
+  <Field component={Input} {...props} />
+);
+```
+
+Field will make use of the following props (other props will be passed straight through to the rendered component):
+* `name : required string` — the name of the field eg 'postcode'
+
+* `component : optional string or function` — the component to render. Eg like `component="input"` will render an input html element and component={Input} will call Input to render the component defined above. If no component is passed-in the Field component will look to render a function-as-child component (An unlikely but possible use-case).
+
+* `validate : optional function or array of functions` — Any validation functions will be called two parameters: First the formatted field value (eg will be numeric for number formatted fields); Second all the field-values (eg so it's easy to check one date is after another). Validation functions should return undefined if the validation passes or an error if the validation fails. The error will often be a string but it can be any object.
+
+* `format : optional function` — use this to convert to event.target.value to whatever semantic value makes sense to store in redux. Eg `format={str => str.toUpperCase}` will store the number as uppercase. 
+
+* `formatFromStore : optional function` — use this to convert the value in redux to the value is expected by the rendered component. Eg: `formatFromStore={addCommas}` where `addcommas` is:
+```
+const addCommas = number => {
+  if (number === 0) {
+    return '0';
+  }
+  if (!number) {
+    return '';
+  }
+  return number.toLocaleString();
+};
+
+``` 
+
+Field will pass these props to the rendered component:
+* `form` Use to access other fields use form.getField('username'). 
+* `update`
+* `validate`
+* `value`
+* `error`
+* `touched`
+
 
 ### ValidationBlock
 This is simply a named container used to position form wide error messages as thrown by onSubmit functions
