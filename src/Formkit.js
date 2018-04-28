@@ -8,7 +8,7 @@ import getFormState from './selectors/getFormState';
 export const FormContext = React.createContext();
 
 
-const Formkit = ({name, initialValues, validate, onSubmit, onSubmitSuccess}) => {
+const Formkit = ({name, initialValues, onSubmit, onSubmitSuccess}) => {
   return (form) => {
 
     class BaseForm extends Component {
@@ -18,7 +18,6 @@ const Formkit = ({name, initialValues, validate, onSubmit, onSubmitSuccess}) => 
         this.getField = this.getField.bind(this);
         this.registerField = this.registerField.bind(this);
         this.deregisterField = this.deregisterField.bind(this);      
-        this.validate = this.validate.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.name = name;
       }
@@ -66,16 +65,8 @@ const Formkit = ({name, initialValues, validate, onSubmit, onSubmitSuccess}) => 
           }
         };
       }
-
-      validate() {
-        let isValid = true;
-        if (validate) {
-          isValid = validate(this.fieldValues());
-        }
-        return this.validateFields() && isValid;
-      }
       
-      validateFields() {
+      validate() {
         const fields = this.fields;
         let isValid = true;
         for (let i=0; i<fields.length; i++) {
@@ -114,6 +105,7 @@ const Formkit = ({name, initialValues, validate, onSubmit, onSubmitSuccess}) => 
         const isValid = this.validate();
         if (!isValid) {
           this.focusOnFieldWithError();
+          event.preventDefault();
         }
         if (onSubmit && isValid) {
           this.props.startSubmit();
