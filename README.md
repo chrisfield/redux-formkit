@@ -149,7 +149,9 @@ The config object can contain:
 
 The form prop will contain:
 * `handleSubmit: function` - call this to initiate form submission eg 
-  ```<button onClick={props.form.handleSubmit}>Send</button>```
+```
+  <button onClick={props.form.handleSubmit}>Send</button>
+```
 
 
 * `updateFields: function` - call this to update field values (in the Redux store) eg
@@ -177,7 +179,7 @@ form.getField('confirmPassword').revalidate();
 Very simular to redux-form
 
 ### ValidationBlock
-This is really a named container used to position form wide error messages
+This is simply a named container used to position form wide error messages as thrown by onSubmit functions
 
 
 
