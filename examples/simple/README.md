@@ -15,7 +15,7 @@ Install it and run:
 npm install
 npm start
 # or
-yarn
+yarn install
 yarn start
 ```
 
