@@ -33,8 +33,10 @@ To use it on you own project:
 `npm install --save redux-formkit`
 
 
-## The Gist
+## Usage
+
 Add formReducer to your own reducer
+
 ```javascript
 import { formReducer } from 'redux-formkit';
 
@@ -47,10 +49,12 @@ const rootReducer = (state = initialState, action) => (
 );
 
 export default rootReducer;
+
 ```
 
 
 Then write your form
+
 ```javascript
 import React from 'react';
 import {Formkit, Field} from 'redux-formkit';
@@ -118,4 +122,62 @@ const Input = props => (
   </div>
 );
 ```
+
+
+## API
+
+### Formkit
+
+`Formkit` is the higher order component used to wrap forms. You give it a config object and it returns a function to wrap a form. eg `Formkit({name:'sign-up'})(SignUp)` would wrap the SignUp form giving it extra facilities. It also gives it one extra prop called `form`.
+
+
+The config object can contain:
+
+* `name : required string` — the name of the form eg 'sign-up'
+
+* `initialValues : optional object` — any default values eg {theNumber: 42, isAgreed: true} 
+
+* `onSubmit : optional function` —  use this to submit the field-values which will be passed in as a parameter. It can make api calls syncronously or by returning a promise. It will only be called if the form fields are valid. An important point to make is that this function can throw exceptions that pass error messages back to the form. eg
+```
+  throw new SubmissionError({
+    username: "This username has already been taken. Please try another."
+  }); 
+```
+
+* `onSubmitSuccess : optional function` — use this to reset the form fields or show a feedback message etc. It will be passed the form instance as a parameter.
+
+
+The form prop will contain:
+* `handleSubmit: function` - call this to initiate form submission eg 
+  ```<button onClick={props.form.handleSubmit}>Send</button>```
+
+
+* `updateFields: function` - call this to update field values (in the Redux store) eg
+```
+  function clearFormValues(form) {
+    form.props.updateFields({});
+  }
+
+
+  export default Formkit({
+    name: 'exampleF',
+    onSubmitSuccess: clearFormValues
+  })(ExampleForm);
+```
+
+* `getField: function` - call this to get a field instance eg
+```
+form.getField('confirmPassword').revalidate();
+```
+
+* `props.fieldValues: object` - this can be used to access field values like in the [complex form example](https://github.com/chrisfield/redux-formkit/blob/master/examples/complex/src/components/ExampleForm.js).
+
+
+### Field
+Very simular to redux-form
+
+### ValidationBlock
+This is really a named container used to position form wide error messages
+
+
 
