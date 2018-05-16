@@ -124,6 +124,10 @@ const Input = props => (
 ```
 
 
+## Feedback / contributing
+I'm keen to get feedback please let me know about any issues [here](https://github.com/chrisfield/redux-formkit/issues/new)
+
+
 ## API
 
 ### Formkit
@@ -135,7 +139,7 @@ The config object can contain:
 
 * `name : required string` — the name of the form eg 'sign-up'
 
-* `initialValues : optional object` — any default values eg {theNumber: 42, isAgreed: true} 
+* `initialValues : optional object` — this is one way to set field values. 
 
 * `onSubmit : optional function` —  use this to submit the field-values which will be passed in as a parameter. It can make api calls syncronously or by returning a promise. It will only be called if the form fields are valid. An important point to make is that this function can throw exceptions that pass error messages back to the form. eg
 ```
@@ -176,18 +180,7 @@ form.getField('confirmPassword').revalidate();
 
 
 ### Field
-Field is api is very simular to the one in redux-form. There are a few ways to use it but typically you would define a custom component which can be simply used like this:
-```
-  <InputField
-    name="username"
-    label="Username"
-    validate={required}
-  />
-```
-
-
-An example of how you coud define InputField is:
-
+Field is api is very simular to the one in redux-form. There are a few ways to use it but typically you would define a custom component:
 ```
 const Input = props => (
    <div>
@@ -207,6 +200,16 @@ const InputField = props => (
 );
 ```
 
+and use it on the form:
+```
+  <InputField
+    name="username"
+    label="Username"
+    validate={required}
+  />
+```
+
+
 Field will make use of the following props (other props will be passed straight through to the rendered component):
 * `name : required string` — the name of the field eg 'postcode'
 
@@ -214,7 +217,7 @@ Field will make use of the following props (other props will be passed straight 
 
 * `validate : optional function or array of functions` — Any validation functions will be called two parameters: First the formatted field value (eg will be numeric for number formatted fields); Second all the field-values (eg so it's easy to check one date is after another). Validation functions should return undefined if the validation passes or an error if the validation fails. The error will often be a string but it can be any object.
 
-* `format : optional function` — use this to convert to event.target.value to whatever semantic value makes sense to store in redux. Eg `format={str => str.toUpperCase}` will store the number as uppercase. 
+* `format : optional function` — use this to convert the event.target.value to whatever semantic value makes sense to store in redux. Eg `format={str => str.toUpperCase}` will store the number as uppercase. 
 
 * `formatFromStore : optional function` — use this to convert the value in redux to the value is expected by the rendered component. Eg: `formatFromStore={addCommas}` where `addcommas` is:
 ```
