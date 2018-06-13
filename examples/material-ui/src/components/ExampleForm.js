@@ -1,5 +1,7 @@
 import React from 'react';
-import Formkit, {Field, FieldArray, FormStatus, NamedValidationStatus, SubmissionError} from 'redux-formkit';
+import {Field, FieldArray, FormStatus, ValidationBlock, SubmissionError, Formkit} from 'redux-formkit';
+import { connect } from 'react-redux';
+import TextField from 'material-ui/TextField'
 
 import './ExampleForm.css';
 
@@ -19,14 +21,13 @@ const ExampleForm = (props) => (
           )
         }}
       </FormStatus>
-      <NamedValidationStatus name="formErrorAtTop" >
-        {({error}) => {
-          if (error) {
-            return <p>{error}</p>
-          };
-          return null;
-        }}
-      </NamedValidationStatus>
+      <div>
+        <Field
+          name="firstName"
+          component={renderTextField}
+          label="First Name"
+        />
+      </div>
       <InputField
         label="First Field"
         name="field1"
@@ -34,15 +35,13 @@ const ExampleForm = (props) => (
         validate={requiredMaxLength5}
       />
 
-      {JSON.stringify(props.form.getFormState().fieldValues.isAdditionalField)}
-
       <InputField label="2nd Field > 1st field" name="field2" validate={greaterThanField1}/>
       <div className="example-form_item_group">
         <CheckboxField name="isAgreed" label="Can the server have a number bigger than 42?" onChange={revalidateTheNumber}/>
         <CheckboxField name="isAdditionalField" label="Is Additional Field?"/>
         {  
-          props.form.getFormState().fieldValues.isAdditionalField 
-          && <Field component="input" name="additionalField" validate={requiredStr} placeholder="Additional field"/>
+          props.form.props.fieldValues.isAdditionalField 
+          && <Field component="input" name="additionalField" placeholder="Additional field"/>
         }
       </div>
       
@@ -54,23 +53,23 @@ const ExampleForm = (props) => (
       <InputField
         name="theNumber"
         label="Numeric Field"
-        formatToStore={number}
+        format={number}
         formatFromStore={addCommas}
         validate={requiredNum}
       />
       <InputField
         name="capitals"
         label="Uppercase Field"
-        formatFromStore={upper}
-        formatToStore={lower}
-        getNextCursorPosition={getNextCursorPosition}
+        format={upper}
       />
     </fieldset>
     
     <FieldArray
       name="hobbies"
       component={renderHobbies}
+      hobbies={props.hobbies}
     />
+    <FormErrorSection name="formError"/>
     <div className="example-form_item">
       <FormStatus>
         {({isSubmitting, isValid}) => {
@@ -91,7 +90,7 @@ const ExampleForm = (props) => (
 );
 
 
-const renderHobbies = ({form, fields}) => (
+const renderHobbies = ({form, fields, hobbies}) => (
   <fieldset>
     <legend className="example-form_title">
       Hobbies
@@ -106,18 +105,42 @@ const renderHobbies = ({form, fields}) => (
         >
           <button type="button" title="Remove Hobby" onClick={() => fields.remove(index)}>-</button>
         </InputField>
+        <FieldArray
+          name={`${hobby}.equipment`}
+          component={renderEquipment}
+          hobbyName={hobbies[index] && hobbies[index].description? hobbies[index].description: 'this Hobby'}
+        />
+        {/*Can add more fields here*/}
       </div>
     ))}
     <button type="button" onClick={() => fields.push()}>Add Hobby</button>
   </fieldset>
 );
 
-const greaterThanField1 = (value, values) => (
-  values && value > values.field1? undefined: 'greaterThanField1'
+
+const renderEquipment = ({form, fields, hobbyName}) => (
+  <fieldset>
+    <legend className="example-form_title">
+      Equipment for {hobbyName}
+    </legend>
+    <button type="button" onClick={() => fields.push()}>Add Equipment</button>
+    {fields.map((equipment, index) => (
+      <InputField
+        key={equipment}
+        name={`${equipment}`}
+        validate={requiredStr}
+        label={`Equipment #${index + 1}`}
+      >
+        <button type="button" title="Remove Equipment" onClick={() => fields.remove(index)}>-</button>
+      </InputField>
+    ))}
+  </fieldset>
 );
 
-const getNextCursorPosition = (prevPosition, previousValue, nextValue) => (
-  prevPosition
+
+
+const greaterThanField1 = (value, values) => (
+  values && value > values.field1? undefined: 'greaterThanField1'
 );
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
@@ -127,7 +150,7 @@ function submitAsynchronous(values) {
     if (!values.isAgreed && values.theNumber > 42) { // Simulate serverside validation
       throw new SubmissionError({
         theNumber: "You didn't agree to numbers greater than 42!!",
-        formErrorAtTop: "Form not processed. Please make changes and try again."
+        formError: "Form not processed. Please make changes and try again."
       });
     }
     window.alert(`You submitted:${JSON.stringify(values, null, 2)}`)
@@ -135,7 +158,7 @@ function submitAsynchronous(values) {
 }
 
 function clearFormValues(form) {
-  form.updateFields({theNumber: 1999});
+  form.props.updateFields({});
 }
 
 
@@ -148,29 +171,32 @@ const initialValues = {
   rb2: 'G'
 };
 
+const mapStateToProps = (state) => {
+  return {
+    hobbies: state.form.exampleF? state.form.exampleF.values.hobbies: []
+  }
+};
 
-export default Formkit({
+
+/* This connect is not being used by redux-formkit but is there to 
+   show that you can connect to the store if you want */
+export default connect(mapStateToProps)(Formkit({
   name: 'exampleF',
   initialValues: initialValues,
   onSubmit: submitAsynchronous,
   onSubmitSuccess: clearFormValues
-})(ExampleForm);
+})(ExampleForm));
 
 
-const revalidateField2 = form => {
-  form.getField('field2').validate();
-}
+const revalidateField2 = form => (form.getField('field2').revalidate());
+const revalidateTheNumber = form => (form.getField('theNumber').revalidate());
 
-const revalidateTheNumber = form => {
-  form.getField('theNumber').validate();
-}
 
 /*
   The following functions would normally be imported from separate files 
   and reused across a project 
 */
-const upper = value => ((value && value.toUpperCase())||'');
-const lower = value => ((value && value.toLowerCase())||'');
+const upper = str => str.toUpperCase();
 const number = str => parseInt(str.replace(/[^\d.-]/g, ""), 10);
 
 const addCommas = number => {
@@ -182,8 +208,6 @@ const addCommas = number => {
   }
   return number.toLocaleString();
 };
-
-const isChecked = event => event.target.checked;
 
 const maxLength5 = (value, values) => (
   value && value.trim && value.trim().length > 5 ? 'maxLength': undefined
@@ -203,17 +227,29 @@ const requiredNum = value => {
   return undefined;
 };
 
+
+const FormErrorSection = props => (
+  <ValidationBlock {...props} >
+    {({error}) => {
+      if (error) {
+        return <p>{error}</p>
+      };
+      return null;
+    }}
+  </ValidationBlock>
+);
+
 const Input = props => (
    <div className="example-form_item">
      <label htmlFor={props.name} className="example-form_field-label">{props.label}</label>
      <input
-       ref={props.setElementRef}
+       ref={props.elementRef}
        id={props.name} 
        type={props.type? props.type: 'text'} 
        placeholder={props.placeholder} 
        value={props.value} 
-       onChange={props.handleChange} 
-       onBlur={props.handleBlur}/>
+       onChange={props.update} 
+       onBlur={props.validate}/>
      {props.children}
      {props.error && props.touched && <p>{props.error}</p>}
    </div>
@@ -223,10 +259,33 @@ const InputField = props => (
   <Field component={Input} {...props} />
 );
 
+const renderTextField = ({
+  input,
+  label,
+  touched,
+  type,
+  placeholder,
+  value,
+  update,
+  validate,
+  error
+}) => (
+  <TextField
+    hintText={label}
+    floatingLabelText={label}
+    type={type? type: 'text'} 
+    placeholder={placeholder} 
+    value={value} 
+    onChange={update} 
+    onBlur={validate}
+    errorText={touched && error}
+  />
+);
+
 const Checkbox = props => (
   <div className="example-form_item">
     <label htmlFor={props.name}>{props.label}</label>
-    <input id={props.name} type="checkbox" checked={props.value} onChange={props.handleChange}/>
+    <input id={props.name} type="checkbox" checked={props.value} onChange={props.update}/>
   </div>
 );
 
@@ -235,13 +294,13 @@ const RadioButton = props => {
   return (
      <div className="example-form_item">
       <label htmlFor={id}>{props.label}</label>
-      <input id={id} type="radio" name={props.name} value={props.radioValue} checked={props.radioValue===props.value} onChange={props.handleChange}/>
+      <input id={id} type="radio" name={props.name} value={props.radioValue} checked={props.radioValue===props.value} onChange={props.update}/>
     </div>
   );
 };
 
 const CheckboxField = props => (
-  <Field component={Checkbox} getEventValue={isChecked} {...props} />
+  <Field component={Checkbox} {...props} />
 );
 
 const RadioField = props => (

@@ -1,6 +1,6 @@
 import toPath from 'lodash.topath';
 
-const getFieldValue = (state, field) => {
+const getField = (state, field) => {
   const path = toPath(field)
   const length = path.length
   if (!length) {
@@ -14,4 +14,4 @@ const getFieldValue = (state, field) => {
   return result;
 }
 
-export default getFieldValue;
+export default getField;

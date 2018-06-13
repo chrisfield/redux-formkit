@@ -108,6 +108,7 @@ const Input = props => (
      <label htmlFor={props.name} className="example-form_field-label">{props.label}</label>
      <input 
        id={props.name} 
+       ref={props.elementRef}
        type={props.type? props.type: 'text'} 
        placeholder={props.placeholder} 
        value={props.value} 

@@ -1,27 +1,23 @@
-import Formkit from "./Formkit";
-export {Formkit};
+import formkit from "./formkit";
+export default formkit;
 
-import FormStatus from "./FormStatus";
-export {FormStatus};
+import formkitWithoutRedux from "./formkit-without-redux";
+export {formkitWithoutRedux}
 
-import Field from "./Field";
-export {Field};
-
-import FieldArray from "./FieldArray";
-export {FieldArray};
-
-import ValidationBlock from './ValidationBlock';
-export {ValidationBlock}
-
-import formReducer from './reducers/form';
+import formReducer from './reducers';
 export {formReducer};
 
-import SubmissionError from './SubmissionError';
+import FormStatus from "./form-status";
+export {FormStatus};
+
+import NamedValidationStatus from './named-validation-status';
+export {NamedValidationStatus};
+
+import Field from "./field";
+export {Field};
+
+import FieldArray from "./field-array";
+export {FieldArray};
+
+import SubmissionError from './submission-error';
 export {SubmissionError};
-
-import {updateFields} from './actions/field';
-export {updateFields};
-
-import getFieldValue from './selectors/getFieldValue';
-export {getFieldValue};
-

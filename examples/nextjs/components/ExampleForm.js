@@ -58,7 +58,7 @@ const ExampleForm = (props) => (
     <FieldArray
       name="hobbies"
       component={renderHobbies}
-      hobbies={props.hobbies}
+      hobbies={props.hobbies || []}
     />
     <FormErrorSection name="formError"/>
     <div className="example-form_item">
