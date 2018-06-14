@@ -6,22 +6,23 @@
 Connect React form inputs to the state. The kit supports Redux or standard React state (via context api) so it is easy to change from one to the other. It also includes validation, field-arrays, current valid/not-valid status and asynchronous submission.
 
 ## Motivation
-Redux-Formkit aims to provide simular functionality to [Redux-form](https://github.com/erikras/redux-form) but with a more tightly scoped API allowing a smaller codebase. Eg Formkit provides an api so it can be used with any component but has no knowledge of checkboxes etc.
+Redux-Formkit aims to provide simular functionality to the excellent [Redux-form](https://github.com/erikras/redux-form) but with a really tightly scoped API allowing a smaller codebase. Eg Formkit provides an api so it can be used with any component but has no knowledge of checkboxes etc.
 
 
 ## Features
 - Lightweight and fast
 - Mimimal by design, leaves you in control
+- Redux is optional: no need to install it if you import {formkitWithoutRedux}
 - Not cluttered with ui components
 - Simple to use API
 - Easy to migrate from/to redux-form
-- Now uses the new Context Api (from React 16.3) 
+- Uses Context Api (introduced in from React 16.3)
 - Field-arrays for repeated rows with add/remove
 - Nested FieldArrays in case a repeated row has child repeating rows.
 - Form error-count/valid-status is easy to access, eg to put a tick next to the submit button
 - Synchronous validation including flexible support for inter-field valiation
 - Asynchronous validation
-- Stores redux values as semantic types, eg number fields will store numbers
+- Stores values as semantic types, eg number fields will store numbers
 - Format values, eg to put commas in numbers
 - Sets cursor focus at start and after sumbit validation
 - Works with NextJS. Values quickly entered into SSR fields are used when the client JS loads. 
@@ -71,7 +72,8 @@ const ExampleForm = (props) => (
         validate={[requiredStr, maxLength5]}
       />
 
-                                {/* Or you can define component that renders the Field */}
+                                {/* Or you can define component that 
+                                    renders the Field */}
       <InputField
         name="theNumber"
         label="Numeric Field"
@@ -126,7 +128,8 @@ export default formkit({
 
 
 /*
-  The following functions would normally be imported from separate files and reused across a project 
+  The following functions would normally be imported from separate 
+  files and reused across a project 
 */
 const upper = str => str.toUpperCase();
 const number = str => parseInt(str.replace(/[^\d.-]/g, ""), 10);
@@ -146,9 +149,9 @@ const maxLength5 = (value, values) => (
 );
 
 
-const requiredStr = value => {
-  return value && value.trim && value.trim().length > 0 ? undefined: 'required'
-};
+const requiredStr = value => (
+  value && value.trim && value.trim().length > 0 ? undefined: 'required'
+);
 
 const requiredNum = value => {
   if (value === null || isNaN(value)) {
@@ -159,18 +162,20 @@ const requiredNum = value => {
 
 
 const Input = props => (
-   <div className="example-form_item">
-     <label htmlFor={props.name} className="example-form_field-label">{props.label}</label>
-     <input 
-       id={props.name} 
-       ref={props.elementRef}
-       type={props.type? props.type: 'text'} 
-       placeholder={props.placeholder} 
-       value={props.value} 
-       onChange={props.handleChange} 
-       onBlur={props.handleBlur}/>
-     {props.error && props.touched && <p>{props.error}</p>}
-   </div>
+  <div className="example-form_item">
+    <label htmlFor={props.name} className="example-form_field-label">
+      {props.label}
+    </label>
+    <input 
+      id={props.name} 
+      ref={props.elementRef}
+      type={props.type? props.type: 'text'} 
+      placeholder={props.placeholder} 
+      value={props.value} 
+      onChange={props.handleChange} 
+      onBlur={props.handleBlur}/>
+    {props.error && props.touched && <p>{props.error}</p>}
+  </div>
 );
 
 const isChecked = target => target.checked;
@@ -182,8 +187,16 @@ const InputField = props => (
 const Checkbox = props => (
   <div className="example-form_item">
     <label htmlFor={props.name}>{props.label}</label>
-    <input id={props.name} type="checkbox" checked={props.value} onChange={props.handleChange}/>
+    <input id={props.name} 
+     type="checkbox" 
+     checked={props.value} 
+     onChange={props.handleChange}
+    />
   </div>
+);
+
+const CheckboxField = props => (
+  <Field component={Checkbox} getTargetValue={isChecked} {...props} />
 );
 
 const RadioButton = props => {
@@ -191,41 +204,24 @@ const RadioButton = props => {
   return (
      <div className="example-form_item">
       <label htmlFor={id}>{props.label}</label>
-      <input id={id} type="radio" name={props.name} value={props.radioValue} checked={props.radioValue===props.value} onChange={props.handleChange}/>
+      <input id={id} 
+        type="radio"
+        name={props.name}
+        value={props.radioValue}
+        onChange={props.handleChange}
+        checked={props.value===props.radioValue}
+      />
     </div>
   );
-};
-
-const CheckboxField = props => (
-  <Field component={Checkbox} getEventValue={isChecked} {...props} />
-);
+}
 
 const RadioField = props => (
-  <Field name={props.name} radioValue={props.value} component={RadioButton} label={props.label}/>
-);
-
-
-
-/*
-  The following functions would normally be imported from separate files 
-  and reused across a project 
-*/
-const required = value => {
-  return value && value.trim && value.trim().length > 0 ? undefined: 'required'
-};
-
-const Input = props => (
-  <div className="example-form_item">
-    <label htmlFor={props.name} className="example-form_field-label">{props.label}</label>
-    <input 
-      id={props.name} 
-      type={props.type? props.type: 'text'} 
-      placeholder={props.placeholder} 
-      value={props.value} 
-      onChange={props.update} 
-      onBlur={props.validate}/>
-    {props.error && props.touched && <p>{props.error}</p>}
-  </div>
+  <Field 
+    name={props.name} 
+    component={RadioButton}
+    label={props.label}
+    radioValue={props.value}
+  />
 );
 ```
 

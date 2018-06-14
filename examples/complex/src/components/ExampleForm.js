@@ -240,7 +240,7 @@ const RadioButton = props => {
 };
 
 const CheckboxField = props => (
-  <Field component={Checkbox} getEventValue={isChecked} {...props} />
+  <Field component={Checkbox} getTargetValue={isChecked} {...props} />
 );
 
 const RadioField = props => (

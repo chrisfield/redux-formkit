@@ -36,6 +36,7 @@ class Field extends React.Component {
   };
 
   handleChange(event) {
+    console.log('handle change', event.target.value);
     this.props.updateValue(event.target);
     if (this.props.onChange) {
       this.setState({}, () => {
@@ -82,6 +83,9 @@ class Field extends React.Component {
 
 
   render () {
+    if (this.props.name === "isAgreed" || this.props.name ==="rb2") {
+      console.log(this.props.name, this.props);
+    }
     const props = this.props;
     const Component = props.component;
     const {
@@ -90,10 +94,11 @@ class Field extends React.Component {
       formatFromStore,
       formatToStore,
       getNextCursorPosition,
-      getEventValue,
+      getTargetValue,
       setError,
-      incrementErrorCount,
+      deregisterField,
       setTouched,
+      validate,
       onChange,
       rawValue,
       error,
@@ -130,11 +135,12 @@ const defaultGetTargetValue = target => target.value;
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   const formatToStore = ownProps.formatToStore || defaultFormatToStore;
-  const getTargetValue = ownProps.getEventValue || defaultGetTargetValue;
+  const getTargetValue = ownProps.getTargetValue || defaultGetTargetValue;
   const fieldName = ownProps.name;
   return {
     updateValue: target => {
-      dispatch(updateField(fieldName, formatToStore(getTargetValue(target))));
+      console.log('Call dispatch with', updateField(fieldName, formatToStore(getTargetValue(target), ownProps)));
+      dispatch(updateField(fieldName, formatToStore(getTargetValue(target), ownProps)));
     },
     setError: (error, touchedPayload = {}) => {
       dispatch(setFieldError(fieldName, error, touchedPayload, ownProps.error));

@@ -2,12 +2,9 @@ import React from 'react';
 import formkit, {Field} from 'redux-formkit';
 //import {formkitWithoutRedux as formkit, Field} from 'redux-formkit';
 
-import './ExampleForm.css';
-
 const ExampleForm = (props) => (
   <form className="example-form">
     <fieldset>
-                                {/* You can use Field directly*/}
       <Field
         label="First Field"
         name="field1"
@@ -15,7 +12,8 @@ const ExampleForm = (props) => (
         validate={[requiredStr, maxLength5]}
       />
 
-                                {/* Or you can define component that renders the Field */}
+                                {/* Or you can define component that 
+                                    renders the Field */}
       <InputField
         name="theNumber"
         label="Numeric Field"
@@ -44,7 +42,6 @@ const ExampleForm = (props) => (
     <button
       type="button"
       onClick={props.form.handleSubmit} 
-      className="example-form_button"
     >
       Send
     </button>
@@ -71,7 +68,8 @@ export default formkit({
 
 
 /*
-  The following functions would normally be imported from separate files and reused across a project 
+  The following functions would normally be imported from separate 
+  files and reused across a project 
 */
 const upper = str => str.toUpperCase();
 const number = str => parseInt(str.replace(/[^\d.-]/g, ""), 10);
@@ -91,9 +89,9 @@ const maxLength5 = (value, values) => (
 );
 
 
-const requiredStr = value => {
-  return value && value.trim && value.trim().length > 0 ? undefined: 'required'
-};
+const requiredStr = value => (
+  value && value.trim && value.trim().length > 0 ? undefined: 'required'
+);
 
 const requiredNum = value => {
   if (value === null || isNaN(value)) {
@@ -104,18 +102,20 @@ const requiredNum = value => {
 
 
 const Input = props => (
-   <div className="example-form_item">
-     <label htmlFor={props.name} className="example-form_field-label">{props.label}</label>
-     <input 
-       id={props.name} 
-       ref={props.elementRef}
-       type={props.type? props.type: 'text'} 
-       placeholder={props.placeholder} 
-       value={props.value} 
-       onChange={props.handleChange} 
-       onBlur={props.handleBlur}/>
-     {props.error && props.touched && <p>{props.error}</p>}
-   </div>
+  <div className="example-form_item">
+    <label htmlFor={props.name} className="example-form_field-label">
+      {props.label}
+    </label>
+    <input 
+      id={props.name} 
+      ref={props.elementRef}
+      type={props.type? props.type: 'text'} 
+      placeholder={props.placeholder} 
+      value={props.value} 
+      onChange={props.handleChange} 
+      onBlur={props.handleBlur}/>
+    {props.error && props.touched && <p>{props.error}</p>}
+  </div>
 );
 
 const isChecked = target => target.checked;
@@ -127,8 +127,16 @@ const InputField = props => (
 const Checkbox = props => (
   <div className="example-form_item">
     <label htmlFor={props.name}>{props.label}</label>
-    <input id={props.name} type="checkbox" checked={props.value} onChange={props.handleChange}/>
+    <input id={props.name} 
+     type="checkbox" 
+     checked={props.value} 
+     onChange={props.handleChange}
+    />
   </div>
+);
+
+const CheckboxField = props => (
+  <Field component={Checkbox} getTargetValue={isChecked} {...props} />
 );
 
 const RadioButton = props => {
@@ -136,16 +144,22 @@ const RadioButton = props => {
   return (
      <div className="example-form_item">
       <label htmlFor={id}>{props.label}</label>
-      <input id={id} type="radio" name={props.name} value={props.radioValue} checked={props.radioValue===props.value} onChange={props.handleChange}/>
+      <input id={id} 
+        type="radio"
+        name={props.name}
+        value={props.radioValue}
+        onChange={props.handleChange}
+        checked={props.value===props.radioValue}
+      />
     </div>
   );
-};
-
-const CheckboxField = props => (
-  <Field component={Checkbox} getEventValue={isChecked} {...props} />
-);
+}
 
 const RadioField = props => (
-  <Field name={props.name} radioValue={props.value} component={RadioButton} label={props.label}/>
+  <Field 
+    name={props.name} 
+    component={RadioButton}
+    label={props.label}
+    radioValue={props.value}
+  />
 );
-
