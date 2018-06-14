@@ -36,7 +36,6 @@ class Field extends React.Component {
   };
 
   handleChange(event) {
-    console.log('handle change', event.target.value);
     this.props.updateValue(event.target);
     if (this.props.onChange) {
       this.setState({}, () => {
@@ -83,9 +82,6 @@ class Field extends React.Component {
 
 
   render () {
-    if (this.props.name === "isAgreed" || this.props.name ==="rb2") {
-      console.log(this.props.name, this.props);
-    }
     const props = this.props;
     const Component = props.component;
     const {
@@ -139,7 +135,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   const fieldName = ownProps.name;
   return {
     updateValue: target => {
-      console.log('Call dispatch with', updateField(fieldName, formatToStore(getTargetValue(target), ownProps)));
       dispatch(updateField(fieldName, formatToStore(getTargetValue(target), ownProps)));
     },
     setError: (error, touchedPayload = {}) => {
