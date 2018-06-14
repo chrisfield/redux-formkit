@@ -1,5 +1,6 @@
 import React from 'react';
-import Formkit, {Field, FieldArray, FormStatus, NamedValidationStatus, SubmissionError} from 'redux-formkit';
+import formkit, {Field, FieldArray, FormStatus, NamedValidationStatus, SubmissionError} from 'redux-formkit';
+//import {formkitWithoutRedux as formkit, Field, FieldArray, FormStatus, NamedValidationStatus, SubmissionError} from 'redux-formkit';
 
 import './ExampleForm.css';
 
@@ -33,8 +34,6 @@ const ExampleForm = (props) => (
         onChange={revalidateField2}
         validate={requiredMaxLength5}
       />
-
-      {JSON.stringify(props.form.getFormState().fieldValues.isAdditionalField)}
 
       <InputField label="2nd Field > 1st field" name="field2" validate={greaterThanField1}/>
       <div className="example-form_item_group">
@@ -149,7 +148,7 @@ const initialValues = {
 };
 
 
-export default Formkit({
+export default formkit({
   name: 'exampleF',
   initialValues: initialValues,
   onSubmit: submitAsynchronous,
@@ -183,7 +182,7 @@ const addCommas = number => {
   return number.toLocaleString();
 };
 
-const isChecked = event => event.target.checked;
+const isChecked = target => target.checked;
 
 const maxLength5 = (value, values) => (
   value && value.trim && value.trim().length > 5 ? 'maxLength': undefined

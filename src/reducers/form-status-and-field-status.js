@@ -36,7 +36,6 @@ const formStatusAndFieldStatusReducer = (formStatus = initialFormStatus, fieldSt
     }
     case actionTypes.DEREGISTER_FIELD: {
       const field = getField(fieldStatus, action.field) || {};
-      console.log('deregister-field', action.field, errorCount);
       return {
         formStatus: {...formStatus, errorCount: errorCount - (field.error? 1: 0)},
         fieldStatus: setField(fieldStatus, action.field, undefined)
@@ -44,7 +43,6 @@ const formStatusAndFieldStatusReducer = (formStatus = initialFormStatus, fieldSt
     }
     case actionTypes.SET_FIELD_ERROR: {
       const field = getField(fieldStatus, action.field) || {};
-      console.log('set-field-error', action.field, errorCount);
       return {
         formStatus: {...formStatus, errorCount: errorCount + (action.error? 1: 0) - (field.error? 1: 0)},
         fieldStatus: setField(fieldStatus, action.field, {...field, error: action.error, ...action.touchedPayload})

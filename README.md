@@ -3,10 +3,11 @@
 [![NPM Version](https://img.shields.io/npm/v/redux-formkit.svg?style=flat)](https://www.npmjs.com/package/redux-formkit)
 [![NPM Downloads](https://img.shields.io/npm/dm/redux-formkit.svg?style=flat)](https://npmcharts.com/compare/redux-formkit?minimal=true)
 
-Light-weight React components making it easy to write html forms connected to the Redux store. Includes validation, field-arrays, current valid/not-valid status and asynchronous submission.
+Connect React form inputs to the state. The kit supports Redux or standard React state (via context api) so it is easy to change from one to the other. It also includes validation, field-arrays, current valid/not-valid status and asynchronous submission.
 
 ## Motivation
-Redux-Formkit aims to provide simular functionality to the excellent [Redux-form](https://github.com/erikras/redux-form) but with a slightly lower level API implemented with a much smaller codebase.
+Redux-Formkit aims to provide simular functionality to [Redux-form](https://github.com/erikras/redux-form) but with a more tightly scoped API allowing a smaller codebase. Eg Formkit provides an api so it can be used with any component but has no knowledge of checkboxes etc.
+
 
 ## Features
 - Lightweight and fast
@@ -57,29 +58,53 @@ Then write your form
 
 ```javascript
 import React from 'react';
-import {Formkit, Field} from 'redux-formkit';
-
-import './ExampleForm.css';
-
+import formkit, {Field} from 'redux-formkit';
+//import {formkitWithoutRedux as formkit, Field} from 'redux-formkit';
 
 const ExampleForm = (props) => (
   <form className="example-form">
-    <Field
-      label="First Field"
-      name="field1"
-      component={Input}
-      validate={required}
-    />
+    <fieldset>
+      <Field
+        label="First Field"
+        name="field1"
+        component={Input}
+        validate={[requiredStr, maxLength5]}
+      />
 
+                                {/* Or you can define component that renders the Field */}
+      <InputField
+        name="theNumber"
+        label="Numeric Field"
+        formatToStore={number}
+        formatFromStore={addCommas}
+        validate={requiredNum}
+      />
+
+      <InputField
+        name="capitals"
+        label="Uppercase Field"
+        formatToStore={upper}
+      />
+
+
+      <CheckboxField name="isAgreed" label="Do you agree?"/>
+      
+      <div className="example-form_item_group">
+        <RadioField name="rb2" label="Red" value="R" />
+        <RadioField name="rb2" label="Green" value="G" />
+        <RadioField name="rb2" label="Blue" value="B" />
+      </div>
+
+    </fieldset>
+    
     <button
       type="button"
       onClick={props.form.handleSubmit} 
-      className="example-form_button"
     >
       Send
     </button>
             
-  </form>
+  </form>  
 );
 
 
@@ -88,15 +113,96 @@ function submitValues(values) {
 }
 
 function clearFormValues(form) {
-  form.props.updateFields({});
+  form.updateFields({});
 }
 
 
-export default Formkit({
+export default formkit({
   name: 'exampleF',
   onSubmit: submitValues,
   onSubmitSuccess: clearFormValues
 })(ExampleForm);
+
+
+
+/*
+  The following functions would normally be imported from separate files and reused across a project 
+*/
+const upper = str => str.toUpperCase();
+const number = str => parseInt(str.replace(/[^\d.-]/g, ""), 10);
+
+const addCommas = number => {
+  if (number === 0) {
+    return '0';
+  }
+  if (!number) {
+    return '';
+  }
+  return number.toLocaleString();
+};
+
+const maxLength5 = (value, values) => (
+  value && value.trim && value.trim().length > 5 ? 'maxLength': undefined
+);
+
+
+const requiredStr = value => {
+  return value && value.trim && value.trim().length > 0 ? undefined: 'required'
+};
+
+const requiredNum = value => {
+  if (value === null || isNaN(value)) {
+    return 'required';
+  }
+  return undefined;
+};
+
+
+const Input = props => (
+   <div className="example-form_item">
+     <label htmlFor={props.name} className="example-form_field-label">{props.label}</label>
+     <input 
+       id={props.name} 
+       ref={props.elementRef}
+       type={props.type? props.type: 'text'} 
+       placeholder={props.placeholder} 
+       value={props.value} 
+       onChange={props.handleChange} 
+       onBlur={props.handleBlur}/>
+     {props.error && props.touched && <p>{props.error}</p>}
+   </div>
+);
+
+const isChecked = target => target.checked;
+
+const InputField = props => (
+  <Field component={Input} {...props} />
+);
+
+const Checkbox = props => (
+  <div className="example-form_item">
+    <label htmlFor={props.name}>{props.label}</label>
+    <input id={props.name} type="checkbox" checked={props.value} onChange={props.handleChange}/>
+  </div>
+);
+
+const RadioButton = props => {
+  const id = `${props.name}-${props.radioValue}`;
+  return (
+     <div className="example-form_item">
+      <label htmlFor={id}>{props.label}</label>
+      <input id={id} type="radio" name={props.name} value={props.radioValue} checked={props.radioValue===props.value} onChange={props.handleChange}/>
+    </div>
+  );
+};
+
+const CheckboxField = props => (
+  <Field component={Checkbox} getEventValue={isChecked} {...props} />
+);
+
+const RadioField = props => (
+  <Field name={props.name} radioValue={props.value} component={RadioButton} label={props.label}/>
+);
 
 
 
@@ -173,10 +279,10 @@ The form prop will contain:
 
 * `getField: function` - call this to get a field instance eg
 ```
-form.getField('confirmPassword').revalidate();
+form.getField('confirmPassword').validate();
 ```
 
-* `props.fieldValues: object` - this can be used to access field values like in the [complex form example](https://github.com/chrisfield/redux-formkit/blob/master/examples/complex/src/components/ExampleForm.js).
+* `form.getFormState().fieldValues: object` - this can be used to access field values like in the [complex form example](https://github.com/chrisfield/redux-formkit/blob/master/examples/complex/src/components/ExampleForm.js).
 
 
 ### Field
@@ -189,8 +295,8 @@ const Input = props => (
        id={props.name}
        ref={props.elementRef}
        value={props.value}
-       onChange={props.update}
-       onBlur={props.validate}/>
+       onChange={props.handleChange}
+       onBlur={props.handleBlur}/>
      {props.error && props.touched && <p>{props.error}</p>}
    </div>
 );
@@ -217,7 +323,7 @@ Field will make use of the following props (other props will be passed straight 
 
 * `validate : optional function or array of functions` — Any validation functions will be called two parameters: First the formatted field value (eg will be numeric for number formatted fields); Second all the field-values (eg so it's easy to check one date is after another). Validation functions should return undefined if the validation passes or an error if the validation fails. The error will often be a string but it can be any object.
 
-* `format : optional function` — use this to convert the event.target.value to whatever semantic value makes sense to store in redux. Eg `format={str => str.toUpperCase}` will store the number as uppercase. 
+* `formatToStore : optional function` — use this to convert the event.target.value to whatever semantic value makes sense to store in redux. Eg `format={str => str.toUpperCase}` will store the number as uppercase. 
 
 * `formatFromStore : optional function` — use this to convert the value in redux to the value is expected by the rendered component. Eg: `formatFromStore={addCommas}` where `addcommas` is:
 ```
@@ -234,15 +340,14 @@ const addCommas = number => {
 ``` 
 
 Field will pass these props to the rendered component:
-* `form` Use to access other fields use form.getField('username'). 
-* `update`
-* `validate`
+* `handleChange`
+* `handleBlur`
 * `value`
 * `error`
 * `touched`
 
 
-### ValidationBlock
+### NamedValidationStatus
 This is simply a named container used to position form wide error messages as thrown by onSubmit functions
 
 

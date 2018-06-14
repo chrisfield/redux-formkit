@@ -36,7 +36,7 @@ class Field extends React.Component {
   };
 
   handleChange(event) {
-    this.props.updateValue(event);
+    this.props.updateValue(event.target);
     if (this.props.onChange) {
       this.setState({}, () => {
         this.props.onChange(this.props.form);
@@ -126,15 +126,15 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const defaultFormatToStore = value => value;
-const defaultGetEventValue = event => event.target.value;
+const defaultGetTargetValue = target => target.value;
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   const formatToStore = ownProps.formatToStore || defaultFormatToStore;
-  const getEventValue = ownProps.getEventValue || defaultGetEventValue;
+  const getTargetValue = ownProps.getEventValue || defaultGetTargetValue;
   const fieldName = ownProps.name;
   return {
-    updateValue: event => {
-      dispatch(updateField(fieldName, formatToStore(getEventValue(event))));
+    updateValue: target => {
+      dispatch(updateField(fieldName, formatToStore(getTargetValue(target))));
     },
     setError: (error, touchedPayload = {}) => {
       dispatch(setFieldError(fieldName, error, touchedPayload, ownProps.error));

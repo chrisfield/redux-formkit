@@ -164,7 +164,6 @@ const buildFormkit = (connect) => (
       function mapDispatchToProps(dispatch) {
         return {
           dispatch: action => {
-            console.log('dispatching', action);
             dispatch({...action, form: name})
           }
         };

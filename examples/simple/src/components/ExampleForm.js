@@ -1,8 +1,8 @@
 import React from 'react';
-import {Formkit, Field} from 'redux-formkit';
+import formkit, {Field} from 'redux-formkit';
+//import {formkitWithoutRedux as formkit, Field} from 'redux-formkit';
 
 import './ExampleForm.css';
-
 
 const ExampleForm = (props) => (
   <form className="example-form">
@@ -19,7 +19,7 @@ const ExampleForm = (props) => (
       <InputField
         name="theNumber"
         label="Numeric Field"
-        format={number}
+        formatToStore={number}
         formatFromStore={addCommas}
         validate={requiredNum}
       />
@@ -27,7 +27,7 @@ const ExampleForm = (props) => (
       <InputField
         name="capitals"
         label="Uppercase Field"
-        format={upper}
+        formatToStore={upper}
       />
 
 
@@ -58,11 +58,11 @@ function submitValues(values) {
 }
 
 function clearFormValues(form) {
-  form.props.updateFields({});
+  form.updateFields({});
 }
 
 
-export default Formkit({
+export default formkit({
   name: 'exampleF',
   onSubmit: submitValues,
   onSubmitSuccess: clearFormValues
@@ -112,11 +112,13 @@ const Input = props => (
        type={props.type? props.type: 'text'} 
        placeholder={props.placeholder} 
        value={props.value} 
-       onChange={props.update} 
-       onBlur={props.validate}/>
+       onChange={props.handleChange} 
+       onBlur={props.handleBlur}/>
      {props.error && props.touched && <p>{props.error}</p>}
    </div>
 );
+
+const isChecked = target => target.checked;
 
 const InputField = props => (
   <Field component={Input} {...props} />
@@ -125,7 +127,7 @@ const InputField = props => (
 const Checkbox = props => (
   <div className="example-form_item">
     <label htmlFor={props.name}>{props.label}</label>
-    <input id={props.name} type="checkbox" checked={props.value} onChange={props.update}/>
+    <input id={props.name} type="checkbox" checked={props.value} onChange={props.handleChange}/>
   </div>
 );
 
@@ -134,16 +136,16 @@ const RadioButton = props => {
   return (
      <div className="example-form_item">
       <label htmlFor={id}>{props.label}</label>
-      <input id={id} type="radio" value={props.radioValue} checked={props.radioValue===props.value} onChange={props.update}/>
+      <input id={id} type="radio" name={props.name} value={props.radioValue} checked={props.radioValue===props.value} onChange={props.handleChange}/>
     </div>
   );
 };
 
 const CheckboxField = props => (
-  <Field component={Checkbox} {...props} />
+  <Field component={Checkbox} getEventValue={isChecked} {...props} />
 );
 
 const RadioField = props => (
-  <Field name={props.name} radioValue={props.value} component={RadioButton} label={props.label} />
+  <Field name={props.name} radioValue={props.value} component={RadioButton} label={props.label}/>
 );
 
