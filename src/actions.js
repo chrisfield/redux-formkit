@@ -15,8 +15,8 @@ export const initFormState = (form) => (
   {type: actionTypes.INIT_FORM_STATE, form}
 );
 
-export const updateField = (field, value) => (
-  {type: actionTypes.UPDATE_FIELD, field, value}
+export const updateField = (field, value, error, touchedPayload) => (
+  {type: actionTypes.UPDATE_FIELD, field, value, error, touchedPayload}
 );
 
 export const updateFields = (payload) => (

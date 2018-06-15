@@ -13,11 +13,14 @@ class Field extends React.Component {
     this.validate = this.validate.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.showAnyErrors = this.showAnyErrors.bind(this);
+    this.getTargetValue = this.props.getTargetValue || defaultGetTargetValue;
+    this.formatToStore = this.props.formatToStore || defaultFormatToStore;
+
   }
 
   componentDidMount() {
     this.props.form.registerField(this);
-    this.validate({touched: false});
+    this.validate({touched: false}, true);
   }
 
   componentWillUnmount() {
@@ -62,9 +65,15 @@ class Field extends React.Component {
     }
   }
 
-  validate(touchedPayload) {
-    let rawValue = this.props.rawValue;
-    let fieldValues = this.props.form.getFormState().fieldValues;
+  validate(touchedPayload, isMount = false) {
+    let rawValue;
+    if (isMount && this.elementRef) {
+      rawValue = this.formatToStore(this.getTargetValue(this.elementRef));
+      console.log(`Mounting ${this.props.name} rawValue is ${rawValue} (was ${this.props.rawValue})`);
+    } else {
+      rawValue = this.props.rawValue;
+    }
+    const fieldValues = this.props.form.getFormState().fieldValues;
     let validateError;
     if (this.props.validate) {
       if (Array.isArray(this.props.validate)) {
@@ -134,6 +143,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   const getTargetValue = ownProps.getTargetValue || defaultGetTargetValue;
   const fieldName = ownProps.name;
   return {
+    updateField: (value, error, touchedPayload = {}) => {
+      dispatch(updateField(fieldName, value, error, touchedPayload));
+    },
     updateValue: target => {
       dispatch(updateField(fieldName, formatToStore(getTargetValue(target), ownProps)));
     },

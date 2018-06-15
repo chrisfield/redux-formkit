@@ -10,7 +10,7 @@ const defaultGetFormState = state => state.form;
 
 const buildFormkit = (connect) => (
   ({name, initialValues, onSubmit, onSubmitSuccess = noop, getFormState = defaultGetFormState}) => {
-    const initialState = reducer(undefined, initFormState(name))[name];
+    //const initialState = reducer(undefined, initFormState(name))[name];
     return Form => {
       class FormkitForm extends PureComponent {
         constructor(props) {
@@ -42,13 +42,13 @@ const buildFormkit = (connect) => (
         }
 
         componentDidMount() {
-          if (initialValues) {
-            this.updateFields({...this.props.formkitState, ...initialValues});
-          }
+          // if (initialValues) {
+          //   this.updateFields({...this.props.formkitState, ...initialValues});
+          // }
         }
 
         getFormState() {
-          return this.props.formkitState? this.props.formkitState: initialState;
+          return this.props.formkitState; // ? this.props.formkitState: initialState;
         }
 
         registerField(field) {
