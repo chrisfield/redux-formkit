@@ -143,9 +143,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     setTouched: touched => {
       dispatch(setFieldTouched(fieldName, touched));
     },
-    incrementErrorCount: (amount) => {
-      dispatch(incrementErrorCount(amount, ownProps.name));
-    },
     deregisterField: () => {
       dispatch(deregisterField(fieldName));
     }
