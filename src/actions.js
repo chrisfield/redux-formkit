@@ -4,7 +4,6 @@ export const actionTypes = {
   REMOVE_FROM_FIELD_ARRAY: 'REMOVE_FROM_FIELD_ARRAY',
   UPDATE_FIELD: 'UPDATE_FIELD',
   UPDATE_FIELDS: 'UPDATE_FIELDS',
-  SET_FIELD_ERROR: 'SET_FIELD_ERROR',
   SET_FIELD_TOUCHED: 'SET_FIELD_TOUCHED',
   START_SUBMIT: 'START_SUBMIT',
   STOP_SUBMIT: 'STOP_SUBMIT',
@@ -21,10 +20,6 @@ export const updateField = (field, value, error, touchedPayload) => (
 
 export const updateFields = (payload) => (
   {type: actionTypes.UPDATE_FIELDS, payload}
-);
-
-export const setFieldError = (field, error, touchedPayload, prevError) => (
-  {type: actionTypes.SET_FIELD_ERROR, field, error, touchedPayload, prevError}
 );
 
 export const setFieldTouched = (field, touched) => (

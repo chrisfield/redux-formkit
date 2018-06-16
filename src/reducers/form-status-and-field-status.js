@@ -26,7 +26,7 @@ const formStatusAndFieldStatusReducer = (formStatus = initialFormStatus, fieldSt
     case actionTypes.UPDATE_FIELDS: { // todo: untouch all fields 
       const nextFieldStatus = {};
       Object.keys(fieldStatus).forEach(field => {
-        const {touched, ...rest} = fieldStatus[field];
+        const {touched, ...rest} = fieldStatus[field] || {};
         nextFieldStatus[field] = rest;
       });
       return {
@@ -41,7 +41,7 @@ const formStatusAndFieldStatusReducer = (formStatus = initialFormStatus, fieldSt
         fieldStatus: setField(fieldStatus, action.field, undefined)
       };
     }
-    case actionTypes.SET_FIELD_ERROR: {
+    case actionTypes.UPDATE_FIELD: {
       const field = getField(fieldStatus, action.field) || {};
       return {
         formStatus: {...formStatus, errorCount: errorCount + (action.error? 1: 0) - (field.error? 1: 0)},

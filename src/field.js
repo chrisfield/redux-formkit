@@ -1,6 +1,6 @@
 import React from 'react';
 import connectToFormkit from './connect-to-formkit';
-import {updateField, setFieldError, setFieldTouched, incrementErrorCount, deregisterField} from './actions';
+import {updateField, setFieldError, setFieldTouched, deregisterField} from './actions';
 import getField from './state-utils/get-field';
 
 
@@ -20,7 +20,14 @@ class Field extends React.Component {
 
   componentDidMount() {
     this.props.form.registerField(this);
-    this.validate({touched: false}, true);
+    if (this.elementRef) {
+      if (!this.props.useTargetCondition || this.props.useTargetCondition(this.elementRef)) {
+        const rawValue = this.formatToStore(this.getTargetValue(this.elementRef));
+        this.validate(rawValue, {touched: false});
+      }        
+    } else {
+      this.validate(this.props.rawValue, {touched: false});
+    }    
   }
 
   componentWillUnmount() {
@@ -28,18 +35,12 @@ class Field extends React.Component {
     this.props.deregisterField();
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.rawValue !== prevProps.rawValue) {
-      this.validate();
-    }
-  }
-
   setElementRef(element) {
     this.elementRef = element;
   };
 
   handleChange(event) {
-    this.props.updateValue(event.target);
+    this.validate(this.formatToStore(this.getTargetValue(event.target)));
     if (this.props.onChange) {
       this.setState({}, () => {
         this.props.onChange(this.props.form);
@@ -65,14 +66,8 @@ class Field extends React.Component {
     }
   }
 
-  validate(touchedPayload, isMount = false) {
-    let rawValue;
-    if (isMount && this.elementRef) {
-      rawValue = this.formatToStore(this.getTargetValue(this.elementRef));
-      console.log(`Mounting ${this.props.name} rawValue is ${rawValue} (was ${this.props.rawValue})`);
-    } else {
-      rawValue = this.props.rawValue;
-    }
+
+  validate(rawValue=this.props.rawValue, touchedPayload = {}) {
     const fieldValues = this.props.form.getFormState().fieldValues;
     let validateError;
     if (this.props.validate) {
@@ -84,8 +79,12 @@ class Field extends React.Component {
         validateError = this.props.validate(rawValue, fieldValues);
       }
     }
-    if (touchedPayload || (validateError !== this.props.error)) {
-      this.props.setError(validateError, touchedPayload);
+    this.props.updateField(rawValue, validateError, touchedPayload);
+    if (this.props.onChange && (rawValue !== this.props.rawValue)) {
+      console.log('Onchange called by ${this.props.name}');
+      this.setState({}, () => {
+        this.props.onChange(this.props.form);
+      });
     }
   }
 
@@ -95,12 +94,12 @@ class Field extends React.Component {
     const Component = props.component;
     const {
       component,
-      updateValue,
+      updateField,
       formatFromStore,
       formatToStore,
       getNextCursorPosition,
       getTargetValue,
-      setError,
+      useTargetCondition,
       deregisterField,
       setTouched,
       validate,
@@ -139,18 +138,10 @@ const defaultFormatToStore = value => value;
 const defaultGetTargetValue = target => target.value;
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  const formatToStore = ownProps.formatToStore || defaultFormatToStore;
-  const getTargetValue = ownProps.getTargetValue || defaultGetTargetValue;
   const fieldName = ownProps.name;
   return {
     updateField: (value, error, touchedPayload = {}) => {
       dispatch(updateField(fieldName, value, error, touchedPayload));
-    },
-    updateValue: target => {
-      dispatch(updateField(fieldName, formatToStore(getTargetValue(target), ownProps)));
-    },
-    setError: (error, touchedPayload = {}) => {
-      dispatch(setFieldError(fieldName, error, touchedPayload, ownProps.error));
     },
     setTouched: touched => {
       dispatch(setFieldTouched(fieldName, touched));

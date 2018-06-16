@@ -61,6 +61,7 @@ function clearFormValues(form) {
 
 export default formkit({
   name: 'exampleF',
+  initialValues: {rb2: 'G'},
   onSubmit: submitValues,
   onSubmitSuccess: clearFormValues
 })(ExampleForm);

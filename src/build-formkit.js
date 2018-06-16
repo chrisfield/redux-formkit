@@ -1,8 +1,7 @@
 import React, {PureComponent} from 'react';
 import isPromise from 'is-promise';
 import FormkitContext from './formkit-context';
-import reducer from './reducers';
-import {initFormState, startSubmit, stopSubmit, updateFields} from './actions';
+import {startSubmit, stopSubmit, updateFields} from './actions';
 import SubmissionError from './submission-error';
 
 
@@ -10,11 +9,11 @@ const defaultGetFormState = state => state.form;
 
 const buildFormkit = (connect) => (
   ({name, initialValues, onSubmit, onSubmitSuccess = noop, getFormState = defaultGetFormState}) => {
-    //const initialState = reducer(undefined, initFormState(name))[name];
     return Form => {
       class FormkitForm extends PureComponent {
         constructor(props) {
-          super(props);
+          super(props); 
+          this.state = {isInitialized: this.props.formkitState !== undefined}
           this.fields = [];
           this.registerField = this.registerField.bind(this);
           this.deregisterField = this.deregisterField.bind(this);
@@ -42,13 +41,16 @@ const buildFormkit = (connect) => (
         }
 
         componentDidMount() {
-          // if (initialValues) {
-          //   this.updateFields({...this.props.formkitState, ...initialValues});
-          // }
+          if (initialValues) {
+            this.updateFields(initialValues);
+          } else if (!this.props.formkitState) {
+            this.updateFields({});
+          }
+          this.setState({isInitialized: true});
         }
 
         getFormState() {
-          return this.props.formkitState; // ? this.props.formkitState: initialState;
+          return this.props.formkitState;
         }
 
         registerField(field) {
@@ -146,6 +148,9 @@ const buildFormkit = (connect) => (
         }
 
         render() {
+          if (!this.state.isInitialized) {
+            return null;
+          }
           const formState = this.getFormState();
           return (
             <FormkitContext.Provider value={{formContext: this.formContext, formState}}>
@@ -156,9 +161,7 @@ const buildFormkit = (connect) => (
       }
 
       function mapStateToProps(state) {
-        return {
-          formkitState: getFormState(state)[name]
-        };
+        return {formkitState: getFormState(state)[name]};
       }
 
       function mapDispatchToProps(dispatch) {
