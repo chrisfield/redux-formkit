@@ -6,7 +6,7 @@
 Connect React form inputs to the state. The kit supports Redux or standard React state (via context api) so it is easy to change from one to the other. It also includes validation, field-arrays, current valid/not-valid status and asynchronous submission.
 
 ## Motivation
-Redux-Formkit aims to provide simular functionality to the excellent [Redux-form](https://github.com/erikras/redux-form) but with a really tightly scoped API allowing a smaller codebase. Eg Formkit provides an api so it can be used with any component but has no knowledge of checkboxes etc.
+Redux-Formkit aims to provide simular functionality to the excellent [Redux-form](https://github.com/erikras/redux-form) but with a really tightly scoped API allowing a smaller codebase. Eg Formkit provides an api so it can be used with any component but has no knowledge of checkboxes etc. It has been written specifically for SSR.
 
 
 ## Features
@@ -342,6 +342,8 @@ Field will pass these props to the rendered component:
 * `error`
 * `touched`
 
+### updateFieldsAction
+`updateFieldsAction(formName, values)` is the function to return an action object ready to dispatch to Redux.
 
 ### NamedValidationStatus
 This is simply a named container used to position form wide error messages as thrown by onSubmit functions
