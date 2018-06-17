@@ -3,6 +3,8 @@ import isPromise from 'is-promise';
 import FormkitContext from './formkit-context';
 import {startSubmit, stopSubmit, updateFields} from './actions';
 import SubmissionError from './submission-error';
+import getField from './state-utils/get-field';
+import isField from './state-utils/is-field';
 
 
 const defaultGetFormState = state => state.form;
@@ -18,6 +20,7 @@ const buildFormkit = (connect) => (
           this.registerField = this.registerField.bind(this);
           this.deregisterField = this.deregisterField.bind(this);
           this.getField = this.getField.bind(this);
+          this.getFieldInterface = this.getFieldInterface.bind(this);
           this.handleSubmit = this.handleSubmit.bind(this);
           this.updateFields = this.updateFields.bind(this);
           this.getFormState = this.getFormState.bind(this);
@@ -34,7 +37,7 @@ const buildFormkit = (connect) => (
           this.form = {
             handleSubmit: this.handleSubmit,
             updateFields: this.updateFields,
-            getField: this.getField,
+            getField: this.getFieldInterface,
             getFormState: this.getFormState
           };
   
@@ -79,9 +82,23 @@ const buildFormkit = (connect) => (
             }
           };
         }
+
+        getFieldInterface(name) {
+          for (let i = 0; i < this.fields.length; i++) {
+            if (this.fields[i].props.name === name) {
+              return this.fields[i].fieldInterface;
+            }
+          };
+        }
   
         updateFields(values) {
-          this.props.dispatch(updateFields(values));
+          this.props.dispatch(updateFields(values))
+          this.fields.forEach(field => {
+            if (isField(values, field.props.name)) {
+              const value = getField(values, field.props.name);
+              field.validate(value, {touched: false});
+            }
+          });
         }
   
         focusOnFieldWithError() {
@@ -153,7 +170,7 @@ const buildFormkit = (connect) => (
           }
           const formState = this.getFormState();
           return (
-            <FormkitContext.Provider value={{formContext: this.formContext, formState}}>
+            <FormkitContext.Provider value={{formContext: this.formContext, formInterface: this.form, formState}}>
               <Form {...this.props} form={this.form}/>
             </FormkitContext.Provider>    
           );

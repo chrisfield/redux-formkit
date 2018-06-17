@@ -38,7 +38,7 @@ const ExampleForm = (props) => (
         <CheckboxField name="isAdditionalField" label="Is Additional Field?"/>
         {  
          props.form.getFormState().fieldValues.isAdditionalField 
-          && <Field component="input" name="additionalField" validate={requiredStr} placeholder="Additional field"/>
+          && <Field component={InputField} name="additionalField" validate={requiredStr} placeholder="Additional field"/>
         }
       </div>
       

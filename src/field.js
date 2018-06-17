@@ -16,6 +16,9 @@ class Field extends React.Component {
     this.getTargetValue = this.props.getTargetValue || defaultGetTargetValue;
     this.formatToStore = this.props.formatToStore || defaultFormatToStore;
 
+    this.fieldInterface = {
+      validate: () => {this.validate(this.props.rawValue)}
+    }
   }
 
   componentDidMount() {
@@ -43,7 +46,7 @@ class Field extends React.Component {
     this.validate(this.formatToStore(this.getTargetValue(event.target)));
     if (this.props.onChange) {
       this.setState({}, () => {
-        this.props.onChange(this.props.form);
+        this.props.onChange(this.props.formInterface);
       });
     }
     if (this.props.getNextCursorPosition) {
@@ -67,7 +70,7 @@ class Field extends React.Component {
   }
 
 
-  validate(rawValue=this.props.rawValue, touchedPayload = {}) {
+  validate(rawValue, touchedPayload = {}) {
     const fieldValues = this.props.form.getFormState().fieldValues;
     let validateError;
     if (this.props.validate) {
@@ -81,7 +84,6 @@ class Field extends React.Component {
     }
     this.props.updateField(rawValue, validateError, touchedPayload);
     if (this.props.onChange && (rawValue !== this.props.rawValue)) {
-      console.log('Onchange called by ${this.props.name}');
       this.setState({}, () => {
         this.props.onChange(this.props.form);
       });

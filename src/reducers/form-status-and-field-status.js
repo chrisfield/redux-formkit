@@ -23,15 +23,10 @@ const formStatusAndFieldStatusReducer = (formStatus = initialFormStatus, fieldSt
         fieldStatus: fieldStatus
       }
     }
-    case actionTypes.UPDATE_FIELDS: { // todo: untouch all fields 
-      const nextFieldStatus = {};
-      Object.keys(fieldStatus).forEach(field => {
-        const {touched, ...rest} = fieldStatus[field] || {};
-        nextFieldStatus[field] = rest;
-      });
+    case actionTypes.UPDATE_FIELDS: {
       return {
-        formStatus: formStatus,
-        fieldStatus: nextFieldStatus
+        formStatus: initialFormStatus,
+        fieldStatus: initialFieldStatus
       }
     }
     case actionTypes.DEREGISTER_FIELD: {

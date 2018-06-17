@@ -263,22 +263,24 @@ The form prop will contain:
 * `updateFields: function` - call this to update field values (in the Redux store) eg
 ```
   function clearFormValues(form) {
-    form.props.updateFields({});
+    form.updateFields({});
   }
 
-
-  export default Formkit({
+  export default formkit({
     name: 'exampleF',
+    initialValues: {rb2: 'G'},
+    onSubmit: submitValues,
     onSubmitSuccess: clearFormValues
   })(ExampleForm);
+
 ```
 
 * `getField: function` - call this to get a field instance eg
 ```
 form.getField('confirmPassword').validate();
 ```
+The field interface object that is returned only has one method: validate.
 
-* `form.getFormState().fieldValues: object` - this can be used to access field values like in the [complex form example](https://github.com/chrisfield/redux-formkit/blob/master/examples/complex/src/components/ExampleForm.js).
 
 
 ### Field
