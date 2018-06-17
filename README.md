@@ -3,13 +3,15 @@
 [![NPM Version](https://img.shields.io/npm/v/redux-formkit.svg?style=flat)](https://www.npmjs.com/package/redux-formkit)
 [![NPM Downloads](https://img.shields.io/npm/dm/redux-formkit.svg?style=flat)](https://npmcharts.com/compare/redux-formkit?minimal=true)
 
-Connect React form inputs to the state. The kit supports Redux or standard React state (via context api) so it is easy to change from one to the other. It also includes validation, field-arrays, current valid/not-valid status and asynchronous submission.
+Connect form inputs to Redux or standard React state. Includes validation, field-arrays, current valid/not-valid status and asynchronous submission.
 
 ## Motivation
-Redux-Formkit aims to provide simular functionality to the excellent [Redux-form](https://github.com/erikras/redux-form) but with a really tightly scoped API allowing a smaller codebase. Eg Formkit provides an api so it can be used with any component but has no knowledge of checkboxes etc. It has been written specifically for SSR.
+Redux-Formkit aims to provide simular functionality to the excellent [Redux-form](https://github.com/erikras/redux-form) but with a really tightly scoped API allowing a smaller codebase. Eg it provides an api for connecting components but has no built in knowledge of checkboxes etc.
 
+## Server Side Rendering
+An isomorphic form with controlled inputs can be rendered on a server and arrive in the browser ready to use. With a slower internet connection the user could enter serveral values in standard html input fields before the javascript downloads and normally this data would be overwritten when the javascript binds to the initial state. The Redux-formkit Field component includes code to update the state with any data entered. In this way your form renders quickly, standard html elements are immediately usable, data is not lost and validation, formatting etc kick in as soon as the Javascript is available.
 
-## Features
+## Other Features
 - Lightweight and fast
 - Mimimal by design, leaves you in control
 - Redux is optional: no need to install it if you import {formkitWithoutRedux}
