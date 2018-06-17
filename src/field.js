@@ -85,7 +85,7 @@ class Field extends React.Component {
     this.props.updateField(rawValue, validateError, touchedPayload);
     if (this.props.onChange && (rawValue !== this.props.rawValue)) {
       this.setState({}, () => {
-        this.props.onChange(this.props.form);
+        this.props.onChange(this.props.formInterface);
       });
     }
   }

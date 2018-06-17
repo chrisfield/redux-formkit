@@ -12,7 +12,7 @@ const isField = (state, field) => {
   for (i = 0; i < length && result; ++i) {
     result = result[path[i]]
   }
-  return i === length;
+  return (i === length)? {value: result}: false;
 }
 
 export default isField;

@@ -131,7 +131,7 @@ function submitAsynchronous(values) {
 }
 
 function clearFormValues(form) {
-  form.updateFields({theNumber: 1999});
+  form.updateFields({theNumber: 1999, rb2: 'B'});
 }
 
 

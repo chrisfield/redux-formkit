@@ -68,10 +68,8 @@ const buildFormkit = (connect) => (
         }
   
         markAllFieldsAsTouched() {
-          this.fields.forEach(({props: field}) => {
-            if (!field.touched) {
-              field.setTouched(true);
-            }
+          this.fields.forEach(field => {
+            field.props.setTouched(true);
           });
         }
   
@@ -94,9 +92,9 @@ const buildFormkit = (connect) => (
         updateFields(values) {
           this.props.dispatch(updateFields(values))
           this.fields.forEach(field => {
-            if (isField(values, field.props.name)) {
-              const value = getField(values, field.props.name);
-              field.validate(value, {touched: false});
+            const fieldValueInObject = isField(values, field.props.name);
+            if (fieldValueInObject) {
+              field.validate(fieldValueInObject.value, {touched: false});
             }
           });
         }
