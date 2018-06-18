@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import connectToFormkit from './connect-to-formkit';
 import getField from './state-utils/get-field';
 

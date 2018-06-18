@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import formkit, {Field, FieldArray, FormStatus, NamedValidationStatus, SubmissionError} from 'redux-formkit';
 
 
@@ -155,7 +156,6 @@ export default formkit({
 
 
 const revalidateField2 = form => {
-  console.log(`form.getField('field2')`, form.getField('field2'));
   form.getField('field2').validate();
 }
 
@@ -250,5 +250,7 @@ const RadioField = props => (
   <Field name={props.name} radioValue={props.value} useTargetCondition={isChecked} getTargetValue={getRadioValue} component={RadioButton} label={props.label}/>
 );
 
-
+ExampleForm.propTypes = {
+  form: PropTypes.object.isRequired
+}
 

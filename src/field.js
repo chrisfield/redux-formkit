@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import connectToFormkit from './connect-to-formkit';
-import {updateField, setFieldError, setFieldTouched, deregisterField} from './actions';
+import {updateField, setFieldTouched, deregisterField} from './actions';
 import getField from './state-utils/get-field';
 
 
@@ -43,7 +44,8 @@ class Field extends React.Component {
   };
 
   handleChange(event) {
-    this.validate(this.formatToStore(this.getTargetValue(event.target)));
+    const value = this.formatToStore(this.getTargetValue(event.target));
+    this.validate(value);
     if (this.props.onChange) {
       this.setState({}, () => {
         this.props.onChange(this.props.formInterface);
@@ -52,9 +54,9 @@ class Field extends React.Component {
     if (this.props.getNextCursorPosition) {
       const target = event.target;
       const previousPosition = target.selectionStart;
-      const previousValue = this.props.value;
+      const previousValue = this.props.formatFromStore(this.props.rawValue);
       this.setState({}, () => {
-        const nextPosition = this.props.getNextCursorPosition(previousPosition, previousValue, this.props.value);
+        const nextPosition = this.props.getNextCursorPosition(previousPosition, previousValue, this.props.formatFromStore(value));
         target.setSelectionRange(nextPosition, nextPosition);
       });
     }
@@ -93,6 +95,7 @@ class Field extends React.Component {
 
   render () {
     const props = this.props;
+    const value = props.formatFromStore(props.rawValue); 
     const Component = props.component;
     const {
       component,
@@ -113,31 +116,63 @@ class Field extends React.Component {
       ...givenProps
     } = props;
     if (typeof Component === 'string') {
-      return <Component {...givenProps} ref={this.setElementRef} onChange={this.handleChange} onBlur={this.showAnyErrors}/>
+      return <Component {...givenProps} ref={this.setElementRef} value={value} onChange={this.handleChange} onBlur={this.showAnyErrors}/>
     } else {
-      return <Component {...givenProps} setElementRef={this.setElementRef} handleChange={this.handleChange} handleBlur={this.showAnyErrors} error={error} touched={touched}/>      
+      return <Component {...givenProps} setElementRef={this.setElementRef} value={value} handleChange={this.handleChange} handleBlur={this.showAnyErrors} error={error} touched={touched}/>      
     }
   }
 }
 
-const defaultFormatFromStore = (value = '') => value;
+Field.propTypes = {
+  formkitForm: PropTypes.object.isRequired,
+  formInterface: PropTypes.object.isRequired,
+  name: PropTypes.string.isRequired,
+  rawValue: PropTypes.any,
+  touched: PropTypes.bool.isRequired,
+  error: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object
+  ]),
+  component: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.func,
+    PropTypes.element
+  ]).isRequired,
+  updateField: PropTypes.func.isRequired,
+  setTouched: PropTypes.func.isRequired,
+  deregisterField: PropTypes.func.isRequired,
+  getTargetValue: PropTypes.func.isRequired,
+  formatFromStore: PropTypes.func.isRequired,
+  formatToStore: PropTypes.func.isRequired,
+  validate: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.array
+  ]),
+  onChange: PropTypes.func,
+  useTargetCondition: PropTypes.func,
+  getNextCursorPosition: PropTypes.func
+}
+
+Field.defaultProps = {
+  formatFromStore: (value = '') => value,
+  formatToStore: value => value,
+  getTargetValue: target => target.value
+};
+
 
 const mapStateToProps = (state, ownProps) => {
-  const formatFromStore = ownProps.formatFromStore || defaultFormatFromStore;
   const rawValue = getField(state.fieldValues, ownProps.name);
   const status = getField(state.fieldStatus, ownProps.name) || {};
   const touched = status.touched || !ownProps.validate;
-  const error = status.error || getField(state.fieldErrors, ownProps.name);
+  const error = status.error? status.error: getField(state.fieldErrors, ownProps.name);
   return {
-    value: formatFromStore(rawValue),
     rawValue,
     error,
     touched
   };
 };
 
-const defaultFormatToStore = value => value;
-const defaultGetTargetValue = target => target.value;
+
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   const fieldName = ownProps.name;

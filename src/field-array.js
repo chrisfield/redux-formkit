@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import connectToFormkit from './connect-to-formkit';
 import {pushToFieldArray, removeFromFieldArray} from './actions';
 import getField from './state-utils/get-field';
@@ -21,6 +22,18 @@ class FieldArray extends React.PureComponent {
     return <Component {...rest} fields={fields} />
   }
 }
+
+FieldArray.propTypes = {
+  name: PropTypes.string.isRequired,
+  fields: PropTypes.array.isRequired,
+  push: PropTypes.func.isRequired,
+  remove: PropTypes.func.isRequired,
+  component: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.func,
+    PropTypes.element
+  ]).isRequired
+};
 
 const mapStateToProps = (state, ownProps) => ({
   fields: getField(state.fieldValues, ownProps.name) || []
