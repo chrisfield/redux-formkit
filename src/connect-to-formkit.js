@@ -3,7 +3,7 @@ import FormkitContext from './formkit-context';
 
 const connectToForm = (mapStateToProps, mapDispatchToProps = noop) => {
     return Field => {
-      class FieldWithEvents extends PureComponent {
+      class FieldWithDispatchProps extends PureComponent {
         constructor(props) {
           super(props);
           this.dispatch = this.dispatch.bind(this);
@@ -15,7 +15,7 @@ const connectToForm = (mapStateToProps, mapDispatchToProps = noop) => {
         }
   
         dispatch(action) {
-          this.props.form.dispatch(action);
+          this.props.formkitForm.dispatch(action);
         }
         
         render() {
@@ -27,9 +27,9 @@ const connectToForm = (mapStateToProps, mapDispatchToProps = noop) => {
   
       const FieldWithContext = React.forwardRef(props => (
         <FormkitContext.Consumer>
-          {({formContext, formInterface, formState}) => {
+          {({formkitForm, formInterface, formState}) => {
             const stateProps = mapStateToProps(formState, props);
-            return <FieldWithEvents form={formContext} formInterface={formInterface} {...stateProps} {...props}/>
+            return <FieldWithDispatchProps formkitForm={formkitForm} formInterface={formInterface} {...stateProps} {...props}/>
           }}
         </FormkitContext.Consumer>
       ));

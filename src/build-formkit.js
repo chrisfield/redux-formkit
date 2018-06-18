@@ -25,7 +25,7 @@ const buildFormkit = (connect) => (
           this.updateFields = this.updateFields.bind(this);
           this.getFormState = this.getFormState.bind(this);
 
-          this.formContext = {
+          this.formkitForm = {
             name,
             dispatch: this.props.dispatch,
             getFormState: this.getFormState,
@@ -34,7 +34,7 @@ const buildFormkit = (connect) => (
             getField: this.getField
           };
 
-          this.form = {
+          this.formInterface = {
             handleSubmit: this.handleSubmit,
             updateFields: this.updateFields,
             getField: this.getFieldInterface,
@@ -140,13 +140,13 @@ const buildFormkit = (connect) => (
   
             if (!isPromise(submitResult)) {
               this.props.dispatch(stopSubmit());
-              onSubmitSuccess(this.form);
+              onSubmitSuccess(this.formInterface);
               return;
             }
             return submitResult.then(
               () => {
                 this.props.dispatch(stopSubmit());
-                onSubmitSuccess(this.form);
+                onSubmitSuccess(this.formInterface);
                 return;
               },
               (asyncError) => {
@@ -168,8 +168,8 @@ const buildFormkit = (connect) => (
           }
           const formState = this.getFormState();
           return (
-            <FormkitContext.Provider value={{formContext: this.formContext, formInterface: this.form, formState}}>
-              <Form {...this.props} form={this.form}/>
+            <FormkitContext.Provider value={{formkitForm: this.formkitForm, formInterface: this.formInterface, formState}}>
+              <Form {...this.props} form={this.formInterface}/>
             </FormkitContext.Provider>    
           );
         }

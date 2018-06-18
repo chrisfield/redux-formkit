@@ -22,7 +22,7 @@ class Field extends React.Component {
   }
 
   componentDidMount() {
-    this.props.form.registerField(this);
+    this.props.formkitForm.registerField(this);
     if (this.elementRef) {
       if (!this.props.useTargetCondition || this.props.useTargetCondition(this.elementRef)) {
         const rawValue = this.formatToStore(this.getTargetValue(this.elementRef));
@@ -34,7 +34,7 @@ class Field extends React.Component {
   }
 
   componentWillUnmount() {
-    this.props.form.deregisterField(this);
+    this.props.formkitForm.deregisterField(this);
     this.props.deregisterField();
   }
 
@@ -71,7 +71,7 @@ class Field extends React.Component {
 
 
   validate(rawValue, touchedPayload = {}) {
-    const fieldValues = this.props.form.getFormState().fieldValues;
+    const fieldValues = this.props.formkitForm.getFormState().fieldValues;
     let validateError;
     if (this.props.validate) {
       if (Array.isArray(this.props.validate)) {
