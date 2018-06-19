@@ -9,11 +9,13 @@ Connect form inputs to Redux or standard React state. Includes validation, field
 Redux-Formkit aims to provide simular functionality to the excellent [Redux-form](https://github.com/erikras/redux-form) but with a really tightly scoped API allowing a smaller codebase. Eg it provides an api for connecting components but has no built in knowledge of checkboxes etc.
 
 ## Server Side Rendering
-An isomorphic form with controlled inputs can be rendered on a server and arrive in the browser ready to use. With a slower internet connection the user could enter serveral values in standard html input fields before the javascript downloads and normally this data would be overwritten when the javascript binds to the initial state. The Redux-formkit Field component includes code to update the state with any data entered. In this way your form renders quickly, standard html elements are immediately usable, data is not lost and validation, formatting etc kick in as soon as the Javascript is available.
+An isomorphic form with controlled inputs can be rendered on a server and arrive in the browser ready to use. With a slower internet connection the user could enter serveral values in standard html input fields before the javascript downloads and normally this data would be overwritten when the javascript sets controlled input values from the initial state. 
+
+The Redux-formkit Field component includes code to update the state with any data entered. In this way your form renders quickly, standard html elements are immediately usable, data is not lost and validation, formatting etc kick in as soon as the Javascript is available.
+
+Being light weight it is also good for clientside JS/
 
 ## Other Features
-- Lightweight and fast
-- Mimimal by design, leaves you in control
 - Redux is optional: no need to install it if you import {formkitWithoutRedux}
 - Not cluttered with ui components
 - Simple to use API
@@ -26,7 +28,7 @@ An isomorphic form with controlled inputs can be rendered on a server and arrive
 - Asynchronous validation
 - Stores values as semantic types, eg number fields will store numbers
 - Format values, eg to put commas in numbers
-- Sets cursor focus at start and after sumbit validation
+- Sets cursor focus at start
 - Works with NextJS. Values quickly entered into SSR fields are used when the client JS loads. 
 
 
