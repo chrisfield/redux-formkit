@@ -95,7 +95,6 @@ class Field extends React.Component {
 
 
   render () {
-    console.log('render field ' + this.props.name);
     const props = this.props;
     const value = props.formatFromStore(props.rawValue); 
     const Component = props.component;
