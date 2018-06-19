@@ -40,7 +40,12 @@ const formStatusAndFieldStatusReducer = (formStatus = initialFormStatus, fieldSt
       const field = getField(fieldStatus, action.field) || {};
       return {
         formStatus: {...formStatus, errorCount: errorCount + (action.error? 1: 0) - (field.error? 1: 0)},
-        fieldStatus: setField(fieldStatus, action.field, {...field, error: action.error, ...action.touchedPayload})
+        fieldStatus: setField(fieldStatus, action.field, {
+          ...field,
+          error: action.error,
+          ...action.touchedPayload, 
+          isValidated: action.isValidated
+        })
       };
     }
     case actionTypes.SET_FIELD_TOUCHED: {

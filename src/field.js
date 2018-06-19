@@ -18,7 +18,7 @@ class Field extends React.Component {
     this.formatToStore = this.props.formatToStore || defaultFormatToStore;
 
     this.fieldInterface = {
-      validate: () => {this.validate(this.props.rawValue)}
+      validate: () => {this.validate(this.props.rawValue, undefined, true)}
     }
   }
 
@@ -34,6 +34,12 @@ class Field extends React.Component {
     }    
   }
 
+  componentDidUpdate() {
+    if (!this.props.isValidated) {
+      this.validate(this.props.rawValue, undefined);
+    }
+  }
+
   componentWillUnmount() {
     this.props.formkitForm.deregisterField(this);
     this.props.deregisterField();
@@ -45,12 +51,7 @@ class Field extends React.Component {
 
   handleChange(event) {
     const value = this.formatToStore(this.getTargetValue(event.target));
-    this.validate(value);
-    if (this.props.onChange) {
-      this.setState({}, () => {
-        this.props.onChange(this.props.formInterface);
-      });
-    }
+    this.validate(value, undefined, true);
     if (this.props.getNextCursorPosition) {
       const target = event.target;
       const previousPosition = target.selectionStart;
@@ -72,10 +73,10 @@ class Field extends React.Component {
   }
 
 
-  validate(rawValue, touchedPayload = {}) {
-    const fieldValues = this.props.formkitForm.getFormState().fieldValues;
+  validate(rawValue, touchedPayload = {}, runOnChange = false) {
     let validateError;
     if (this.props.validate) {
+      const fieldValues = this.props.formkitForm.getFormState().fieldValues;
       if (Array.isArray(this.props.validate)) {
         for (let i = 0; i < this.props.validate.length && !validateError; i++) {
           validateError = this.props.validate[i](rawValue, fieldValues);
@@ -85,7 +86,7 @@ class Field extends React.Component {
       }
     }
     this.props.updateField(rawValue, validateError, touchedPayload);
-    if (this.props.onChange && (rawValue !== this.props.rawValue)) {
+    if (runOnChange && this.props.onChange) {
       this.setState({}, () => {
         this.props.onChange(this.props.formInterface);
       });
@@ -94,6 +95,7 @@ class Field extends React.Component {
 
 
   render () {
+    console.log('render field ' + this.props.name);
     const props = this.props;
     const value = props.formatFromStore(props.rawValue); 
     const Component = props.component;
@@ -168,7 +170,8 @@ const mapStateToProps = (state, ownProps) => {
   return {
     rawValue,
     error,
-    touched
+    touched,
+    isValidated: status.isValidated === true
   };
 };
 
@@ -178,7 +181,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   const fieldName = ownProps.name;
   return {
     updateField: (value, error, touchedPayload = {}) => {
-      dispatch(updateField(fieldName, value, error, touchedPayload));
+      dispatch(updateField(fieldName, value, error, touchedPayload, true));
     },
     setTouched: touched => {
       dispatch(setFieldTouched(fieldName, touched));

@@ -1,5 +1,6 @@
 import withRedux from '../utils/withRedux';
 import ExampleForm from '../components/ExampleForm';
+import FormStateUpdater from '../components/form-state-updater';
 import { initStore } from '../store';
 import {updateFieldsAction} from 'redux-formkit';
 import rootReducer from '../reducers';
@@ -7,6 +8,7 @@ import rootReducer from '../reducers';
 const Index = () => (
   <div>
     <ExampleForm/>
+    <FormStateUpdater/>
   </div>
 );
 
