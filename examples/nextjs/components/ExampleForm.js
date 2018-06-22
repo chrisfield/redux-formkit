@@ -3,89 +3,112 @@ import PropTypes from 'prop-types';
 import formkit, {Field, FieldArray, FormStatus, NamedValidationStatus, SubmissionError} from 'redux-formkit';
 
 
-const ExampleForm = (props) => (
-  <form className="example-form">
-    <fieldset>
-      <legend className="example-form_title">
-        Example form
-      </legend>
-      <FormStatus>
-        {({isValid, isSubmitting, errorCount}) => {
-          return(
-            <div className="example-form_status">
-              Form is {isValid? '': 'not yet '}valid. Error count: {errorCount}. Submitting: {isSubmitting + ''}
-            </div>
-          )
-        }}
-      </FormStatus>
-      <NamedValidationStatus name="formErrorAtTop" >
-        {({error}) => {
-          if (error) {
-            return <p>{error}</p>
-          };
-          return null;
-        }}
-      </NamedValidationStatus>
-      <InputField
-        label="First Field"
-        name="field1"
-        onChange={revalidateField2}
-        validate={requiredMaxLength5}
-      />
+const ExampleForm = (props) => {
+  console.log('render example form');
+  return (
+    <form className="example-form">
+      <fieldset>
+        <legend>
+          Example form
+        </legend>
+        <FormStatus>
+          {({isValid, isSubmitting, errorCount}) => {
+            return(
+              <div className="example-form_status">
+                Form is {isValid? '': 'not yet '}valid. Error count: {errorCount}. Submitting: {isSubmitting + ''}
+              </div>
+            )
+          }}
+        </FormStatus>
+        <NamedValidationStatus name="formErrorAtTop" >
+          {({error}) => {
+            if (error) {
+              return <p>{error}</p>
+            };
+            return null;
+          }}
+        </NamedValidationStatus>
+        <InputField
+          label="First Field"
+          name="field1"
+          onChange={revalidateField2}
+          validate={requiredMaxLength5}
+        />
 
-      <InputField label="2nd Field > 1st field" name="field2" validate={greaterThanField1}/>
-      <div className="example-form_item_group">
-        <CheckboxField name="isAgreed" label="Can the server have a number bigger than 42?" onChange={revalidateTheNumber}/>
-        <CheckboxField name="isAdditionalField" label="Is Additional Field?"/>
-        {  
-         props.form.getFormState().fieldValues.isAdditionalField 
-          && <Field component={InputField} name="additionalField" validate={requiredStr} placeholder="Additional field"/>
-        }
-      </div>
+        <InputField label="2nd Field > 1st field" name="field2" validate={greaterThanField1}/>
+        <div className="example-form_item_group">
+          <CheckboxField name="isAgreed" label="Can the server have a number bigger than 42?" onChange={revalidateTheNumber}/>
+          <CheckboxField name="isAdditionalField" label="Is Additional Field?"/>
+          {  
+          props.form.getFormState().fieldValues.isAdditionalField 
+            && <Field component={InputField} name="additionalField" validate={requiredStr} placeholder="Additional field"/>
+          }
+        </div>
+        
+        <div>
+          <label className="radioButtons_label">Favorate color</label>
+          <div className="radioButtons">
+            <RadioField name="rb2" label="Red" value="R"/>
+            <RadioField name="rb2" label="Green" value="G"/>
+            <RadioField name="rb2" label="Blue" value="B"/>
+          </div>
+        </div>
+        <InputField
+          name="theNumber"
+          label="Numeric Field"
+          formatToStore={number}
+          formatFromStore={addCommas}
+          validate={requiredNum}
+        />
+        <InputField
+          name="capitals"
+          label="Uppercase Field"
+          formatFromStore={upper}
+          formatToStore={lower}
+          getNextCursorPosition={getNextCursorPosition}
+        />
+      </fieldset>
       
-      <div className="example-form_item_group">
-        <RadioField name="rb2" label="Red" value="R"/>
-        <RadioField name="rb2" label="Green" value="G"/>
-        <RadioField name="rb2" label="Blue" value="B"/>
+      <FieldArray
+        name="hobbies"
+        component={renderHobbies}
+      />
+      <div className="example-form_item">
+        <FormStatus>
+          {({isSubmitting, isValid}) => {
+            return(
+              <button
+                type="button"
+                onClick={props.form.handleSubmit} 
+                className={`submitButton ${isValid? 'submitButton-valid': ''}`}
+                disabled={isSubmitting}
+              >
+                Send
+              </button>
+            )
+          }}
+        </FormStatus>
       </div>
-      <InputField
-        name="theNumber"
-        label="Numeric Field"
-        formatToStore={number}
-        formatFromStore={addCommas}
-        validate={requiredNum}
-      />
-      <InputField
-        name="capitals"
-        label="Uppercase Field"
-        formatFromStore={upper}
-        formatToStore={lower}
-        getNextCursorPosition={getNextCursorPosition}
-      />
-    </fieldset>
-    
-    <FieldArray
-      name="hobbies"
-      component={renderHobbies}
-    />
-    <div className="example-form_item">
-      <FormStatus>
-        {({isSubmitting, isValid}) => {
-          return(
-            <button
-              type="button"
-              onClick={props.form.handleSubmit} 
-              className={`example-form_button ${isValid? 'example-form_button-valid': ''}`}
-              disabled={isSubmitting}
-            >
-              Send
-            </button>
-          )
-        }}
-      </FormStatus>
-    </div>
-  </form>  
-);
+      <style jsx>{`
+        .radioButtons {
+          margin-top: 5px;
+          margin-bottom: 5px;
+          display: inline-flex;
+        }
+        .radioButtons_label {
+          display: inline-block;
+          width: 150px;
+          text-align: right;
+          padding-right: 10px;
+        }
+        .submitButton-valid {
+          background-color: green;
+        }
+      `}
+      </style>
+    </form>  
+  );
+}
 
 
 const renderHobbies = ({form, fields}) => (
@@ -94,18 +117,23 @@ const renderHobbies = ({form, fields}) => (
       Hobbies
     </legend>
     {fields.map((hobby, index) => (
-      <div key={hobby}>
+      <div key={hobby} className="hobby">
         <InputField
           key={hobby}
           name={`${hobby}.description`}
           validate={requiredStr}
           label={`Hobby #${index + 1}`}
-        >
-          <button type="button" title="Remove Hobby" onClick={() => fields.remove(index)}>-</button>
-        </InputField>
+        />
+        <button type="button" title="Remove Hobby" onClick={() => fields.remove(index)}>-</button>
       </div>
     ))}
     <button type="button" onClick={() => fields.push()}>Add Hobby</button>
+    <style jsx>{`
+      .hobby {
+        display: flex;
+      }
+    `}
+    </style>
   </fieldset>
 );
 
@@ -202,19 +230,36 @@ const requiredNum = value => {
 };
 
 const Input = props => (
-   <div className="example-form_item">
-     <label htmlFor={props.name} className="example-form_field-label">{props.label}</label>
-     <input
+  <div>
+    <label htmlFor={props.name}>{props.label}</label>
+    <input
        ref={props.setElementRef}
        id={props.name} 
        type={props.type? props.type: 'text'} 
        placeholder={props.placeholder} 
        value={props.value} 
        onChange={props.handleChange} 
-       onBlur={props.handleBlur}/>
-     {props.children}
-     {props.error && props.touched && <p>{props.error}</p>}
-   </div>
+       onBlur={props.handleBlur}
+    />
+    {props.children}
+    {props.error && props.touched && <p className="error">{props.error}</p>}
+    <style jsx>{`
+      div {
+        margin-top: 5px;
+        margin-bottom: 5px;
+      }
+      label {
+        display: inline-block;
+        width: 150px;
+        text-align: right;
+        padding-right: 10px;
+      }
+      .error {
+        margin-left: 160px;
+      }
+    `}
+    </style>     
+  </div>
 );
 
 const InputField = props => (
@@ -222,9 +267,24 @@ const InputField = props => (
 );
 
 const Checkbox = props => (
-  <div className="example-form_item">
+  <div>
     <label htmlFor={props.name}>{props.label}</label>
     <input id={props.name} ref={props.setElementRef} type="checkbox" checked={props.value} onChange={props.handleChange}/>
+    <style jsx>{`
+      div {
+        display: flex;
+        align-items: center;
+        margin-top: 5px;
+        margin-bottom: 5px;
+      }
+      label {
+        display: inline-block;
+        width: 150px;
+        text-align: right;
+        padding-right: 10px;
+      }
+    `}
+    </style>   
   </div>
 );
 
@@ -235,9 +295,9 @@ const getRadioValue = (target) => (
 const RadioButton = props => {
   const id = `${props.name}-${props.radioValue}`;
   return (
-     <div className="example-form_item">
-      <label htmlFor={id}>{props.label}</label>
+    <div>
       <input id={id} type="radio" ref={props.setElementRef} name={props.name} value={props.radioValue} checked={props.radioValue===props.value} onChange={props.handleChange}/>
+      <label htmlFor={id}>{props.label}</label>
     </div>
   );
 };

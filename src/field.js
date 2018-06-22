@@ -5,7 +5,7 @@ import {updateField, setFieldTouched, deregisterField} from './actions';
 import getField from './state-utils/get-field';
 
 
-class Field extends React.Component {
+class Field extends React.PureComponent {
 
   constructor(props) {
     super(props);
@@ -44,6 +44,22 @@ class Field extends React.Component {
     this.props.formkitForm.deregisterField(this);
     this.props.deregisterField();
   }
+
+  componentWillReceiveProps(nextProps) {
+    console.log(`Field ${this.props.name} old and new props`, this.props, nextProps);
+    Object.keys(nextProps).filter(key => {
+      return nextProps[key] !== this.props[key];
+    }).map(key => {
+      console.log(
+        'changed property:',
+        key,
+        'from',
+        this.props[key],
+        'to',
+        nextProps[key]
+      );
+    });
+  }  
 
   setElementRef(element) {
     this.elementRef = element;
@@ -95,6 +111,7 @@ class Field extends React.Component {
 
 
   render () {
+    console.log('render field ' + this.props.name);
     const props = this.props;
     const value = props.formatFromStore(props.rawValue); 
     const Component = props.component;

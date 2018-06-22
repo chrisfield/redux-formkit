@@ -5,8 +5,12 @@ import {pushToFieldArray, removeFromFieldArray} from './actions';
 import getField from './state-utils/get-field';
 
 class FieldArray extends React.PureComponent {
+  componentWillReceiveProps(nextProps) {
+    console.log('FieldArray old and new props', this.props, nextProps)
+  }
 
   render () {
+    console.log('Render Field Array');
     const fields = {
       map: callback => (
         (this.props.fields || []).map((item, index) =>
