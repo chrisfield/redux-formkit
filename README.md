@@ -6,30 +6,30 @@
 Connect form inputs to Redux or standard React state. Includes validation, field-arrays, current valid/not-valid status and asynchronous submission.
 
 ## Motivation
-Redux-Formkit aims to provide simular functionality to the excellent [Redux-form](https://github.com/erikras/redux-form) but with a really tightly scoped API allowing a smaller codebase. Eg it provides an api for connecting components but has no built in knowledge of checkboxes etc.
+Redux-Formkit aims to provide simular functionality to the excellent [Redux-form](https://github.com/erikras/redux-form) but with a really tightly scoped API allowing a smaller codebase (over 80% less code). Eg it provides an api for connecting components but has no built in knowledge of checkboxes etc.
+
+
+## Features
+- Easy to migrate from/to redux-form
+- Light weight (packed size under 50kb)
+- Not cluttered with ui components
+- Stores values as semantic types, eg number fields will store numbers
+- Format values, eg to put commas in numbers
+- Isomophic support (see paragraph below and Next-js example).
+- Uses Context Api (introduced in from React 16.3)
+- Redux is optional: no need to install it if you import {formkitWithoutRedux}
+- Field-arrays for repeated rows with add/remove
+- Form error-count/valid-status is easy to access, eg to put a tick next to the submit button
+- Synchronous validation including flexible support for inter-field valiation
+- Asynchronous validation
+
 
 ## Server Side Rendering
-An isomorphic form with controlled inputs will rendered on the server and arrive in the browser ready to use. With a slower internet connection the user could enter serveral values in standard html input fields before the javascript downloads and normally this data would be overwritten when the javascript sets controlled input values from the initial state. 
+Isomorphic forms rendered on the server and arrive in the browser ready to use. With a slower internet connection the user could enter serveral values before the javascript downloads and normally this data would be overwritten when the javascript sets controlled input values. 
 
 The Redux-formkit Field component includes code to update the state with any data entered. In this way your form renders quickly, standard html elements are immediately usable, data is not lost and validation, formatting etc kick in as soon as the Javascript is available.
 
 Being light weight it is also good for clientside JS.
-
-## Features
-- Redux is optional: no need to install it if you import {formkitWithoutRedux}
-- Not cluttered with ui components
-- Simple to use API
-- Easy to migrate from/to redux-form
-- Uses Context Api (introduced in from React 16.3)
-- Field-arrays for repeated rows with add/remove
-- Nested FieldArrays in case a repeated row has child repeating rows.
-- Form error-count/valid-status is easy to access, eg to put a tick next to the submit button
-- Synchronous validation including flexible support for inter-field valiation
-- Asynchronous validation
-- Stores values as semantic types, eg number fields will store numbers
-- Format values, eg to put commas in numbers
-- Light weight (packed size under 50kb)
-- Works with NextJS so values entered while the JS downloads are not overwritten. 
 
 
 ## Getting Started
