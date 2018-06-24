@@ -163,7 +163,6 @@ const buildFormkit = (connect) => (
         }
 
         render() {
-          console.log('render form');
           if (!this.state.isInitialized) {
             return null;
           }

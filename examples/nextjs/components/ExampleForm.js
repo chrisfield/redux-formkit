@@ -4,7 +4,6 @@ import formkit, {Field, FieldArray, FormStatus, NamedValidationStatus, Submissio
 
 
 const ExampleForm = (props) => {
-  console.log('render example form');
   return (
     <form className="example-form">
       <fieldset>

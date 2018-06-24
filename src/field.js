@@ -43,22 +43,6 @@ class Field extends React.PureComponent {
   componentWillUnmount() {
     this.props.formkitForm.deregisterField(this);
     this.props.deregisterField();
-  }
-
-  componentWillReceiveProps(nextProps) {
-    console.log(`Field ${this.props.name} old and new props`, this.props, nextProps);
-    Object.keys(nextProps).filter(key => {
-      return nextProps[key] !== this.props[key];
-    }).map(key => {
-      console.log(
-        'changed property:',
-        key,
-        'from',
-        this.props[key],
-        'to',
-        nextProps[key]
-      );
-    });
   }  
 
   setElementRef(element) {
@@ -111,7 +95,6 @@ class Field extends React.PureComponent {
 
 
   render () {
-    console.log('render field ' + this.props.name);
     const props = this.props;
     const value = props.formatFromStore(props.rawValue); 
     const Component = props.component;
@@ -130,7 +113,6 @@ class Field extends React.PureComponent {
       rawValue,
       error,
       touched,
-      showAnyErrors,
       ...givenProps
     } = props;
     if (typeof Component === 'string') {
