@@ -6,7 +6,7 @@
 Connect form inputs to Redux or standard React state. Includes validation, field-arrays, current valid/not-valid status and asynchronous submission.
 
 ## Motivation
-Redux-Formkit aims to provide simular functionality to the excellent [Redux-form](https://github.com/erikras/redux-form) but with a really tightly scoped API allowing a smaller codebase (over 80% less code). Eg it provides an api for connecting components but has no built in knowledge of checkboxes etc.
+Redux-Formkit aims to provide simular functionality to the excellent [Redux-form](https://github.com/erikras/redux-form) but with a really tightly scoped API allowing a smaller codebase (over 80% smaller). Eg it provides an api for connecting components but has no built in knowledge of checkboxes etc.
 
 
 ## Features
@@ -264,6 +264,12 @@ The form prop will contain:
 ```
 
 
+* `getFormState: function` - call this to get the form state
+```
+props.form.getFormState().fieldValues.isAdditionalField
+```
+
+
 * `updateFields: function` - call this to update field values (in the Redux store) eg
 ```
   function clearFormValues(form) {
@@ -284,7 +290,6 @@ The form prop will contain:
 form.getField('confirmPassword').validate();
 ```
 The field interface object that is returned only has one method: validate.
-
 
 
 ### Field
@@ -341,15 +346,26 @@ const addCommas = number => {
 
 ``` 
 
+* `getNextCursorPosition : optional function` — provide a function to preserve the cursor position when formatFromStore is used. It will be called with parameters: previousPosition, previousValue, newValue and should return the next cursor position.
+
+* `getTargetValue : optional function` — provide a function to get the value. It will be called with the event as a parameter.
+
+* `useTargetCondition : optional function` — Only relevant for isomorphic forms. Will be called onComponentMount with the element defined by setElementRef.  If it returns true the value of the element will be used to update the store.
+
+
 Field will pass these props to the rendered component:
-* `handleChange`
-* `handleBlur`
-* `value`
-* `error`
-* `touched`
+* `handleChange` function to call onChange
+* `handleBlur` function to call onBlur
+* `value` value formatted from the store
+* `error` string or object. Will be undefined for a valid field 
+* `touched` boolen
+* `setElementRef` function that can be pass this an the ref prop
 
 ### updateFieldsAction
-`updateFieldsAction(formName, values)` is the function to return an action object ready to dispatch to Redux.
+`updateFieldsAction(formName, values)` returns an action object ready to dispatch to Redux. Dispatching this will reinitialize the for updating all form fields with the values provided.
+
+### updateFieldAction
+`updateFieldAction(formName, value)` returns an action object ready to dispatch to Redux. Dispatching this will update one field leving the others unchanged.
 
 ### NamedValidationStatus
 This is simply a named container used to position form wide error messages as thrown by onSubmit functions
