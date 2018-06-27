@@ -5,6 +5,13 @@ import {pushToFieldArray, removeFromFieldArray} from './actions';
 import getField from './state-utils/get-field';
 
 class FieldArray extends React.PureComponent {
+  componentDidMount() {
+    this.props.formkitForm.registerFieldArray(this);
+  }
+
+  componentWillUnmount() {
+    this.props.formkitForm.deregisterFieldArray(this);
+  }  
 
   render () {
     const fields = {

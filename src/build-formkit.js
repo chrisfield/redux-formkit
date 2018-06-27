@@ -4,7 +4,6 @@ import isPromise from 'is-promise';
 import FormkitContext from './formkit-context';
 import {startSubmit, stopSubmit, updateFields} from './actions';
 import SubmissionError from './submission-error';
-import isField from './state-utils/is-field';
 
 
 const defaultGetFormState = state => state.form;
@@ -17,9 +16,13 @@ const buildFormkit = (connect) => (
           super(props); 
           this.state = {isInitialized: this.props.formState !== undefined}
           this.fields = [];
+          this.fieldArrays = [];
           this.registerField = this.registerField.bind(this);
           this.deregisterField = this.deregisterField.bind(this);
+          this.registerFieldArray = this.registerFieldArray.bind(this);
+          this.deregisterFieldArray = this.deregisterFieldArray.bind(this);
           this.getField = this.getField.bind(this);
+          this.getFieldArray = this.getFieldArray.bind(this);
           this.getFieldInterface = this.getFieldInterface.bind(this);
           this.handleSubmit = this.handleSubmit.bind(this);
           this.updateFields = this.updateFields.bind(this);
@@ -31,13 +34,17 @@ const buildFormkit = (connect) => (
             getFormState: this.getFormState,
             registerField: this.registerField,
             deregisterField: this.registerField,
-            getField: this.getField
+            registerFieldArray: this.registerFieldArray,
+            deregisterFieldArray: this.registerFieldArray,
+            getField: this.getField,
+            getFieldArray: this.getFieldArray
           };
 
           this.formInterface = {
             handleSubmit: this.handleSubmit,
             updateFields: this.updateFields,
             getField: this.getFieldInterface,
+            getFieldArray: this.getFieldArray,
             getFormState: this.getFormState
           };
   
@@ -59,11 +66,24 @@ const buildFormkit = (connect) => (
         registerField(field) {
           this.fields.push(field);
         }
-  
+
         deregisterField(field) { 
-          const index = this.fields.indexOf(field);
+          this.setState(() => {
+            const index = this.fields.indexOf(field);
+            if (index > -1) {
+              this.fields.splice(index, 1);
+            }
+          }, field.props.deregisterField);
+        }        
+
+        registerFieldArray(fieldArray) {
+          this.fieldArrays.push(fieldArray);
+        }
+  
+        deregisterFieldArray(fieldArray) { 
+          const index = this.fieldArrays.indexOf(fieldArray);
           if (index > -1) {
-            this.fields.splice(index, 1);
+            this.fieldArrays.splice(index, 1);
           }
         }
   
@@ -73,10 +93,19 @@ const buildFormkit = (connect) => (
           });
         }
   
+  
         getField(name) {
           for (let i = 0; i < this.fields.length; i++) {
             if (this.fields[i].props.name === name) {
               return this.fields[i];
+            }
+          };
+        }
+
+        getFieldArray(name) {
+          for (let i = 0; i < this.fieldArrays.length; i++) {
+            if (this.fieldArrays[i].props.name === name) {
+              return this.fieldArrays[i];
             }
           };
         }
@@ -91,12 +120,12 @@ const buildFormkit = (connect) => (
   
         updateFields(values) {
           this.props.dispatch(updateFields(values))
-          this.fields.forEach(field => {
-            const fieldValueInObject = isField(values, field.props.name);
-            if (fieldValueInObject) {
-              field.validate(fieldValueInObject.value, {touched: false});
-            }
-          });
+          // this.fields.forEach(field => {
+          //   const fieldValueInObject = isField(values, field.props.name);
+          //   if (fieldValueInObject) {
+          //     field.validate(fieldValueInObject.value, {touched: false});
+          //   }
+          // });
         }
   
         focusOnFieldWithError() {

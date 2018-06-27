@@ -11,25 +11,25 @@ Redux-Formkit aims to provide simular functionality to the excellent [Redux-form
 
 ## Features
 - Easy to migrate from/to redux-form
-- Light weight (packed size under 50kb)
-- Not cluttered with ui components
+- Packed size under 50kb
+- Not cluttered with ui components or ad-hoc code
 - Stores values as semantic types, eg number fields will store numbers
 - Format values, eg to put commas in numbers
 - Isomophic support (see paragraph below and Next-js example).
 - Uses Context Api (introduced in from React 16.3)
-- Redux is optional: no need to install it if you import {formkitWithoutRedux}
+- Use it with or without Redux and switch anytime by changing a sinple import. 
 - Field-arrays for repeated rows with add/remove
-- Form error-count/valid-status is easy to access, eg to put a tick next to the submit button
+- Access the Error-count running total and valid-status
 - Synchronous validation including flexible support for inter-field valiation
 - Asynchronous validation
 
 
-## Server Side Rendering
-Isomorphic forms rendered on the server and arrive in the browser ready to use. With a slower internet connection the user could enter serveral values before the javascript downloads and normally this data would be overwritten when the javascript sets controlled input values. 
+## Client and Server Side Rendering
+Users with a slow internet connection could use a server rendered form as soon as it arrives but before the javascript downloads. Unfortunately the data they enter would be overwritten when the javascript initiates and sets the controlled input values to match the redux-state. One way to counter this is to initially disable the form inputs.
 
-The Redux-formkit Field component includes code to update the state with any data entered. In this way your form renders quickly, standard html elements are immediately usable, data is not lost and validation, formatting etc kick in as soon as the Javascript is available.
+The Redux-formkit provides an alternative solution. The Field component includes code to update the redux-state using any data entered. In this way your form renders quickly, standard html elements are immediately usable, data is not lost and validation, formatting etc kick in as soon as the Javascript is available.
 
-Being light weight it is also good for clientside JS.
+It is also great for clientside JS.
 
 
 ## Getting Started
@@ -257,7 +257,7 @@ The config object can contain:
 * `onSubmitSuccess : optional function` — use this to reset the form fields or show a feedback message etc. It will be passed the form instance as a parameter.
 
 
-The form prop will contain:
+The form prop passed to your form will contain:
 * `handleSubmit: function` - call this to initiate form submission eg 
 ```
   <button onClick={props.form.handleSubmit}>Send</button>
@@ -300,7 +300,7 @@ const Input = props => (
      <label htmlFor={props.name}>{props.label}</label>
      <input
        id={props.name}
-       ref={props.elementRef}
+       ref={props.setElementRef}
        value={props.value}
        onChange={props.handleChange}
        onBlur={props.handleBlur}/>
@@ -326,7 +326,7 @@ and use it on the form:
 Field will make use of the following props (other props will be passed straight through to the rendered component):
 * `name : required string` — the name of the field eg 'postcode'
 
-* `component : optional string or function` — the component to render. Eg like `component="input"` will render an input html element and component={Input} will call Input to render the component defined above. If no component is passed-in the Field component will look to render a function-as-child component (An unlikely but possible use-case).
+* `component : required string or function` — the component to render. Eg like `component="input"` will render an input html element and component={Input} will call Input to render the component defined above. 
 
 * `validate : optional function or array of functions` — Any validation functions will be called two parameters: First the formatted field value (eg will be numeric for number formatted fields); Second all the field-values (eg so it's easy to check one date is after another). Validation functions should return undefined if the validation passes or an error if the validation fails. The error will often be a string but it can be any object.
 
@@ -350,7 +350,7 @@ const addCommas = number => {
 
 * `getTargetValue : optional function` — provide a function to get the value. It will be called with the event as a parameter.
 
-* `useTargetCondition : optional function` — Only relevant for isomorphic forms. Will be called onComponentMount with the element defined by setElementRef.  If it returns true the value of the element will be used to update the store.
+* `useTargetCondition : optional function` — Only relevant for isomorphic forms. Will be called onComponentMount with the elementRef as a parameter.  If it returns true the value of the element will be used to update the store. See it used on the radio-buttons in the next-js example.
 
 
 Field will pass these props to the rendered component:
@@ -369,6 +369,3 @@ Field will pass these props to the rendered component:
 
 ### NamedValidationStatus
 This is simply a named container used to position form wide error messages as thrown by onSubmit functions
-
-
-
