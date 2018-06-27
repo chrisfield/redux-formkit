@@ -13,7 +13,7 @@
     "react-scripts": "1.1.4",
     "redux": "^4.0.0",
     "redux-devtools-extension": "^2.13.2",
-    "redux-formkit": "^2.1.7"
+    "redux-formkit": "^2.1.8"
   },
   "scripts": {
     "start": "react-scripts start",
