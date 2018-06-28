@@ -18,6 +18,6 @@
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
     "redux-devtools-extension": "^2.13.2",
-    "redux-formkit": "^2.1.8"
+    "redux-formkit": "^2.1.9"
   }
 }
