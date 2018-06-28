@@ -64,20 +64,9 @@ Then write your form
 ```javascript
 import React from 'react';
 import formkit, {Field} from 'redux-formkit';
-//import {formkitWithoutRedux as formkit, Field} from 'redux-formkit';
 
 const ExampleForm = (props) => (
   <form className="example-form">
-    <fieldset>
-      <Field
-        label="First Field"
-        name="field1"
-        component={Input}
-        validate={[requiredStr, maxLength5]}
-      />
-
-                                {/* Or you can define component that 
-                                    renders the Field */}
       <InputField
         name="theNumber"
         label="Numeric Field"
@@ -100,19 +89,12 @@ const ExampleForm = (props) => (
         <RadioField name="rb2" label="Green" value="G" />
         <RadioField name="rb2" label="Blue" value="B" />
       </div>
-
-    </fieldset>
     
-    <button
-      type="button"
-      onClick={props.form.handleSubmit} 
-    >
+    <button onClick={props.form.handleSubmit}>
       Send
-    </button>
-            
+    </button>            
   </form>  
 );
-
 
 function submitValues(values) {
   window.alert(`You submitted:${JSON.stringify(values, null, 2)}`)
@@ -125,10 +107,10 @@ function clearFormValues(form) {
 
 export default formkit({
   name: 'exampleF',
+  initialValues: {rb2: 'G'},
   onSubmit: submitValues,
   onSubmitSuccess: clearFormValues
 })(ExampleForm);
-
 
 
 /*
@@ -148,15 +130,6 @@ const addCommas = number => {
   return number.toLocaleString();
 };
 
-const maxLength5 = (value, values) => (
-  value && value.trim && value.trim().length > 5 ? 'maxLength': undefined
-);
-
-
-const requiredStr = value => (
-  value && value.trim && value.trim().length > 0 ? undefined: 'required'
-);
-
 const requiredNum = value => {
   if (value === null || isNaN(value)) {
     return 'required';
@@ -172,7 +145,7 @@ const Input = props => (
     </label>
     <input 
       id={props.name} 
-      ref={props.elementRef}
+      ref={props.setElementRef}
       type={props.type? props.type: 'text'} 
       placeholder={props.placeholder} 
       value={props.value} 
@@ -182,11 +155,11 @@ const Input = props => (
   </div>
 );
 
-const isChecked = target => target.checked;
-
 const InputField = props => (
   <Field component={Input} {...props} />
 );
+
+const isChecked = target => target.checked;
 
 const Checkbox = props => (
   <div className="example-form_item">
@@ -227,6 +200,7 @@ const RadioField = props => (
     radioValue={props.value}
   />
 );
+
 ```
 
 
@@ -368,4 +342,4 @@ Field will pass these props to the rendered component:
 `updateFieldAction(formName, value)` returns an action object ready to dispatch to Redux. Dispatching this will update one field leving the others unchanged.
 
 ### NamedValidationStatus
-This is simply a named container used to position form wide error messages as thrown by onSubmit functions
+This is simply a named container used to position error messages. It can be used to render field error messages separately from the field and also for form wide error messages as thrown by the onSubmit function.

@@ -1,6 +1,7 @@
 import React from 'react';
-import formkit, {Field, FieldArray, FormStatus, NamedValidationStatus, SubmissionError} from 'redux-formkit';
-//import {formkitWithoutRedux as formkit, Field, FieldArray, FormStatus, NamedValidationStatus, SubmissionError} from 'redux-formkit';
+import formkit, {FieldArray, FormStatus, NamedValidationStatus, SubmissionError} from 'redux-formkit';
+import {InputField, RadioField, CheckboxField} from './form-controls';
+import {upper, lower, number, addCommas, maxLength, requiredStr, requiredNum} from './form-controls/utils';
 
 import './ExampleForm.css';
 
@@ -41,7 +42,7 @@ const ExampleForm = (props) => (
         <CheckboxField name="isAdditionalField" label="Is Additional Field?"/>
         {  
           props.form.getFormState().fieldValues.isAdditionalField 
-          && <Field component="input" name="additionalField" validate={requiredStr} placeholder="Additional field"/>
+          && <InputField name="additionalField" validate={requiredStr} placeholder="Additional field"/>
         }
       </div>
       
@@ -158,94 +159,11 @@ export default formkit({
 
 const revalidateField2 = form => {
   form.getField('field2').validate();
-}
+};
 
 const revalidateTheNumber = form => {
   form.getField('theNumber').validate();
-}
-
-/*
-  The following functions would normally be imported from separate files 
-  and reused across a project 
-*/
-const upper = value => ((value && value.toUpperCase())||'');
-const lower = value => ((value && value.toLowerCase())||'');
-const number = str => parseInt(str.replace(/[^\d.-]/g, ""), 10);
-
-const addCommas = number => {
-  if (number === 0) {
-    return '0';
-  }
-  if (!number) {
-    return '';
-  }
-  return number.toLocaleString();
 };
 
-const isChecked = target => target.checked;
-
-const maxLength5 = (value, values) => (
-  value && value.trim && value.trim().length > 5 ? 'maxLength': undefined
-);
-
-
-const requiredStr = value => {
-  return value && value.trim && value.trim().length > 0 ? undefined: 'required'
-};
-
+const maxLength5 = maxLength(5);
 const requiredMaxLength5 = [requiredStr, maxLength5];
-
-const requiredNum = value => {
-  if (value === null || isNaN(value)) {
-    return 'required';
-  }
-  return undefined;
-};
-
-const Input = props => (
-   <div className="example-form_item">
-     <label htmlFor={props.name} className="example-form_field-label">{props.label}</label>
-     <input
-       ref={props.setElementRef}
-       id={props.name} 
-       type={props.type? props.type: 'text'} 
-       placeholder={props.placeholder} 
-       value={props.value} 
-       onChange={props.handleChange} 
-       onBlur={props.handleBlur}/>
-     {props.children}
-     {props.error && props.touched && <p>{props.error}</p>}
-   </div>
-);
-
-const InputField = props => (
-  <Field component={Input} {...props} />
-);
-
-const Checkbox = props => (
-  <div className="example-form_item">
-    <label htmlFor={props.name}>{props.label}</label>
-    <input id={props.name} type="checkbox" checked={props.value} onChange={props.handleChange}/>
-  </div>
-);
-
-const RadioButton = props => {
-  const id = `${props.name}-${props.radioValue}`;
-  return (
-     <div className="example-form_item">
-      <label htmlFor={id}>{props.label}</label>
-      <input id={id} type="radio" name={props.name} value={props.radioValue} checked={props.radioValue===props.value} onChange={props.handleChange}/>
-    </div>
-  );
-};
-
-const CheckboxField = props => (
-  <Field component={Checkbox} getTargetValue={isChecked} {...props} />
-);
-
-const RadioField = props => (
-  <Field name={props.name} radioValue={props.value} component={RadioButton} label={props.label}/>
-);
-
-
-

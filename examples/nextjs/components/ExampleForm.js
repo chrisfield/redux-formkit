@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import formkit, {Field, FieldArray, FormStatus, NamedValidationStatus, SubmissionError} from 'redux-formkit';
-
+import formkit, {FieldArray, FormStatus, NamedValidationStatus, SubmissionError} from 'redux-formkit';
+import {InputField, RadioField, CheckboxField} from './form-controls';
+import {upper, lower, number, addCommas, maxLength, requiredStr, requiredNum} from './form-controls/utils';
 
 const ExampleForm = (props) => {
   return (
@@ -40,7 +41,7 @@ const ExampleForm = (props) => {
           <CheckboxField name="isAdditionalField" label="Is Additional Field?"/>
           {  
           props.form.getFormState().fieldValues.isAdditionalField 
-            && <Field component={InputField} name="additionalField" validate={requiredStr} placeholder="Additional field"/>
+            && <InputField name="additionalField" validate={requiredStr} placeholder="Additional field"/>
           }
         </div>
         
@@ -140,9 +141,7 @@ const greaterThanField1 = (value, values) => (
   values && value > values.field1? undefined: 'greaterThanField1'
 );
 
-const getNextCursorPosition = (prevPosition, previousValue, nextValue) => (
-  prevPosition
-);
+const getNextCursorPosition = prevPosition => (prevPosition);
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
@@ -162,21 +161,8 @@ function clearFormValues(form) {
   form.updateFields({theNumber: 1999, rb2: 'B'});
 }
 
-
-const initialValues = {
-  hobbies: [
-    {description: 'stamp collecting'}
-  ],
-  field1: 'def',
-  theNumber: 42,
-  isAgreed: true,
-  rb2: 'G'
-};
-
-
 export default formkit({
   name: 'exampleF',
-  initialValues: undefined, //initialValues,
   onSubmit: submitAsynchronous,
   onSubmitSuccess: clearFormValues
 })(ExampleForm);
@@ -190,124 +176,8 @@ const revalidateTheNumber = form => {
   form.getField('theNumber').validate();
 }
 
-/*
-  The following functions would normally be imported from separate files 
-  and reused across a project 
-*/
-const upper = value => ((value && value.toUpperCase())||'');
-const lower = value => ((value && value.toLowerCase())||'');
-const number = str => parseInt(str.replace(/[^\d.-]/g, ""), 10);
-
-const addCommas = number => {
-  if (number === 0) {
-    return '0';
-  }
-  if (!number) {
-    return '';
-  }
-  return number.toLocaleString();
-};
-
-const isChecked = target => target.checked;
-
-const maxLength5 = (value, values) => (
-  value && value.trim && value.trim().length > 5 ? 'maxLength': undefined
-);
-
-
-const requiredStr = value => {
-  return value && value.trim && value.trim().length > 0 ? undefined: 'required'
-};
-
+const maxLength5 = maxLength(5);
 const requiredMaxLength5 = [requiredStr, maxLength5];
-
-const requiredNum = value => {
-  if (value === null || isNaN(value)) {
-    return 'required';
-  }
-  return undefined;
-};
-
-const Input = props => (
-  <div>
-    <label htmlFor={props.name}>{props.label}</label>
-    <input
-       ref={props.setElementRef}
-       id={props.name} 
-       type={props.type? props.type: 'text'} 
-       placeholder={props.placeholder} 
-       value={props.value} 
-       onChange={props.handleChange} 
-       onBlur={props.handleBlur}
-    />
-    {props.children}
-    {props.error && props.touched && <p className="error">{props.error}</p>}
-    <style jsx>{`
-      div {
-        margin-top: 5px;
-        margin-bottom: 5px;
-      }
-      label {
-        display: inline-block;
-        width: 150px;
-        text-align: right;
-        padding-right: 10px;
-      }
-      .error {
-        margin-left: 160px;
-      }
-    `}
-    </style>     
-  </div>
-);
-
-const InputField = props => (
-  <Field component={Input} {...props} />
-);
-
-const Checkbox = props => (
-  <div>
-    <label htmlFor={props.name}>{props.label}</label>
-    <input id={props.name} ref={props.setElementRef} type="checkbox" checked={props.value} onChange={props.handleChange}/>
-    <style jsx>{`
-      div {
-        display: flex;
-        align-items: center;
-        margin-top: 5px;
-        margin-bottom: 5px;
-      }
-      label {
-        display: inline-block;
-        width: 150px;
-        text-align: right;
-        padding-right: 10px;
-      }
-    `}
-    </style>   
-  </div>
-);
-
-const getRadioValue = (target) => (
-  target.checked? target.value: prevValue
-);
-
-const RadioButton = props => {
-  const id = `${props.name}-${props.radioValue}`;
-  return (
-    <div>
-      <input id={id} type="radio" ref={props.setElementRef} name={props.name} value={props.radioValue} checked={props.radioValue===props.value} onChange={props.handleChange}/>
-      <label htmlFor={id}>{props.label}</label>
-    </div>
-  );
-};
-
-const CheckboxField = props => (
-  <Field component={Checkbox} getTargetValue={isChecked} {...props} />
-);
-
-const RadioField = props => (
-  <Field name={props.name} radioValue={props.value} useTargetCondition={isChecked} getTargetValue={getRadioValue} component={RadioButton} label={props.label}/>
-);
 
 ExampleForm.propTypes = {
   form: PropTypes.object.isRequired
