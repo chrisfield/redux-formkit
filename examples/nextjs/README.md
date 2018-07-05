@@ -25,7 +25,7 @@ Next.js will server render the form so that when the page reaches the browser it
 
 When the js bundle downloads redux-formkit will compare the value of each actual field with the initial value provided from the redux-store. Where these values are different redux-formkit will run the validation, the formatting and update the redux store with the user entered value.
 
-No extra code is required for this to happen other than passing 'ref={props.elementRef}' to the form input/select etc.
+No extra code is required for this to happen other than passing 'ref={props.setElementRef}' to the form input/select etc.
 
 
 ## Features

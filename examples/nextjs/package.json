@@ -12,12 +12,12 @@
   "license": "ISC",
   "dependencies": {
     "babel-preset-env": "^1.7.0",
-    "next": "^6.0.3",
+    "next": "^6.1.1",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
-    "redux-devtools-extension": "^2.13.2",
-    "redux-formkit": "^2.1.9"
+    "redux-devtools-extension": "^2.13.5",
+    "redux-formkit": "^2.1.10"
   }
 }

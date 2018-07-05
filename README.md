@@ -3,7 +3,7 @@
 [![NPM Version](https://img.shields.io/npm/v/redux-formkit.svg?style=flat)](https://www.npmjs.com/package/redux-formkit)
 [![NPM Downloads](https://img.shields.io/npm/dm/redux-formkit.svg?style=flat)](https://npmcharts.com/compare/redux-formkit?minimal=true)
 
-Connect form inputs to Redux or standard React state. Includes validation, field-arrays, current valid/not-valid status and asynchronous submission.
+Connect form inputs to Redux or standard React state. Includes validation, field-arrays, current valid/not-valid status, asynchronous submission and Isomorphic features for [nextjs](https://nextjs.org/).
 
 ## Motivation
 Redux-Formkit aims to provide simular functionality to the excellent [Redux-form](https://github.com/erikras/redux-form) but with a really tightly scoped API allowing a smaller codebase (over 80% smaller). Eg it provides an api for connecting components but has no built in knowledge of checkboxes etc.
@@ -17,17 +17,19 @@ Redux-Formkit aims to provide simular functionality to the excellent [Redux-form
 - Format values, eg to put commas in numbers
 - Isomophic support (see paragraph below and Next-js example).
 - Uses Context Api (introduced in from React 16.3)
-- Use it with or without Redux and switch anytime by changing a sinple import. 
+- Use it with or without Redux and switch anytime by changing one import. 
 - Field-arrays for repeated rows with add/remove
-- Access the Error-count running total and valid-status
+- Keeps a running error-count and valid/not valid status
 - Synchronous validation including flexible support for inter-field valiation
 - Asynchronous validation
 
 
 ## Client and Server Side Rendering
-Users with a slow internet connection could use a server rendered form as soon as it arrives but before the javascript downloads. Unfortunately the data they enter would be overwritten when the javascript initiates and sets the controlled input values to match the redux-state. One way to counter this is to initially disable the form inputs.
+Users with a slow internet connection who use a server rendered form as soon as it arrives but before the javascript downloads would unfortunately see the data disappear when the javascript initiates and sets the controlled input values to match the redux-state. One way to counter this would be to initially disable the form inputs.
 
-The Redux-formkit provides an alternative solution. The Field component includes code to update the redux-state using any data entered. In this way your form renders quickly, standard html elements are immediately usable, data is not lost and validation, formatting etc kick in as soon as the Javascript is available.
+The Redux-formkit provides an alternative solution. The Field component includes code to update the redux-state using any data entered. In this way your form renders quickly, standard html elements are immediately usable, data is not lost and validation, formatting etc kick in as soon as the Javascript is available. 
+
+To see this in action run the [nextjs example](https://github.com/chrisfield/redux-formkit/tree/master/examples/nextjs) and in the chrome dev-tools network tab choose the slow-3g option. While the javascript is downloading you will be able to use the server rendered html-form.
 
 It is also great for clientside JS.
 

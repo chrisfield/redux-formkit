@@ -1,34 +1,37 @@
-import withRedux from '../utils/withRedux';
+import {connect} from 'react-redux';
 import ExampleForm from '../components/ExampleForm';
 import FormStateUpdater from '../components/form-state-updater';
-import { initStore } from '../store';
 import {updateFieldsAction} from 'redux-formkit';
-import rootReducer from '../reducers';
 
-const Index = () => (
-  <div>
-    <ExampleForm/>
-    <FormStateUpdater/>
-  </div>
-);
-
-
-const initialValues = {
-  hobbies: [
-    {description: 'SSR stamp collecting'}
-  ],
-  field1: 'ssr',
-  theNumber: 41,
-  isAgreed: true,
-  rb2: 'B'
-};
-
-const formActionToSubmit = updateFieldsAction('exampleF', initialValues);
-
-const initStoreWithFormData = (initState={}) => (
-  initStore(rootReducer(initState, formActionToSubmit))
-);
+class Index extends React.Component {
+  static getInitialProps ({ reduxStore }) {
+    const formValues = {
+      hobbies: [
+        {description: 'Fishing'},
+        {description: 'Knitting'},
+        {description: ''},
+      ],
+      field1: 'ssr',
+      theNumber: 41,
+      isAgreed: true,
+      rb2: 'B'
+    };
 
 
-export default withRedux(initStoreWithFormData, null)(Index);
-//export default withRedux(initStore, null)(Index);
+    reduxStore.dispatch(updateFieldsAction('exampleF', formValues));
+
+    return {};
+
+  }
+
+  render(){
+    return (
+      <div>
+        <ExampleForm/>
+        <FormStateUpdater/>
+      </div>
+    );
+  }
+}
+
+export default connect()(Index);
