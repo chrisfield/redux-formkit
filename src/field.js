@@ -34,8 +34,8 @@ class Field extends React.PureComponent {
     }    
   }
 
-  componentDidUpdate() {
-    if (!this.props.isValidated) {
+  componentDidUpdate(prevProps) {
+    if (!this.props.isValidated || this.props.rawValue !== prevProps.rawValue) {
       this.validate(this.props.rawValue, undefined);
     }
   }
