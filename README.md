@@ -3,19 +3,19 @@
 [![NPM Version](https://img.shields.io/npm/v/redux-formkit.svg?style=flat)](https://www.npmjs.com/package/redux-formkit)
 [![NPM Downloads](https://img.shields.io/npm/dm/redux-formkit.svg?style=flat)](https://npmcharts.com/compare/redux-formkit?minimal=true)
 
-Connect form inputs to Redux or standard React state. Includes validation, field-arrays, current valid/not-valid status, asynchronous submission and Isomorphic features for [nextjs](https://nextjs.org/).
+Connect form inputs to Redux or standard React state. Includes validation, field-arrays, current valid/not-valid status, asynchronous submission and isomorphic features for frameworks like [nextjs](https://nextjs.org/).
 
 ## Motivation
 Redux-Formkit aims to provide simular functionality to the excellent [Redux-form](https://github.com/erikras/redux-form) but with a really tightly scoped API allowing a smaller codebase (over 80% smaller). Eg it provides an api for connecting components but has no built in knowledge of checkboxes etc.
 
 
 ## Features
+- Isomophic support (see paragraph below and Next-js example).
 - Easy to migrate from/to redux-form
-- Packed size under 50kb
-- Not cluttered with ui components or ad-hoc code
+- Small bundle size
 - Stores values as semantic types, eg number fields will store numbers
 - Format values, eg to put commas in numbers
-- Isomophic support (see paragraph below and Next-js example).
+- Not cluttered with ui components or ad-hoc code
 - Uses Context Api (introduced in from React 16.3)
 - Use it with or without Redux and switch anytime by changing one import. 
 - Field-arrays for repeated rows with add/remove
