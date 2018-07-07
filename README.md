@@ -25,7 +25,7 @@ Redux-Formkit aims to provide simular functionality to the excellent [Redux-form
 
 
 ## Client and Server Side Rendering
-Users with a slow internet connection who use a server rendered form as soon as it arrives but before the javascript downloads would unfortunately see the data disappear when the javascript initiates and sets the controlled input values to match the redux-state. One way to counter this would be to initially disable the form inputs.
+Users with a slow internet connection who use a server-rendered-form as soon as it arrives but before the javascript downloads would unfortunately see their changes overwritten when the javascript initiates and sets the controlled input values to match the redux-state. One way to counter this would be to initially disable the form inputs.
 
 The Redux-formkit provides an alternative solution. The Field component includes code to update the redux-state using any data entered. In this way your form renders quickly, standard html elements are immediately usable, data is not lost and validation, formatting etc kick in as soon as the Javascript is available. 
 
