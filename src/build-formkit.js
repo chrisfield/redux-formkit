@@ -74,13 +74,11 @@ const buildFormkit = (connect) => (
           this.fields.push(field);
         }
 
-        deregisterField(field) { 
-          this.setState(() => {
-            const index = this.fields.indexOf(field);
-            if (index > -1) {
-              this.fields.splice(index, 1);
-            }
-          }, field.props.deregisterField);
+        deregisterField(field) {
+          const index = this.fields.indexOf(field);
+          if (index > -1) {
+            this.fields.splice(index, 1);
+          }
         }        
 
         registerFieldArray(fieldArray) {
