@@ -11,7 +11,7 @@ const errorsReducer = (state = initialState, action) => {
       return {};
     case actionTypes.STOP_SUBMIT:
       return action.errors;
-    case actionTypes.UPDATE_FIELD:
+    case actionTypes.SET_FIELD_ERROR:
       return setField(state, action.field, undefined);
     default:
       return state;

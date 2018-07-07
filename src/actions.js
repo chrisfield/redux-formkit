@@ -4,6 +4,8 @@ export const actionTypes = {
   REMOVE_FROM_FIELD_ARRAY: 'REMOVE_FROM_FIELD_ARRAY',
   UPDATE_FIELD: 'UPDATE_FIELD',
   UPDATE_FIELDS: 'UPDATE_FIELDS',
+  SET_UNTOUCH_ALL_FIELDS: 'SET_UNTOUCH_ALL_FIELDS',
+  SET_FIELD_ERROR: 'SET_FIELD_ERROR',
   SET_FIELD_TOUCHED: 'SET_FIELD_TOUCHED',
   START_SUBMIT: 'START_SUBMIT',
   STOP_SUBMIT: 'STOP_SUBMIT',
@@ -14,12 +16,20 @@ export const initFormState = (form) => (
   {type: actionTypes.INIT_FORM_STATE, form}
 );
 
-export const updateField = (field, value, error, touchedPayload) => (
-  {type: actionTypes.UPDATE_FIELD, field, value, error, touchedPayload}
+export const updateField = (field, value) => (
+  {type: actionTypes.UPDATE_FIELD, field, value}
 );
 
 export const updateFields = (payload) => (
   {type: actionTypes.UPDATE_FIELDS, payload}
+);
+
+export const setUntouchAllFields = (form, boolValue) => (
+  {form: form, type: actionTypes.SET_UNTOUCH_ALL_FIELDS, boolValue}
+);
+
+export const setFieldError = (field, error) => (
+  {type: actionTypes.SET_FIELD_ERROR, field, error}
 );
 
 export const setFieldTouched = (field, touched) => (

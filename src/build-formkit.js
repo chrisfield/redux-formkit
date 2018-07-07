@@ -2,7 +2,7 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import isPromise from 'is-promise';
 import FormkitContext from './formkit-context';
-import {startSubmit, stopSubmit, updateFields} from './actions';
+import {startSubmit, stopSubmit, updateFields, setUntouchAllFields} from './actions';
 import SubmissionError from './submission-error';
 
 
@@ -59,6 +59,13 @@ const buildFormkit = (connect) => (
           this.setState({isInitialized: true});
         }
 
+        componentDidUpdate() {
+          if (this.props.formState.formStatus.isUntouchAllFields) {
+            this.markAllFieldsAsTouched(false);
+            this.props.dispatch(setUntouchAllFields(false));
+          }
+        }
+
         getFormState() {
           return this.props.formState;
         }
@@ -87,12 +94,11 @@ const buildFormkit = (connect) => (
           }
         }
   
-        markAllFieldsAsTouched() {
+        markAllFieldsAsTouched(touched=true) {
           this.fields.forEach(field => {
-            field.props.setTouched(true);
+            field.props.setTouched(touched);
           });
         }
-  
   
         getField(name) {
           for (let i = 0; i < this.fields.length; i++) {
@@ -120,12 +126,6 @@ const buildFormkit = (connect) => (
   
         updateFields(values) {
           this.props.dispatch(updateFields(values))
-          // this.fields.forEach(field => {
-          //   const fieldValueInObject = isField(values, field.props.name);
-          //   if (fieldValueInObject) {
-          //     field.validate(fieldValueInObject.value, {touched: false});
-          //   }
-          // });
         }
   
         focusOnFieldWithError() {

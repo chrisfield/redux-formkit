@@ -6,9 +6,8 @@ export const initialFormStatus = {
   errorCount: 0,
   isSubmitting: false
 };
-export const initialFieldStatus = {};
 
-const formStatusAndFieldStatusReducer = (formStatus = initialFormStatus, fieldStatus = initialFieldStatus, action) => {
+const formStatusAndFieldStatusReducer = (formStatus = initialFormStatus, fieldStatus = {}, action) => {
   const errorCount = formStatus.errorCount;
   switch (action.type) {
     case actionTypes.START_SUBMIT: {
@@ -25,8 +24,14 @@ const formStatusAndFieldStatusReducer = (formStatus = initialFormStatus, fieldSt
     }
     case actionTypes.UPDATE_FIELDS: {
       return {
-        formStatus: initialFormStatus,
-        fieldStatus: initialFieldStatus
+        formStatus: {...formStatus, isUntouchAllFields: true},
+        fieldStatus: fieldStatus
+      }
+    }
+    case actionTypes.SET_UNTOUCH_ALL_FIELDS: {
+      return {
+        formStatus: {...formStatus, isUntouchAllFields: action.boolValue},
+        fieldStatus: fieldStatus
       }
     }
     case actionTypes.DEREGISTER_FIELD: {
@@ -36,14 +41,13 @@ const formStatusAndFieldStatusReducer = (formStatus = initialFormStatus, fieldSt
         fieldStatus: setField(fieldStatus, action.field, undefined)
       };
     }
-    case actionTypes.UPDATE_FIELD: {
+    case actionTypes.SET_FIELD_ERROR: {
       const field = getField(fieldStatus, action.field) || {};
       return {
         formStatus: {...formStatus, errorCount: errorCount + (action.error? 1: 0) - (field.error? 1: 0)},
         fieldStatus: setField(fieldStatus, action.field, {
           ...field,
-          error: action.error,
-          ...action.touchedPayload
+          error: action.error
         })
       };
     }

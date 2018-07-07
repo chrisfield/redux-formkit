@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import connectToFormkit from './connect-to-formkit';
-import {updateField, setFieldTouched, deregisterField} from './actions';
+import {updateField, setFieldError, setFieldTouched, deregisterField} from './actions';
 import getField from './state-utils/get-field';
 
 
@@ -18,7 +18,9 @@ class Field extends React.PureComponent {
     this.formatToStore = this.props.formatToStore || defaultFormatToStore;
 
     this.fieldInterface = {
-      validate: () => {this.validate(this.props.rawValue, undefined, true)}
+      validate: () => {
+        this.validate(this.props.rawValue);
+      }
     }
   }
 
@@ -27,16 +29,21 @@ class Field extends React.PureComponent {
     if (this.elementRef) {
       if (!this.props.useTargetCondition || this.props.useTargetCondition(this.elementRef)) {
         const rawValue = this.formatToStore(this.getTargetValue(this.elementRef));
-        this.validate(rawValue, {touched: false});
+        this.validate(rawValue);
       }        
     } else {
-      this.validate(this.props.rawValue, {touched: false});
+      this.validate(this.props.rawValue);
     }    
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.rawValue !== prevProps.rawValue) {
-      this.validate(this.props.rawValue, undefined);
+      this.validate(this.props.rawValue);
+      if (this.props.onChange) {
+        this.setState({}, () => {
+          this.props.onChange(this.props.formInterface);
+        });
+      } 
     }
   }
 
@@ -51,16 +58,7 @@ class Field extends React.PureComponent {
 
   handleChange(event) {
     const value = this.formatToStore(this.getTargetValue(event.target));
-    this.validate(value, undefined, true);
-    if (this.props.getNextCursorPosition) {
-      const target = event.target;
-      const previousPosition = target.selectionStart;
-      const previousValue = this.props.formatFromStore(this.props.rawValue);
-      this.setState({}, () => {
-        const nextPosition = this.props.getNextCursorPosition(previousPosition, previousValue, this.props.formatFromStore(value));
-        target.setSelectionRange(nextPosition, nextPosition);
-      });
-    }
+    this.props.updateField(value, this.props.validateError);
   }
 
   showAnyErrors(event) {
@@ -73,7 +71,7 @@ class Field extends React.PureComponent {
   }
 
 
-  validate(rawValue, touchedPayload = {}, runOnChange = false) {
+  validate(rawValue) {
     let validateError;
     if (this.props.validate) {
       const fieldValues = this.props.formkitForm.getFormState().fieldValues;
@@ -85,12 +83,7 @@ class Field extends React.PureComponent {
         validateError = this.props.validate(rawValue, fieldValues);
       }
     }
-    this.props.updateField(rawValue, validateError, touchedPayload);
-    if (runOnChange && this.props.onChange) {
-      this.setState({}, () => {
-        this.props.onChange(this.props.formInterface);
-      });
-    }
+    this.props.setError(validateError);
   }
 
 
@@ -107,6 +100,7 @@ class Field extends React.PureComponent {
       getTargetValue,
       useTargetCondition,
       deregisterField,
+      setError,
       setTouched,
       validate,
       onChange,
@@ -139,6 +133,7 @@ Field.propTypes = {
     PropTypes.element
   ]).isRequired,
   updateField: PropTypes.func.isRequired,
+  setError: PropTypes.func.isRequired,
   setTouched: PropTypes.func.isRequired,
   deregisterField: PropTypes.func.isRequired,
   getTargetValue: PropTypes.func.isRequired,
@@ -182,6 +177,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     setTouched: touched => {
       dispatch(setFieldTouched(fieldName, touched));
+    },
+    setError: error => {
+      dispatch(setFieldError(fieldName, error));
     },
     deregisterField: () => {
       dispatch(deregisterField(fieldName));
