@@ -35,7 +35,7 @@ class Field extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    if (!this.props.isValidated || this.props.rawValue !== prevProps.rawValue) {
+    if (this.props.rawValue !== prevProps.rawValue) {
       this.validate(this.props.rawValue, undefined);
     }
   }
@@ -168,8 +168,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     rawValue,
     error,
-    touched,
-    isValidated: status.isValidated === true
+    touched
   };
 };
 

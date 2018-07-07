@@ -43,8 +43,7 @@ const formStatusAndFieldStatusReducer = (formStatus = initialFormStatus, fieldSt
         fieldStatus: setField(fieldStatus, action.field, {
           ...field,
           error: action.error,
-          ...action.touchedPayload, 
-          isValidated: action.isValidated
+          ...action.touchedPayload
         })
       };
     }
