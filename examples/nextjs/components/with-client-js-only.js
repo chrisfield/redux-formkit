@@ -11,7 +11,7 @@ export default class WithClientJsOnly extends PureComponent {
   }
 
   render() {
-    if (this.state.isMounted) {
+    if (!this.state.isMounted) {
       return null;
     }
     return <Fragment {...this.props}/>
