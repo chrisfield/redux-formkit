@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import formkit, {FieldArray, FormStatus, NamedValidationStatus, SubmissionError} from 'redux-formkit';
 import {InputField, RadioField, CheckboxField} from './form-controls';
 import {upper, lower, number, addCommas, maxLength, requiredStr, requiredNum} from './form-controls/utils';
+import WithClientJsOnly from '../with-client-js-only';
 
 const ExampleForm = (props) => {
   return (
@@ -11,15 +12,17 @@ const ExampleForm = (props) => {
         <legend>
           Example form
         </legend>
-        <FormStatus>
-          {({isValid, isSubmitting, errorCount}) => {
-            return(
-              <div className="example-form_status">
-                Form is {isValid? '': 'not yet '}valid. Error count: {errorCount}. Submitting: {isSubmitting + ''}
-              </div>
-            )
-          }}
-        </FormStatus>
+        <WithClientJsOnly>
+          <FormStatus>
+            {({isValid, isSubmitting, errorCount}) => {
+              return(
+                <div className="example-form_status">
+                  Form is {isValid? '': 'not yet '}valid. Error count: {errorCount}. Submitting: {isSubmitting + ''}
+                </div>
+              )
+            }}
+          </FormStatus>
+        </WithClientJsOnly>
         <NamedValidationStatus name="formErrorAtTop" >
           {({error}) => {
             if (error) {
