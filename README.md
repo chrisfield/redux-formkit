@@ -338,10 +338,10 @@ Field will pass these props to the rendered component:
 * `setElementRef` function that can be pass this an the ref prop
 
 ### updateFieldsAction
-`updateFieldsAction(formName, values)` returns an action object ready to dispatch to Redux. Dispatching this will reinitialize the for updating all form fields with the values provided.
+`updateFieldsAction(formName, values)` returns an action object ready to dispatch to Redux. Dispatching this will reinitialize the form updating all form fields with the values provided and setting them all as untouched.
 
 ### updateFieldAction
-`updateFieldAction(formName, value)` returns an action object ready to dispatch to Redux. Dispatching this will update one field leving the others unchanged.
+`updateFieldAction(formName, fieldName, value)` returns an action object ready to dispatch to Redux. Dispatching this will update one field leaving the others unchanged.
 
 ### NamedValidationStatus
 This is simply a named container used to position error messages. It can be used to render field error messages separately from the field and also for form wide error messages as thrown by the onSubmit function.

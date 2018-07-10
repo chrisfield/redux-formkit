@@ -29,6 +29,6 @@ export const updateFieldsAction = (form, payload) => (
   {form, ...updateFields(payload)}
 );
 
-export const updateFieldAction = (form, field, value, error, touchedPayload) => (
-  {form, ...updateField(field, value, error, touchedPayload)}
+export const updateFieldAction = (form, field, value) => (
+  {form, ...updateField(field, value)}
 );
