@@ -3,21 +3,22 @@ import {Field} from 'redux-formkit';
 const isChecked = target => target.checked;
 
 const Checkbox = props => (
-  <div>
+  <div className="wrapper">
+    <span className="inputWrapper">
+      <input id={props.name} ref={props.setElementRef} type="checkbox" checked={props.value} onChange={props.handleChange}/>
+    </span>
     <label htmlFor={props.name}>{props.label}</label>
-    <input id={props.name} ref={props.setElementRef} type="checkbox" checked={props.value} onChange={props.handleChange}/>
     <style jsx>{`
-      div {
-        display: flex;
-        align-items: center;
+      .wrapper {
         margin-top: 5px;
         margin-bottom: 5px;
+        display: flex;
+        justify-content: left;
       }
-      label {
-        display: inline-block;
-        width: 150px;
-        text-align: right;
-        padding-right: 10px;
+      .error {
+        display : flex;
+        justify-content: flex-end;
+        width: 100%;
       }
     `}
     </style>   

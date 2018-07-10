@@ -6,7 +6,7 @@ import {upper, lower, number, addCommas, maxLength, requiredStr, requiredNum} fr
 
 const ExampleForm = (props) => {
   return (
-    <form className="example-form">
+    <form className="exampleForm">
       <fieldset>
         <legend>
           Example form
@@ -35,24 +35,12 @@ const ExampleForm = (props) => {
           validate={requiredMaxLength5}
         />
 
-        <InputField label="2nd Field > 1st field" name="field2" validate={greaterThanField1}/>
-        <div className="example-form_item_group">
-          <CheckboxField name="isAgreed" label="Can the server have a number bigger than 42?" onChange={revalidateTheNumber}/>
-          <CheckboxField name="isAdditionalField" label="Is Additional Field?"/>
-          {  
-          props.form.getFormState().fieldValues.isAdditionalField 
-            && <InputField name="additionalField" validate={requiredStr} placeholder="Additional field"/>
-          }
-        </div>
-        
-        <div>
-          <label className="radioButtons_label">Favorate color</label>
-          <div className="radioButtons">
-            <RadioField name="rb2" label="Red" value="R"/>
-            <RadioField name="rb2" label="Green" value="G"/>
-            <RadioField name="rb2" label="Blue" value="B"/>
-          </div>
-        </div>
+        <InputField
+          label="2nd Field > 1st field"
+          name="field2" 
+          validate={greaterThanField1}
+        />
+
         <InputField
           name="theNumber"
           label="Numeric Field"
@@ -60,6 +48,26 @@ const ExampleForm = (props) => {
           formatFromStore={addCommas}
           validate={requiredNum}
         />
+
+        <CheckboxField name="isAgreed" label="Can the server have a number bigger than 42?" onChange={revalidateTheNumber}/>
+
+        <CheckboxField name="isAdditionalField" label="Is Additional Field?"/>
+        {  
+        props.form.getFormState().fieldValues.isAdditionalField 
+          && <InputField name="additionalField" validate={requiredStr} placeholder="Additional field"/>
+        }
+        
+        <div>
+          <fieldset>
+            <legend>Favorate color</legend>
+            <div className="radioButtons">
+              <RadioField name="rb2" label="Red" value="R"/>
+              <RadioField name="rb2" label="Green" value="G"/>
+              <RadioField name="rb2" label="Blue" value="B"/>
+            </div>
+          </fieldset>
+        </div>
+
         <InputField
           name="capitals"
           label="Uppercase Field"
@@ -73,33 +81,32 @@ const ExampleForm = (props) => {
         name="hobbies"
         component={renderHobbies}
       />
-      <div className="example-form_item">
-        <FormStatus>
-          {({isSubmitting, isValid}) => {
-            return(
-              <button
-                type="button"
-                onClick={props.form.handleSubmit} 
-                className={`submitButton ${isValid? 'submitButton-valid': ''}`}
-                disabled={isSubmitting}
-              >
-                Send
-              </button>
-            )
-          }}
-        </FormStatus>
-      </div>
+      <FormStatus>
+        {({isSubmitting, isValid}) => {
+          return(
+            <button
+              type="button"
+              onClick={props.form.handleSubmit} 
+              className={`submitButton ${isValid? 'submitButton-valid': ''}`}
+              disabled={isSubmitting}
+            >
+              Send
+            </button>
+          )
+        }}
+      </FormStatus>
       <style jsx>{`
-        .radioButtons {
-          margin-top: 5px;
-          margin-bottom: 5px;
-          display: inline-flex;
+        .exampleForm {
+          max-width: 400px;
+          margin: auto;
         }
-        .radioButtons_label {
-          display: inline-block;
-          width: 150px;
-          text-align: right;
-          padding-right: 10px;
+        .radioButtons {
+          display: flex;
+          justify-content: space-around;
+        }
+        .submitButton {
+          width: 100%;
+          padding: 10px;
         }
         .submitButton-valid {
           background-color: green;
@@ -117,20 +124,25 @@ const renderHobbies = ({form, fields}) => (
       Hobbies
     </legend>
     {fields.map((hobby, index) => (
-      <div key={hobby} className="hobby">
-        <InputField
-          key={hobby}
-          name={`${hobby}.description`}
-          validate={requiredStr}
-          label={`Hobby #${index + 1}`}
-        />
+      <InputField
+        key={hobby}
+        name={`${hobby}.description`}
+        validate={requiredStr}
+        label={`Hobby #${index + 1}`}
+      >
         <button type="button" title="Remove Hobby" onClick={() => fields.remove(index)}>-</button>
-      </div>
+    </InputField>
     ))}
     <button type="button" onClick={() => fields.push()}>Add Hobby</button>
     <style jsx>{`
       .hobby {
         display: flex;
+      }
+      .hobbyInputField {
+        flex-basis: 90%;
+      }
+      .hobbyRemove {
+        align-self: center;
       }
     `}
     </style>
@@ -138,7 +150,7 @@ const renderHobbies = ({form, fields}) => (
 );
 
 const greaterThanField1 = (value, values) => (
-  values && value > values.field1? undefined: 'greaterThanField1'
+  values && value > values.field1? undefined: 'Field two must be greater than field one'
 );
 
 const getNextCursorPosition = prevPosition => (prevPosition);

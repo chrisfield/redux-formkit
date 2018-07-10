@@ -13,7 +13,7 @@ export const addCommas = number => {
 };
 
 export const maxLength = length => (
-  value => (value && value.trim && value.trim().length > length ? 'maxLength': undefined)
+  value => (value && value.trim && value.trim().length > length ? `Please enter max of ${length} characters`: undefined)
 );
 
 export const requiredStr = value => {

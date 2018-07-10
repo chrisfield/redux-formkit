@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import ExampleForm from '../components/ExampleForm';
+import ExampleForm from '../components/example-form';
 import FormStateUpdater from '../components/form-state-updater';
 import {updateFieldsAction} from 'redux-formkit';
 

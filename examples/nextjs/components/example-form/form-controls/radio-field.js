@@ -5,9 +5,12 @@ const isChecked = target => target.checked;
 const RadioButton = props => {
   const id = `${props.name}-${props.radioValue}`;
   return (
-    <div>
+    <div className="wrapper">
       <input id={id} type="radio" ref={props.setElementRef} name={props.name} value={props.radioValue} checked={props.radioValue===props.value} onChange={props.handleChange}/>
       <label htmlFor={id}>{props.label}</label>
+      <style jsx>{`
+      `}
+      </style>
     </div>
   );
 };
