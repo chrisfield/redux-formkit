@@ -1,7 +1,7 @@
 {
   "name": "redux-formkit",
-  "version": "2.1.13",
-  "description": "Isomophic React components to manage form state. Redux is optional.",
+  "version": "2.1.14",
+  "description": "Higher order component for forms using React and Redux. Isomophic ready",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
@@ -22,8 +22,7 @@
     "form",
     "field",
     "validation",
-    "kit",
-    "next",
+    "nextjs",
     "isomorphic"
   ],
   "author": "Chris Field",
