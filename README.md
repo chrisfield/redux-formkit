@@ -5,8 +5,9 @@
 
 Connect form inputs to Redux or standard React state. Includes validation, field-arrays, current valid/not-valid status, asynchronous submission and isomorphic features for frameworks like [nextjs](https://nextjs.org/).
 
+
 ## Motivation
-Redux-Formkit aims to provide simular functionality to the excellent [Redux-form](https://github.com/erikras/redux-form) but with a really tightly scoped API allowing a smaller codebase (over 80% smaller). Eg it provides an api for connecting components but has no built in knowledge of checkboxes etc.
+Redux-Formkit aims to provide simular functionality to the excellent [Redux-form](https://github.com/erikras/redux-form) but with a really tightly scoped API allowing a smaller codebase (over 80% smaller).
 
 
 ## Features
