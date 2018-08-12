@@ -1,6 +1,6 @@
 {
   "name": "redux-formkit",
-  "version": "2.1.15",
+  "version": "2.1.16",
   "description": "Isomophic React components to manage form state. Redux is optional.",
   "main": "lib/index.js",
   "repository": {
@@ -28,6 +28,10 @@
   ],
   "author": "Chris Field",
   "license": "ISC",
+  "files": [
+    "README.md",
+    "lib/"
+  ],
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
