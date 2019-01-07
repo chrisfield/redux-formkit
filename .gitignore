@@ -11,6 +11,7 @@ examples/nextjs/.next
 # production
 /dist
 /lib
+/packages/redux-formkit/lib
 
 # misc
 .DS_Store
