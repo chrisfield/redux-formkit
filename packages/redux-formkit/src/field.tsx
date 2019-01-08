@@ -33,7 +33,7 @@ class Field extends React.PureComponent {
       }        
     } else {
       this.validate(this.props.rawValue);
-    }    
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -83,7 +83,7 @@ class Field extends React.PureComponent {
         validateError = this.props.validate(rawValue, fieldValues);
       }
     }
-    this.props.setError(validateError);
+    this.props.setError(validateError, rawValue);
   }
 
 
@@ -178,8 +178,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     setTouched: touched => {
       dispatch(setFieldTouched(fieldName, touched));
     },
-    setError: error => {
-      dispatch(setFieldError(fieldName, error));
+    setError: (error, value) => {
+      dispatch(setFieldError(fieldName, error, value));
     },
     deregisterField: () => {
       dispatch(deregisterField(fieldName));

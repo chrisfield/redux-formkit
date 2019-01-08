@@ -28,8 +28,8 @@ export const setUntouchAllFields = (form, boolValue) => (
   {form: form, type: actionTypes.SET_UNTOUCH_ALL_FIELDS, boolValue}
 );
 
-export const setFieldError = (field, error) => (
-  {type: actionTypes.SET_FIELD_ERROR, field, error}
+export const setFieldError = (field, error, value) => (
+  {type: actionTypes.SET_FIELD_ERROR, field, error, value}
 );
 
 export const setFieldTouched = (field, touched) => (

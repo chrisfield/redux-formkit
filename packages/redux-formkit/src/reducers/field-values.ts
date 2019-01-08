@@ -21,6 +21,9 @@ const valuesReducer = (state = initialState, action) => {
       const nextArray = originalArray.filter((item, index) => (index !== action.index));
       return setField(state, action.fieldArray, nextArray);
     }
+    case actionTypes.SET_FIELD_ERROR: {
+      return setField(state, action.field, action.value);
+    }
     default:
       return state;
   }
