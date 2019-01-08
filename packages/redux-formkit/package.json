@@ -9,7 +9,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npm run clean && npm run build:lib",
+    "build": "npm run clean && tsc -p ./config/tsconfig.build.json",
     "build:lib": "babel src --out-dir lib",
     "clean": "rimraf lib"
   },
@@ -33,6 +33,10 @@
     "lib/"
   ],
   "devDependencies": {
+    "@types/lodash.topath": "^4.5.4",
+    "@types/prop-types": "^15.5.8",
+    "@types/react": "^16.7.18",
+    "@types/react-dom": "^16.0.11",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
@@ -40,22 +44,25 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "lerna": "^3.8.5",
-    "react-redux": "^5.0.7",
-    "redux": "^3.7.2",
-    "redux-devtools-extension": "^2.13.2",
-    "rimraf": "^2.6.2"
+    "prop-types": "^15.6.2",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
+    "redux-devtools-extension": "^2.13.7",
+    "rimraf": "^2.6.2",
+    "tsutils": "^3.7.0",
+    "typescript": "^3.2.2",
+    "webpack": "^4.28.3"
   },
   "peerDependencies": {
-    "react": "^16.2.0",
-    "react-redux": "^5.0.7",
-    "redux": "^3.7.2"
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
+    "react-redux": "^6.0.0",
+    "redux": "^4.0.1",
+    "redux-devtools-extension": "^2.13.7"
   },
   "dependencies": {
     "es6-error": "^4.1.1",
     "is-promise": "^2.1.0",
-    "lodash.topath": "^4.5.2",
-    "prop-types": "^15.6.1",
-    "react": "^16.3.1",
-    "react-dom": "^16.3.1"
+    "lodash.topath": "^4.5.2"
   }
 }

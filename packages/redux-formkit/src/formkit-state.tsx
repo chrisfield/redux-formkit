@@ -1,5 +1,6 @@
-import React, {PureComponent} from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import {PureComponent} from 'react';
+import * as PropTypes from 'prop-types';
 import reducer from './reducers';
 
 export const connect = (mapStateToProps, mapDispatchToProps = noop) => {

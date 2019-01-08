@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import connectToFormkit from './connect-to-formkit';
 import {pushToFieldArray, removeFromFieldArray} from './actions';
 import getField from './state-utils/get-field';

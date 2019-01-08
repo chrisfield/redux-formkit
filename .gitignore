@@ -15,4 +15,5 @@ examples/nextjs/.next
 
 # misc
 .DS_Store
+**/*.log
 

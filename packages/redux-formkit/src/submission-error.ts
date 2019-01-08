@@ -1,7 +1,7 @@
-import PropTypes from 'prop-types';
 import ExtendableError from 'es6-error';
 
 class SubmissionError extends ExtendableError {
+  public errors : any;
   constructor(errors) {
     super('Submit Validation Failed');
     this.errors = errors;
@@ -9,4 +9,3 @@ class SubmissionError extends ExtendableError {
 }
 
 export default SubmissionError;
-

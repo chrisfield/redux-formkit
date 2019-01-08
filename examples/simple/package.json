@@ -3,18 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "react": "^16.4.0",
-    "react-dom": "^16.4.0",
-    "react-redux": "^5.0.7",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
+    "react-redux": "^6.0.0",
     "react-scripts": "1.1.4",
-    "redux": "^4.0.0",
-    "redux-devtools-extension": "^2.13.2",
-    "redux-formkit": "^2.1.17"
+    "redux": "^4.0.1",
+    "redux-devtools-extension": "^2.13.7",
+    "redux-formkit": "file:../../packages/redux-formkit"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "@types/prop-types": "^15.5.8",
+    "@types/react": "^16.7.18",
+    "@types/react-dom": "^16.0.11",
+    "prop-types": "^15.6.2"
   }
 }

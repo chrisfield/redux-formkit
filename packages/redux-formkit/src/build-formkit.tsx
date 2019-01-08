@@ -1,6 +1,7 @@
-import React, {PureComponent} from 'react';
-import PropTypes from 'prop-types';
-import isPromise from 'is-promise';
+import * as React from 'react';
+import { PureComponent } from 'react';
+import * as PropTypes from 'prop-types';
+import * as isPromise from 'is-promise';
 import FormkitContext from './formkit-context';
 import {startSubmit, stopSubmit, updateFields, setUntouchAllFields} from './actions';
 import SubmissionError from './submission-error';
@@ -8,8 +9,8 @@ import SubmissionError from './submission-error';
 
 const defaultGetFormState = state => state.form;
 
-const buildFormkit = (connect) => (
-  ({name, initialValues, onSubmit, onSubmitSuccess = noop, getFormState = defaultGetFormState}) => {
+const buildFormkit = (OldConnect) => (
+  ({connect, name, initialValues, onSubmit, onSubmitSuccess = noop, getFormState = defaultGetFormState}) => {
     return Form => {
       class FormkitForm extends PureComponent {
         constructor(props) {

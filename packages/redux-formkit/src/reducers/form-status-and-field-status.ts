@@ -4,7 +4,8 @@ import getField from '../state-utils/get-field';
 
 export const initialFormStatus = {
   errorCount: 0,
-  isSubmitting: false
+  isSubmitting: false,
+  isValid: true
 };
 
 const formStatusAndFieldStatusReducer = (formStatus = initialFormStatus, fieldStatus = {}, action) => {

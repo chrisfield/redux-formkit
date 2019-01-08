@@ -1,6 +1,6 @@
-import React, {PureComponent} from 'react';
+import * as React from 'react';
+import { PureComponent } from 'react';
 import FormkitContext from './formkit-context';
-import PropTypes from 'prop-types';
 
 const connectToForm = (mapStateToProps, mapDispatchToProps = noop) => {
     return Field => {
@@ -24,11 +24,6 @@ const connectToForm = (mapStateToProps, mapDispatchToProps = noop) => {
             <Field {...this.props} {...this.dispatchers}/>
           );
         }
-      }
-
-      FieldWithDispatchProps.propTypes = {
-        formkitForm: PropTypes.object.isRequired,
-        formInterface: PropTypes.object.isRequired
       }
   
       const FieldWithContext = React.forwardRef(props => (

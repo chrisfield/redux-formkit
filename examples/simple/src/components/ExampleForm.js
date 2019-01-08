@@ -1,5 +1,6 @@
 import React from 'react';
 import formkit, {Field} from 'redux-formkit';
+import { connect } from 'react-redux';
 
 const ExampleForm = (props) => (
   <form className="example-form">
@@ -42,6 +43,7 @@ function clearFormValues(form) {
 
 
 export default formkit({
+  connect,
   name: 'exampleF',
   initialValues: {rb2: 'G'},
   onSubmit: submitValues,
