@@ -3,6 +3,12 @@ import formkit, {FieldArray, FormStatus, NamedValidationStatus, SubmissionError}
 import {InputField, RadioField, CheckboxField} from './form-controls';
 import {upper, lower, number, addCommas, maxLength, requiredStr, requiredNum} from './form-controls/utils';
 
+import { connect } from 'react-redux';
+// Alternative connect that uses React.contect instead of Redux
+// import { connectWithoutRedux as connect } from 'redux-formkit';
+
+
+
 import './ExampleForm.css';
 
 
@@ -150,6 +156,7 @@ const initialValues = {
 
 
 export default formkit({
+  connect,
   name: 'exampleF',
   initialValues: initialValues,
   onSubmit: submitAsynchronous,

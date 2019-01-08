@@ -4,6 +4,7 @@ import formkit, {FieldArray, FormStatus, NamedValidationStatus, SubmissionError}
 import {InputField, RadioField, CheckboxField} from './form-controls';
 import {upper, lower, number, addCommas, maxLength, requiredStr, requiredNum} from './form-controls/utils';
 import WithClientJsOnly from '../with-client-js-only';
+import { connect } from 'react-redux';
 
 const ExampleForm = (props) => {
   return (
@@ -177,6 +178,7 @@ function clearFormValues(form) {
 }
 
 export default formkit({
+  connect,
   name: 'exampleF',
   onSubmit: submitAsynchronous,
   onSubmitSuccess: clearFormValues

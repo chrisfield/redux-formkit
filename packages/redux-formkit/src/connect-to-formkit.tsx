@@ -25,18 +25,17 @@ const connectToForm = (mapStateToProps, mapDispatchToProps = noop) => {
           );
         }
       }
-  
-      const FieldWithContext = React.forwardRef(props => (
+
+      const FieldWithContext = (props) => (
         <FormkitContext.Consumer>
           {({formkitForm, formInterface, formState}) => {
             const stateProps = mapStateToProps(formState, props);
             return <FieldWithDispatchProps formkitForm={formkitForm} formInterface={formInterface} {...stateProps} {...props}/>
           }}
         </FormkitContext.Consumer>
-      ));
-  
-      return FieldWithContext;
+      );
 
+      return FieldWithContext;
     }
   };
 

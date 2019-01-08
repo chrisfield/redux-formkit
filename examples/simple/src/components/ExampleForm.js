@@ -1,6 +1,10 @@
 import React from 'react';
 import formkit, {Field} from 'redux-formkit';
+
 import { connect } from 'react-redux';
+// Alternative connect that uses React.contect instead of Redux
+// import { connectWithoutRedux as connect } from 'redux-formkit';
+
 
 const ExampleForm = (props) => (
   <form className="example-form">

@@ -9,9 +9,8 @@ examples/nextjs/.next
 /coverage
 
 # production
-/dist
-/lib
 /packages/redux-formkit/lib
+/packages/redux-formkit/dist
 
 # misc
 .DS_Store

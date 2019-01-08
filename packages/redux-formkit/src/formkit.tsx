@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
 import * as PropTypes from 'prop-types';
-import * as isPromise from 'is-promise';
+import isPromise from 'is-promise';
 import FormkitContext from './formkit-context';
 import {startSubmit, stopSubmit, updateFields, setUntouchAllFields} from './actions';
 import SubmissionError from './submission-error';

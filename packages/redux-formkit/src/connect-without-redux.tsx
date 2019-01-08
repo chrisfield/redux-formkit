@@ -3,7 +3,7 @@ import {PureComponent} from 'react';
 import * as PropTypes from 'prop-types';
 import reducer from './reducers';
 
-export const connect = (mapStateToProps, mapDispatchToProps = noop) => {
+const connect = (mapStateToProps, mapDispatchToProps = noop) => {
   return BaseComponent => {
     class ComponentPlus extends PureComponent {
       constructor(props) {
@@ -31,3 +31,5 @@ export const connect = (mapStateToProps, mapDispatchToProps = noop) => {
 }
 
 const noop = () => ({});
+
+export default connect;

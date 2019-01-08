@@ -1,8 +1,8 @@
 import formkit from "./formkit";
 export default formkit;
 
-import formkitWithoutRedux from "./formkit-without-redux";
-export {formkitWithoutRedux}
+import connectWithoutRedux from "./connect-without-redux";
+export {connectWithoutRedux}
 
 import formReducer from './reducers';
 export {formReducer};
