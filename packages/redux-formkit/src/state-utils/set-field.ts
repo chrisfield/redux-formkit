@@ -13,13 +13,13 @@ const setFieldWithPath = (state, value, path, pathIndex) => {
     if (isNaN(first)) {
       return { [first]: next };
     }
-    const initialized = [];
+    const initialized: any[] = [];
     initialized[parseInt(first, 10)] = next;
     return initialized;
   }
 
   if (Array.isArray(state)) {
-    const copy = [].concat(state);
+    const copy = state.slice();
     copy[parseInt(first, 10)] = next;
     return copy;
   }

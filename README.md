@@ -66,7 +66,8 @@ Then write your form
 
 ```javascript
 import React from 'react';
-import formkit, {Field} from 'redux-formkit';
+import formkit, { Field } from 'redux-formkit';
+import { connect } from 'react-redux';
 
 const ExampleForm = (props) => (
   <form className="example-form">
@@ -109,6 +110,7 @@ function clearFormValues(form) {
 
 
 export default formkit({
+  connect,
   name: 'exampleF',
   initialValues: {rb2: 'G'},
   onSubmit: submitValues,
@@ -215,10 +217,12 @@ I'm keen to get feedback please let me know about any issues [here](https://gith
 
 ### Formkit
 
-`Formkit` is the higher order component used to wrap forms. You give it a config object and it returns a function to wrap a form. eg `Formkit({name:'sign-up'})(SignUp)` would wrap the SignUp form giving it extra facilities. It also gives it one extra prop called `form`.
+`Formkit` is the higher order component used to wrap forms. You give it a config object and it returns a function to wrap a form. eg `Formkit({connect, name:'sign-up'})(SignUp)` would wrap the SignUp form giving it extra facilities. It also gives it one extra prop called `form`.
 
 
 The config object can contain:
+
+* `connect : required function` — Use the import { connect } from 'react-redux' or use import { connectWithoutRedux } from 'redux-formkit'
 
 * `name : required string` — the name of the form eg 'sign-up'
 
@@ -254,6 +258,7 @@ props.form.getFormState().fieldValues.isAdditionalField
   }
 
   export default formkit({
+    connect,
     name: 'exampleF',
     initialValues: {rb2: 'G'},
     onSubmit: submitValues,
