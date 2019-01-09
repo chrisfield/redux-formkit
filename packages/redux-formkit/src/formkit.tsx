@@ -6,6 +6,43 @@ import FormkitContext from './formkit-context';
 import {startSubmit, stopSubmit, updateFields, setUntouchAllFields} from './actions';
 import SubmissionError from './submission-error';
 
+interface FormkitConfig {
+  connect: any
+  name: string, 
+  initialValues: object, 
+  onSubmit: any,
+  onSubmitSuccess: any,
+  getFormState: any
+}
+
+interface FormInterface {
+  handleSubmit: any,
+  updateFields: any,
+  getField: any,
+  getFieldArray: any,
+  getFormState: any
+}
+
+interface FormkitInterface {
+  name: string,
+  dispatch: any,
+  getFormState: any,
+  registerField: any,
+  deregisterField: any,
+  registerFieldArray: any,
+  deregisterFieldArray: any,
+  getField: any,
+  getFieldArray: any
+}
+
+interface FormkitFormProps {
+  dispatch: any,
+  formState: any
+}
+
+interface FormkitFormState {
+  isInitialized: boolean
+}
 
 const defaultGetFormState = state => state.form;
 
@@ -16,9 +53,20 @@ const Formkit = ({
   onSubmit,
   onSubmitSuccess = noop, 
   getFormState = defaultGetFormState
-}) => {
+}: FormkitConfig) => {
   return Form => {
-    class FormkitForm extends PureComponent {
+    class FormkitForm extends PureComponent<FormkitFormProps, FormkitFormState> {
+
+      static propTypes = {
+        dispatch: PropTypes.func.isRequired,
+        formState: PropTypes.object
+      }
+
+      formInterface: FormInterface
+      formkitInterface: FormkitInterface
+      fields: any
+      fieldArrays: any
+
       constructor(props) {
         super(props); 
         this.state = {isInitialized: this.props.formState !== undefined}
@@ -35,7 +83,7 @@ const Formkit = ({
         this.updateFields = this.updateFields.bind(this);
         this.getFormState = this.getFormState.bind(this);
 
-        this.formkitForm = {
+        this.formkitInterface = {
           name,
           dispatch: this.props.dispatch,
           getFormState: this.getFormState,
@@ -202,16 +250,11 @@ const Formkit = ({
         }
         const {formState, dispatch, ...otherProps} = this.props;
         return (
-          <FormkitContext.Provider value={{formkitForm: this.formkitForm, formInterface: this.formInterface, formState}}>
+          <FormkitContext.Provider value={{formkitForm: this.formkitInterface, formInterface: this.formInterface, formState}}>
             <Form {...otherProps} form={this.formInterface}/>
           </FormkitContext.Provider>    
         );
       }
-    }
-
-    FormkitForm.propTypes = {
-      dispatch: PropTypes.func.isRequired,
-      formState: PropTypes.object
     }
 
     function mapStateToProps(state) {

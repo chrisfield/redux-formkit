@@ -52,6 +52,6 @@ export const startSubmit = () => (
   {type: actionTypes.START_SUBMIT}
 );
 
-export const stopSubmit = (errors) => (
+export const stopSubmit = (errors?) => (
   {type: actionTypes.STOP_SUBMIT, errors}
 );
