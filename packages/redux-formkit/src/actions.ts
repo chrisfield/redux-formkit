@@ -24,7 +24,7 @@ export const updateFields = (payload) => (
   {type: actionTypes.UPDATE_FIELDS, payload}
 );
 
-export const setUntouchAllFields = (form, boolValue) => (
+export const setUntouchAllFields = (form, boolValue?) => (
   {form: form, type: actionTypes.SET_UNTOUCH_ALL_FIELDS, boolValue}
 );
 
@@ -36,7 +36,7 @@ export const setFieldTouched = (field, touched) => (
   {type: actionTypes.SET_FIELD_TOUCHED, field, touched}
 );
 
-export const pushToFieldArray = (fieldArray, payload) => (
+export const pushToFieldArray = (fieldArray, payload?) => (
   {type: actionTypes.PUSH_TO_FIELD_ARRAY, fieldArray, payload}
 );
 

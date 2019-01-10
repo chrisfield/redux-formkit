@@ -2,9 +2,12 @@ import * as React from 'react';
 import { PureComponent } from 'react';
 import FormkitContext from './formkit-context';
 
-const connectToForm = (mapStateToProps, mapDispatchToProps = noop) => {
+const connectToForm = (mapStateToProps, mapDispatchToProps: any = noop) => {
     return Field => {
-      class FieldWithDispatchProps extends PureComponent {
+      class FieldWithDispatchProps extends PureComponent<{formkitForm: any}> {
+
+        dispatchers: any;
+
         constructor(props) {
           super(props);
           this.dispatch = this.dispatch.bind(this);

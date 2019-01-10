@@ -4,8 +4,34 @@ import connectToFormkit from './connect-to-formkit';
 import {updateField, setFieldError, setFieldTouched, deregisterField} from './actions';
 import getField from './state-utils/get-field';
 
+interface FieldProps {
+  formkitForm: any,
+  formInterface: any,
+  component: any,
+  updateField: any,
+  formatFromStore: any,
+  formatToStore: any,
+  getNextCursorPosition: any,
+  getTargetValue: any,
+  useTargetCondition: any,
+  deregisterField: any,
+  setError: any,
+  setTouched: any,
+  validate: any,
+  onChange: any,
+  rawValue: any,
+  error: any,
+  touched: any
+}
 
-class Field extends React.PureComponent {
+class Field extends React.PureComponent<FieldProps> {
+
+  static propTypes: any
+  static defaultProps: any
+
+  elementRef: any
+  fieldInterface: any
+
 
   constructor(props) {
     super(props);
@@ -14,8 +40,6 @@ class Field extends React.PureComponent {
     this.validate = this.validate.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.showAnyErrors = this.showAnyErrors.bind(this);
-    this.getTargetValue = this.props.getTargetValue || defaultGetTargetValue;
-    this.formatToStore = this.props.formatToStore || defaultFormatToStore;
 
     this.fieldInterface = {
       validate: () => {
@@ -28,7 +52,7 @@ class Field extends React.PureComponent {
     this.props.formkitForm.registerField(this);
     if (this.elementRef) {
       if (!this.props.useTargetCondition || this.props.useTargetCondition(this.elementRef)) {
-        const rawValue = this.formatToStore(this.getTargetValue(this.elementRef));
+        const rawValue = this.props.formatToStore(this.props.getTargetValue(this.elementRef));
         this.validate(rawValue);
       }        
     } else {
@@ -57,8 +81,8 @@ class Field extends React.PureComponent {
   };
 
   handleChange(event) {
-    const value = this.formatToStore(this.getTargetValue(event.target));
-    this.props.updateField(value, this.props.validateError);
+    const value = this.props.formatToStore(this.props.getTargetValue(event.target));
+    this.props.updateField(value);
   }
 
   showAnyErrors(event) {
@@ -92,6 +116,8 @@ class Field extends React.PureComponent {
     const value = props.formatFromStore(props.rawValue); 
     const Component = props.component;
     const {
+      formkitForm,
+      formInterface,
       component,
       updateField,
       formatFromStore,
@@ -110,7 +136,14 @@ class Field extends React.PureComponent {
       ...givenProps
     } = props;
     if (typeof Component === 'string') {
-      return <Component {...givenProps} ref={this.setElementRef} value={value} onChange={this.handleChange} onBlur={this.showAnyErrors}/>
+      const props = {
+        ...givenProps,
+        ref: this.setElementRef,
+        value,
+        onChange: this.handleChange,
+        onBlur: this.showAnyErrors
+      }
+      return React.createElement(Component, props)
     } else {
       return <Component {...givenProps} setElementRef={this.setElementRef} value={value} handleChange={this.handleChange} handleBlur={this.showAnyErrors} error={error} touched={touched}/>      
     }
@@ -172,8 +205,8 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   const fieldName = ownProps.name;
   return {
-    updateField: (value, error, touchedPayload = {}) => {
-      dispatch(updateField(fieldName, value, error, touchedPayload, true));
+    updateField: (value) => {
+      dispatch(updateField(fieldName, value));
     },
     setTouched: touched => {
       dispatch(setFieldTouched(fieldName, touched));

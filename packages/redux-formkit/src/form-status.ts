@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import connectToFormkit from './connect-to-formkit';
 
 const FormStatus = props => (

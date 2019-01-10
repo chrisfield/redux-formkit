@@ -1,10 +1,22 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import connectToFormkit from './connect-to-formkit';
-import {pushToFieldArray, removeFromFieldArray} from './actions';
+import { pushToFieldArray, removeFromFieldArray } from './actions';
 import getField from './state-utils/get-field';
 
-class FieldArray extends React.PureComponent {
+interface FieldArrayProps {
+  formkitForm: any,
+  name: string,
+  component: any,
+  fields: any,
+  push: any,
+  remove: any
+}
+
+class FieldArray extends React.PureComponent<FieldArrayProps> {
+
+  static propTypes: any
+
   componentDidMount() {
     this.props.formkitForm.registerFieldArray(this);
   }

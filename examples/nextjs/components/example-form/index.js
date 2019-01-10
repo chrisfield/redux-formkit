@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import formkit, {FieldArray, FormStatus, NamedValidationStatus, SubmissionError} from 'redux-formkit';
+import formkit, {FieldArray, FormStatus, NamedValidationStatus, SubmissionError, Field} from 'redux-formkit';
 import {InputField, RadioField, CheckboxField} from './form-controls';
 import {upper, lower, number, addCommas, maxLength, requiredStr, requiredNum} from './form-controls/utils';
 import WithClientJsOnly from '../with-client-js-only';
@@ -44,6 +44,9 @@ const ExampleForm = (props) => {
           name="field2" 
           validate={greaterThanField1}
         />
+
+        <label htmlFor="basic-field">Basic Input Field :</label>
+        <Field id="basic-field" component="input" name="abc" />
 
         <InputField
           name="theNumber"

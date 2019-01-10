@@ -1,11 +1,13 @@
 import * as React from 'react';
 import {PureComponent} from 'react';
-import * as PropTypes from 'prop-types';
 import reducer from './reducers';
 
-const connect = (mapStateToProps, mapDispatchToProps = noop) => {
-  return BaseComponent => {
+const connect = (mapStateToProps, mapDispatchToProps: (a:any, b:any) => {} = noop): any => {
+  return (BaseComponent): any => {
     class ComponentPlus extends PureComponent {
+
+      dispatchers: any;
+
       constructor(props) {
         super(props);
         this.dispatch = this.dispatch.bind(this);

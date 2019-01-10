@@ -1,4 +1,6 @@
-import {createContext} from 'react';
+import { createContext } from 'react';
 
-const FormkitContext = createContext();
+const defaultContext: any = {};
+
+const FormkitContext = createContext(defaultContext);
 export default FormkitContext;
