@@ -10,8 +10,16 @@ Connect form inputs to Redux or standard React state. Includes validation, field
 Redux-Formkit aims to provide simular functionality to the excellent [Redux-form](https://github.com/erikras/redux-form) but with a really tightly scoped API allowing a smaller codebase (over 80% smaller).
 
 
+## Getting Started
+Take a look at the [examples](https://github.com/chrisfield/redux-formkit/tree/master/examples).
+
+To use it on you own project:
+`npm install --save redux-formkit`
+
+
 ## Features
 - Isomophic support (see paragraph below and Next-js example).
+- React-native support
 - Easy to migrate from/to redux-form
 - Small bundle size
 - Stores values as semantic types, eg number fields will store numbers
@@ -33,13 +41,6 @@ The Redux-formkit provides an alternative solution. The Field component includes
 To see this in action run the [nextjs example](https://github.com/chrisfield/redux-formkit/tree/master/examples/nextjs) and in the chrome dev-tools network tab choose the slow-3g option. While the javascript is downloading you will be able to use the server rendered html-form.
 
 It is also great for clientside JS.
-
-
-## Getting Started
-Take a look at the [examples](https://github.com/chrisfield/redux-formkit/tree/master/examples).
-
-To use it on you own project:
-`npm install --save redux-formkit`
 
 
 ## Usage
