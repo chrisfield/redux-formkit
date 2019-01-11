@@ -330,7 +330,7 @@ const addCommas = number => {
 
 * `getNextCursorPosition : optional function` — provide a function to preserve the cursor position when formatFromStore is used. It will be called with parameters: previousPosition, previousValue, newValue and should return the next cursor position.
 
-* `getTargetValue : optional function` — provide a function to get the value. It will be called with the event as a parameter.
+* `getTargetValue : optional function` — provide a function to get the value. It will be called with the target and event as a parameters.
 
 * `useTargetCondition : optional function` — Only relevant for isomorphic forms. Will be called onComponentMount with the elementRef as a parameter.  If it returns true the value of the element will be used to update the store. See it used on the radio-buttons in the next-js example.
 

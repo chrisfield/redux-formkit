@@ -60,8 +60,10 @@
     "redux-devtools-extension": "^2.13.7"
   },
   "dependencies": {
+    "@babel/runtime": "^7.2.0",
     "es6-error": "^4.1.1",
     "is-promise": "^2.1.0",
-    "lodash.topath": "^4.5.2"
+    "lodash.topath": "^4.5.2",
+    "tslib": "^1.9.3"
   }
 }

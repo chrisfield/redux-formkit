@@ -81,7 +81,7 @@ class Field extends React.PureComponent<FieldProps> {
   };
 
   handleChange(event) {
-    const value = this.props.formatToStore(this.props.getTargetValue(event.target));
+    const value = this.props.formatToStore(this.props.getTargetValue(event.target, event));
     this.props.updateField(value);
   }
 
