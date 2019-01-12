@@ -18,9 +18,9 @@ To use it on you own project:
 
 
 ## Features
-- Small bundle size (see bundlephobia)[https://bundlephobia.com/result?p=redux-formkit]
-- React-native support (see example)[(https://github.com/chrisfield/redux-formkit/tree/master/examples/reactnative)]
-- Isomophic support - the fields are useable before js downloads (see example)[(https://github.com/chrisfield/redux-formkit/tree/master/examples/nextjs)]
+- Small bundle size [see bundlephobia](https://bundlephobia.com/result?p=redux-formkit)
+- React-native support [see example](https://github.com/chrisfield/redux-formkit/tree/master/examples/reactnative)
+- Isomophic support to enter values before js downloads [see example](https://github.com/chrisfield/redux-formkit/tree/master/examples/nextjs)
 - Easy to migrate from/to redux-form
 - Stores values as semantic types, eg number fields will store numbers
 - Format values, eg to put commas in numbers
