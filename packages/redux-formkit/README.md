@@ -7,7 +7,7 @@ Connect form inputs to Redux or standard React state. Includes validation, field
 
 
 ## Motivation
-Redux-Formkit aims to provide simular functionality to the excellent [Redux-form](https://github.com/erikras/redux-form) but with a really tightly scoped API allowing a smaller codebase (over 80% smaller).
+Redux-Formkit aims to provide simular functionality to the excellent [Redux-form](https://github.com/erikras/redux-form) but with a really tightly scoped API allowing a smaller codebase (about 25% of the size).
 
 
 ## Getting Started
@@ -18,29 +18,18 @@ To use it on you own project:
 
 
 ## Features
-- Isomophic support (see paragraph below and Next-js example).
-- React-native support
+- Small bundle size (see bundlephobia)[https://bundlephobia.com/result?p=redux-formkit]
+- React-native support (see example)[(https://github.com/chrisfield/redux-formkit/tree/master/examples/reactnative)]
+- Isomophic support - the fields are useable before js downloads (see example)[(https://github.com/chrisfield/redux-formkit/tree/master/examples/nextjs)]
 - Easy to migrate from/to redux-form
-- Small bundle size
 - Stores values as semantic types, eg number fields will store numbers
 - Format values, eg to put commas in numbers
 - Not cluttered with ui components or ad-hoc code
-- Uses Context Api (introduced in from React 16.3)
 - Use it with or without Redux and switch anytime by changing one import. 
 - Field-arrays for repeated rows with add/remove
 - Keeps a running error-count and valid/not valid status
 - Synchronous validation including flexible support for inter-field valiation
 - Asynchronous validation
-
-
-## Client and Server Side Rendering
-Users with a slow internet connection who use a server-rendered-form as soon as it arrives but before the javascript downloads would unfortunately see their changes overwritten when the javascript initiates and sets the controlled input values to match the redux-state. One way to counter this would be to initially disable the form inputs.
-
-The Redux-formkit provides an alternative solution. The Field component includes code to update the redux-state using any data entered. In this way your form renders quickly, standard html elements are immediately usable, data is not lost and validation, formatting etc kick in as soon as the Javascript is available. 
-
-To see this in action run the [nextjs example](https://github.com/chrisfield/redux-formkit/tree/master/examples/nextjs) and in the chrome dev-tools network tab choose the slow-3g option. While the javascript is downloading you will be able to use the server rendered html-form.
-
-It is also great for clientside JS.
 
 
 ## Usage
@@ -136,7 +125,7 @@ I'm keen to get feedback please let me know about any issues [here](https://gith
 
 ### Formkit
 
-`Formkit` is the higher order component used to wrap forms. You give it a config object and it returns a function to wrap a form. eg `Formkit({connect, name:'sign-up'})(SignUp)` would wrap the SignUp form giving it extra facilities. It also gives it one extra prop called `form`.
+`formkit` is the higher order component used to wrap forms. You give it a config object and it returns a function to wrap a form. eg `formkit({connect, name:'sign-up'})(SignUp)` would wrap the SignUp form giving it extra facilities. It also gives it one extra prop called `form`.
 
 
 The config object can contain:
