@@ -184,7 +184,13 @@ Field.propTypes = {
 Field.defaultProps = {
   formatFromStore: (value = '') => value,
   formatToStore: value => value,
-  getTargetValue: target => target.value
+  getTargetValue: (target, value) => {
+    if (target) {
+      return target.value
+    } else {
+      return value
+    }
+  }
 };
 
 

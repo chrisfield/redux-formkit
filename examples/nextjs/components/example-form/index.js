@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import formkit, {FieldArray, FormStatus, NamedValidationStatus, SubmissionError, Field} from 'redux-formkit';
-import {InputField, RadioField, CheckboxField} from './form-controls';
-import {upper, lower, number, addCommas, maxLength, requiredStr, requiredNum} from './form-controls/utils';
+import {InputField, RadioField, CheckboxField} from '../form-controls';
+import {upper, lower, number, addCommas, maxLength, requiredStr, requiredNum} from '../form-controls/utils';
 import WithClientJsOnly from '../with-client-js-only';
 import { connect } from 'react-redux';
 

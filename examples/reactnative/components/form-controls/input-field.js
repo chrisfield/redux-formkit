@@ -4,7 +4,7 @@ import {Field} from 'redux-formkit';
 
 const Input = props => (
   <View>
-    <Text>text input: </Text>
+    <Text>{props.label}</Text>
     <TextInput
       ref={props.setElementRef}
       id={props.name} 
@@ -15,18 +15,13 @@ const Input = props => (
       onBlur={props.handleBlur}
       style={styles.textInput}
     />
-    <Text>End</Text>
   </View>
 );
-
-const getTargetValue = (target, value) => (
-  value 
-)
 
 const useTargetCondition = () => false;
   
 const InputField = props => (
-  <Field useTargetCondition={useTargetCondition} getTargetValue={getTargetValue} component={Input} {...props} />
+  <Field name={props.names} useTargetCondition={useTargetCondition} component={Input} {...props} />
 );
 
 const styles = StyleSheet.create({
