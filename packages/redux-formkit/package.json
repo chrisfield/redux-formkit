@@ -18,6 +18,7 @@
     "redux",
     "react-redux",
     "react-form",
+    "react-native"
     "redux-form",
     "form",
     "field",
@@ -26,7 +27,7 @@
     "next",
     "isomorphic"
   ],
-  "author": "Chris Field",
+  "author": "Kit Field",
   "license": "ISC",
   "files": [
     "README.md",
