@@ -12,13 +12,13 @@ mv complex withoutredux
 cd withoutredux
 ```
 
-Remove the readux package:
+Remove the redux packages:
 
 ```bash
 npm uninstall --save redux react-redux
 ```
 
-Edit the top level index.js file to remove the <Provider> and </Provider> tags and take out the now unsed store and Provider imports (for the next js example the file to edit is pages/_app.js).
+Edit the top level index.js file to remove the <Provider> and </Provider> tags and take out the now unsed store and Provider imports ([note for nextjs](#nextjs-note)).
 
 Edit ExampleForm.js to change the import of { connect } from react-redux to: 
 
@@ -35,3 +35,7 @@ npm start
 
 ## Features
 * Fully featured Formkit form running without redux
+
+<a name="nextjs-note"></a>
+
+  **Note**: For the nextjs example edit pages/_app.js file to remove the <Provider> and </Provider> tags and the call to withReduxStore. Take out the now unused Provider and withReduxStore imports.
