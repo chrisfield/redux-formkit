@@ -21,11 +21,11 @@ To use it on you own project:
 - Small bundle size ([see bundlephobia](https://bundlephobia.com/result?p=redux-formkit))
 - React-native support ([see example](https://github.com/chrisfield/redux-formkit/tree/master/examples/reactnative))
 - Isomophic support to enter values before js downloads ([see example](https://github.com/chrisfield/redux-formkit/tree/master/examples/nextjs))
+- Use it with or without Redux and switch anytime by changing one import([see example](https://github.com/chrisfield/redux-formkit/tree/master/examples/withoutredux)). 
 - Easy to migrate from/to redux-form
 - Stores values as semantic types, eg number fields will store numbers
 - Format values, eg to put commas in numbers
 - Not cluttered with ui components or ad-hoc code
-- Use it with or without Redux and switch anytime by changing one import. 
 - Field-arrays for repeated rows with add/remove
 - Keeps a running error-count and valid/not valid status
 - Synchronous validation including flexible support for inter-field valiation
