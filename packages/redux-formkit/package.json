@@ -8,7 +8,7 @@
     "url": "https://github.com/chrisfield/redux-formkit"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "build": "npm run clean && tsc -p ./config/tsconfig.build.json",
     "build:lib": "babel src --out-dir lib",
     "clean": "rimraf lib"
@@ -18,7 +18,7 @@
     "redux",
     "react-redux",
     "react-form",
-    "react-native"
+    "react-native",
     "redux-form",
     "form",
     "field",
@@ -34,22 +34,27 @@
     "lib/"
   ],
   "devDependencies": {
+    "@types/jest": "^23.3.12",
     "@types/lodash.topath": "^4.5.4",
     "@types/prop-types": "^15.5.8",
     "@types/react": "^16.7.18",
     "@types/react-dom": "^16.0.11",
     "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-jest": "^23.6.0",
     "babel-loader": "^7.1.4",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
+    "jest": "^23.6.0",
     "lerna": "^3.8.5",
     "prop-types": "^15.6.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "redux-devtools-extension": "^2.13.7",
+    "regenerator-runtime": "^0.13.1",
     "rimraf": "^2.6.2",
+    "ts-jest": "^23.10.5",
     "tsutils": "^3.7.0",
     "typescript": "^3.2.2"
   },
