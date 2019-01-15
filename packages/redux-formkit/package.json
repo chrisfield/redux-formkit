@@ -9,6 +9,7 @@
   },
   "scripts": {
     "test": "jest",
+    "test:watch": "npm test -- --watch",
     "build": "npm run clean && tsc -p ./config/tsconfig.build.json",
     "build:lib": "babel src --out-dir lib",
     "clean": "rimraf lib"
