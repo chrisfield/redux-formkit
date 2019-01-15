@@ -24,8 +24,8 @@ export const updateFields = (payload) => (
   {type: actionTypes.UPDATE_FIELDS, payload}
 );
 
-export const setUntouchAllFields = (form, boolValue?) => (
-  {form: form, type: actionTypes.SET_UNTOUCH_ALL_FIELDS, boolValue}
+export const setUntouchAllFields = (boolValue) => ( //todo: consider rename
+  {type: actionTypes.SET_UNTOUCH_ALL_FIELDS, boolValue}
 );
 
 export const setFieldError = (field, error, value) => (
