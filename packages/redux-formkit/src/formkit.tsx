@@ -88,9 +88,9 @@ const Formkit = ({
           dispatch: this.props.dispatch,
           getFormState: this.getFormState,
           registerField: this.registerField,
-          deregisterField: this.registerField,
+          deregisterField: this.deregisterField,
           registerFieldArray: this.registerFieldArray,
-          deregisterFieldArray: this.registerFieldArray,
+          deregisterFieldArray: this.deregisterFieldArray,
           getField: this.getField,
           getFieldArray: this.getFieldArray
         };
