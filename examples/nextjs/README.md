@@ -19,18 +19,9 @@ yarn install
 yarn dev
 ```
 
-## The idea behind the example
-
-Next.js will server render the form so that when the page reaches the browser it already contains the form mark-up. The advantage of this is that the form (prepopulated with any default values etc) will display while the js bundle downloads. At this point the JS is still downloading but the user can enter/use the form controls as thought it was a plain html form.
-
-When the js bundle downloads redux-formkit will compare the value of each actual field with the initial value provided from the redux-store. Where these values are different redux-formkit will run the validation, the formatting and update the redux store with the user entered value.
-
-As long as your components pass 'ref={props.setElementRef}' to the form input/select etc no extra code is required.
-
-
 ## Features
 * Server Side rendering with Next JS
-* Isomorphic initialisation so fields can be used while the client JS is downloading
+* Isomorphic initialisation so fields can be used while the client JS is downloading (see below)
 * Field-array with add/remove buttons
 * Setting initial values
 * Field and Inter-field valiation
@@ -43,3 +34,13 @@ As long as your components pass 'ref={props.setElementRef}' to the form input/se
 * Flexible positioning of other server-side validation messages
 
 
+## Client and Server-Side Rendering
+
+Next.js renders html-markup on the server so the form (prepopulated with any default values etc) is available to use while the js bundle downloads.
+
+Without something like redux-formkit the data entered would be overwritten when the javascript sets the controlled inputs to match the redux-state. The problem would be most noticable for users with a slow internet connection. 
+
+One way round this would be to initially disable the form inputs. Redux-formkit provides a better solution: 
+* The Field component includes code to update the redux-state using any data entered. In this way your form renders quickly, standard html elements are immediately usable, data is not lost and validation, formatting etc kick in as soon as the Javascript is available.
+
+To see this in action run the example and in the chrome dev-tools network tab choose the slow-3g option. While the javascript is downloading you will be able to use the server rendered html-form.
