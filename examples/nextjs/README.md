@@ -34,13 +34,13 @@ yarn dev
 * Flexible positioning of other server-side validation messages
 
 
-## Client and Server-Side Rendering
+## Handle early input to isomorphically rendered forms
 
-Next.js renders html-markup on the server so the form (prepopulated with any default values etc) is available to use while the js bundle downloads.
+Next.js renders html on the server so the form is available to use while the js bundle downloads.
 
-Without something like redux-formkit the data entered would be overwritten when the javascript sets the controlled inputs to match the redux-state. The problem would be most noticable for users with a slow internet connection. 
+Without something like redux-formkit any changed field values get overwritten because, when the javascript runs, it sets the controlled inputs to match the redux-state.
 
 One way round this would be to initially disable the form inputs. Redux-formkit provides a better solution: 
-* The Field component includes code to update the redux-state using any data entered. In this way your form renders quickly, standard html elements are immediately usable, data is not lost and validation, formatting etc kick in as soon as the Javascript is available.
+> The Field component includes code to update the redux-state with the value on the page. In this way your form renders quickly, standard html elements are immediately usable, data is not lost and validation, formatting etc kick in as soon as the Javascript is available.
 
 To see this in action run the example and in the chrome dev-tools network tab choose the slow-3g option. While the javascript is downloading you will be able to use the server rendered html-form.
