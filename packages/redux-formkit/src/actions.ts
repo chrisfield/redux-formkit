@@ -1,10 +1,10 @@
 export const actionTypes = {
   INIT_FORM_STATE: 'INIT_FORM_STATE',
+  SET_REVALIDATE_FIELDS_DUE: 'SET_REVALIDATE_FIELDS_DUE',
   PUSH_TO_FIELD_ARRAY: 'PUSH_TO_FIELD_ARRAY',
   REMOVE_FROM_FIELD_ARRAY: 'REMOVE_FROM_FIELD_ARRAY',
   UPDATE_FIELD: 'UPDATE_FIELD',
   UPDATE_FIELDS: 'UPDATE_FIELDS',
-  SET_UNTOUCH_ALL_FIELDS: 'SET_UNTOUCH_ALL_FIELDS',
   SET_FIELD_ERROR: 'SET_FIELD_ERROR',
   SET_FIELD_TOUCHED: 'SET_FIELD_TOUCHED',
   START_SUBMIT: 'START_SUBMIT',
@@ -16,16 +16,16 @@ export const initFormState = (form) => (
   {type: actionTypes.INIT_FORM_STATE, form}
 );
 
+export const setRevalidateFieldsDue = (payload) => (
+  {type: actionTypes.SET_REVALIDATE_FIELDS_DUE, payload}
+);
+
 export const updateField = (field, value) => (
   {type: actionTypes.UPDATE_FIELD, field, value}
 );
 
 export const updateFields = (payload) => (
   {type: actionTypes.UPDATE_FIELDS, payload}
-);
-
-export const setUntouchAllFields = (boolValue) => ( //todo: consider rename
-  {type: actionTypes.SET_UNTOUCH_ALL_FIELDS, boolValue}
 );
 
 export const setFieldError = (field, error, value) => (

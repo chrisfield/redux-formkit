@@ -8,7 +8,9 @@ export const initialFormStatus = {
   isValid: true
 };
 
-const formStatusAndFieldStatusReducer = (formStatus = initialFormStatus, fieldStatus = {}, action) => {
+export const initialFieldStatus = {};
+
+const formStatusAndFieldStatusReducer = (formStatus = initialFormStatus, fieldStatus = initialFieldStatus, action) => {
   const errorCount = formStatus.errorCount;
   switch (action.type) {
     case actionTypes.START_SUBMIT: {
@@ -23,16 +25,16 @@ const formStatusAndFieldStatusReducer = (formStatus = initialFormStatus, fieldSt
         fieldStatus: fieldStatus
       }
     }
-    case actionTypes.UPDATE_FIELDS: {
+    case actionTypes.SET_REVALIDATE_FIELDS_DUE: {
       return {
-        formStatus: {...formStatus, isUntouchAllFields: true},
+        formStatus: {...formStatus, revalidateFieldsDue: action.payload},
         fieldStatus: fieldStatus
       }
     }
-    case actionTypes.SET_UNTOUCH_ALL_FIELDS: {
+    case actionTypes.UPDATE_FIELDS: {
       return {
-        formStatus: {...formStatus, isUntouchAllFields: action.boolValue},
-        fieldStatus: fieldStatus
+        formStatus: {...initialFormStatus, revalidateFieldsDue: {touched: false}},
+        fieldStatus: initialFieldStatus
       }
     }
     case actionTypes.DEREGISTER_FIELD: {
