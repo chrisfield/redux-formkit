@@ -35,16 +35,16 @@ describe('actions', () => {
   })
 
   it('should create an action: setUntouchAllFields', () => {
-    const expectedActionForTrue = {
-      type: types.SET_UNTOUCH_ALL_FIELDS,
-      boolValue: true
+    const expectedActionForTouchedTrue = {
+      type: types.SET_REVALIDATE_FIELDS_DUE,
+      payload: {touched: true}
     }
-    const expectedActionForFalse = {
-      type: types.SET_UNTOUCH_ALL_FIELDS,
-      boolValue: false
+    const expectedActionForTouchedFalse = {
+      type: types.SET_REVALIDATE_FIELDS_DUE,
+      payload: {touched: false}
     }
-    expect(actions.setUntouchAllFields(true)).toEqual(expectedActionForTrue)
-    expect(actions.setUntouchAllFields(false)).toEqual(expectedActionForFalse)
+    expect(actions.setRevalidateFieldsDue({touched:true})).toEqual(expectedActionForTouchedTrue)
+    expect(actions.setRevalidateFieldsDue({touched:false})).toEqual(expectedActionForTouchedFalse)
   })
 
   it('should create an action: setFieldError', () => {
