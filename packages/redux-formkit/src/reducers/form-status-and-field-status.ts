@@ -13,6 +13,12 @@ export const initialFieldStatus = {};
 const formStatusAndFieldStatusReducer = (formStatus = initialFormStatus, fieldStatus = initialFieldStatus, action) => {
   const errorCount = formStatus.errorCount;
   switch (action.type) {
+    case actionTypes.INIT_FORM_STATE: {
+      return {
+        formStatus: {...initialFormStatus, ...action.formStatus},
+        fieldStatus: {...initialFieldStatus, ...action.fieldStatus}
+      }
+    }
     case actionTypes.START_SUBMIT: {
       return {
         formStatus: {...formStatus, isSubmitting: true},

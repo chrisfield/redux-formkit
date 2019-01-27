@@ -5,6 +5,7 @@ import {updateField, setFieldError, setFieldTouched, deregisterField} from './ac
 import getField from './state-utils/get-field';
 
 interface FieldProps {
+  name: string,
   formkitForm: any,
   formInterface: any,
   component: any,

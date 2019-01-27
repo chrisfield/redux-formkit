@@ -23,7 +23,9 @@ export {FieldArray};
 import SubmissionError from './submission-error';
 export {SubmissionError};
 
-import {updateFields, updateField} from './actions';
+import {initFormState as initFormStateAction, updateFields, updateField} from './actions';
+
+export {initFormStateAction}
 
 export const updateFieldsAction = (form, payload) => (
   {form, ...updateFields(payload)}

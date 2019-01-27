@@ -12,9 +12,10 @@ export const actionTypes = {
   DEREGISTER_FIELD: 'DEREGISTER_FIELD'
 };
 
-export const initFormState = (form) => (
-  {type: actionTypes.INIT_FORM_STATE, form}
-);
+export const initFormState = (
+  form,
+  {formStatus={},fieldStatus={},fieldValues={},fieldErrors={}}={}
+) => ({type: actionTypes.INIT_FORM_STATE, form, formStatus, fieldStatus, fieldValues, fieldErrors});
 
 export const setRevalidateFieldsDue = (payload) => (
   {type: actionTypes.SET_REVALIDATE_FIELDS_DUE, payload}
