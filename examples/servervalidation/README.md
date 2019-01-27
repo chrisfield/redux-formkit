@@ -6,7 +6,7 @@ Download the example [or clone the repo](https://github.com/chrisfield/redux-for
 
 ```bash
 curl https://codeload.github.com/chrisfield/redux-formkit/tar.gz/master | tar -xz --strip=2 "redux-formkit"-master/examples/servervalidation
-cd nextjs
+cd servervalidation
 ```
 
 Install it and run:

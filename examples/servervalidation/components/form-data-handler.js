@@ -1,8 +1,11 @@
 export const createFormDataHandler = fieldDefinitions => (
   async (data, {isAlreadyFormattedForStore = true}={}) => {
     const formDataHandler = new FormDataHandler(fieldDefinitions);
+
+    console.log('isAlreadyFormattedForStore:', isAlreadyFormattedForStore);
+    console.log('data:', data);
   
-    const storeValues = isAlreadyFormattedForStore? data: formDataHandler.formatValuesToStore(data)
+    const storeValues = isAlreadyFormattedForStore? data : formDataHandler.formatValuesToStore(data)
     return {
       fieldValues: storeValues,
       fieldStatus: formDataHandler.validate(storeValues),

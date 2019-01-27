@@ -25,7 +25,7 @@ const filterErrors = (fieldStatus) => {
 Index.getInitialProps = async props => {
   const { req, res, reduxStore } = props;
   if (req && req.method === 'POST') {
-    if (req.headers.contentType === 'application/json') {
+    if (req.headers['content-type'] === 'application/json') {
       const formState = await formDataHandler(req.body);
       const isValid = formState.formStatus.errorCount === 0;
       res.json({
