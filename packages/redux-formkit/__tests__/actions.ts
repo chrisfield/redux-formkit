@@ -6,7 +6,11 @@ describe('actions', () => {
     const form = 'myTestForm'
     const expectedAction = {
       type: types.INIT_FORM_STATE,
-      form
+      form,
+      formStatus:{},
+      fieldStatus:{},
+      fieldValues:{},
+      fieldErrors:{}
     }
     expect(actions.initFormState(form)).toEqual(expectedAction)
   })

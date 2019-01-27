@@ -21,7 +21,8 @@ To use it on you own project:
 - Small bundle size ([see bundlephobia](https://bundlephobia.com/result?p=redux-formkit))
 - React-native support ([see example](https://github.com/chrisfield/redux-formkit/tree/master/examples/reactnative))
 - Isomophic support to enter values before js downloads ([see example](https://github.com/chrisfield/redux-formkit/tree/master/examples/nextjs))
-- Use it with or without Redux and switch anytime by changing one import([see example](https://github.com/chrisfield/redux-formkit/tree/master/examples/withoutredux)). 
+- Universal validation. Define rules once: use on client, use on server. ([see example](https://github.com/chrisfield/redux-formkit/tree/master/examples/servervalidation))
+- Use it with or without Redux and switch anytime by changing one import ([see example](https://github.com/chrisfield/redux-formkit/tree/master/examples/withoutredux)). 
 - Easy to migrate from/to redux-form
 - Stores values as semantic types, eg number fields will store numbers
 - Format values, eg to put commas in numbers
