@@ -12,7 +12,16 @@ describe('actions', () => {
       fieldValues:{},
       fieldErrors:{}
     }
+    const expectedAction2 = {
+      type: types.INIT_FORM_STATE,
+      form,
+      formStatus:{},
+      fieldStatus:{},
+      fieldValues:{f1: 'One'},
+      fieldErrors:{}
+    }
     expect(actions.initFormState(form)).toEqual(expectedAction)
+    expect(actions.initFormState(form, {fieldValues: {f1: 'One'}})).toEqual(expectedAction2)
   })
 
   it('should create an action: updateField', () => {

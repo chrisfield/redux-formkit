@@ -6,7 +6,7 @@ import fieldErrors from './field-errors';
 export const initialState = {};
 
 const reducer = (state = initialState, action) => {
-  if (actionTypes[action.type]) {
+  if (action && actionTypes[action.type] && action.form) {
     const formState = state[action.form] || {};
     const {formStatus, fieldStatus} = formStatusAndFieldStatus(formState.formStatus, formState.fieldStatus, action);
     formStatus.isValid = formStatus.errorCount === 0;

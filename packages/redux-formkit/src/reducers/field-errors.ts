@@ -6,7 +6,7 @@ export const initialState = {};
 const errorsReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.INIT_FORM_STATE:
-      return action.fieldErrors;
+      return action.fieldErrors || {};
     case actionTypes.UPDATE_FIELDS:
       return {};
     case actionTypes.START_SUBMIT:
