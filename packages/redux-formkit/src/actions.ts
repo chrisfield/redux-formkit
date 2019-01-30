@@ -1,6 +1,6 @@
 export const actionTypes = {
   INIT_FORM_STATE: 'INIT_FORM_STATE',
-  SET_REVALIDATE_FIELDS_DUE: 'SET_REVALIDATE_FIELDS_DUE',
+  RESET_FIELDS_IS_DONE: 'RESET_FIELDS_IS_DONE',
   PUSH_TO_FIELD_ARRAY: 'PUSH_TO_FIELD_ARRAY',
   REMOVE_FROM_FIELD_ARRAY: 'REMOVE_FROM_FIELD_ARRAY',
   UPDATE_FIELD: 'UPDATE_FIELD',
@@ -17,8 +17,8 @@ export const initFormState = (
   {formStatus={},fieldStatus={},fieldValues={},fieldErrors={}}={}
 ) => ({type: actionTypes.INIT_FORM_STATE, form, formStatus, fieldStatus, fieldValues, fieldErrors});
 
-export const setRevalidateFieldsDue = (payload) => (
-  {type: actionTypes.SET_REVALIDATE_FIELDS_DUE, payload}
+export const resetFieldsIsDone = () => (
+  {type: actionTypes.RESET_FIELDS_IS_DONE}
 );
 
 export const updateField = (field, value) => (

@@ -3,7 +3,7 @@ import { PureComponent } from 'react';
 import * as PropTypes from 'prop-types';
 import isPromise from 'is-promise';
 import FormkitContext from './formkit-context';
-import {startSubmit, stopSubmit, updateFields,setRevalidateFieldsDue} from './actions';
+import {startSubmit, stopSubmit, updateFields, resetFieldsIsDone} from './actions';
 import SubmissionError from './submission-error';
 
 interface FormkitConfig {
@@ -115,10 +115,9 @@ const Formkit = ({
       }
 
       componentDidUpdate() {
-        const revalidateFieldsDue = this.props.formState.formStatus.revalidateFieldsDue
-        if (revalidateFieldsDue) {
+        if (this.props.formState.formStatus.isResetFieldsDue) {
           this.markAllFieldsAsTouched(false);
-          this.props.dispatch(setRevalidateFieldsDue(false));
+          this.props.dispatch(resetFieldsIsDone());
         }
       }
         

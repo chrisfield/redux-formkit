@@ -31,15 +31,15 @@ const formStatusAndFieldStatusReducer = (formStatus = initialFormStatus, fieldSt
         fieldStatus: fieldStatus
       }
     }
-    case actionTypes.SET_REVALIDATE_FIELDS_DUE: {
+    case actionTypes.RESET_FIELDS_IS_DONE: {
       return {
-        formStatus: {...formStatus, revalidateFieldsDue: action.payload},
+        formStatus: {...formStatus, isResetFieldsDue: false},
         fieldStatus: fieldStatus
       }
     }
     case actionTypes.UPDATE_FIELDS: {
       return {
-        formStatus: {...initialFormStatus, revalidateFieldsDue: {touched: false}},
+        formStatus: {...initialFormStatus, isResetFieldsDue: true},
         fieldStatus: initialFieldStatus
       }
     }
