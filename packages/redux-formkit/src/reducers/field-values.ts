@@ -7,9 +7,9 @@ export const initialState = {};
 const valuesReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.INIT_FORM_STATE:
-      return action.fieldValues || {};
+      return action.fieldValues;
     case actionTypes.UPDATE_FIELDS:
-      return action.payload;
+      return action.fieldValues;
     case actionTypes.UPDATE_FIELD:
       return setField(state, action.field, action.value);
     case actionTypes.PUSH_TO_FIELD_ARRAY: {

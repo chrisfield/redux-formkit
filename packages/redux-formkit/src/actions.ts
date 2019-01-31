@@ -25,8 +25,8 @@ export const updateField = (field, value) => (
   {type: actionTypes.UPDATE_FIELD, field, value}
 );
 
-export const updateFields = (payload) => (
-  {type: actionTypes.UPDATE_FIELDS, payload}
+export const updateFields = (fieldValues) => (
+  {type: actionTypes.UPDATE_FIELDS, fieldValues}
 );
 
 export const setFieldError = (field, error, value) => (
