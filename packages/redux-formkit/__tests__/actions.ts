@@ -36,28 +36,22 @@ describe('actions', () => {
   })
 
   it('should create an action: updateFields', () => {
-    const payload = {
+    const fieldValues = {
       field1: 'f1',
       field2: 'f2'
     }
     const expectedAction = {
       type: types.UPDATE_FIELDS,
-      payload
+      fieldValues
     }
-    expect(actions.updateFields(payload)).toEqual(expectedAction)
+    expect(actions.updateFields(fieldValues)).toEqual(expectedAction)
   })
 
-  it('should create an action: setUntouchAllFields', () => {
-    const expectedActionForTouchedTrue = {
-      type: types.SET_REVALIDATE_FIELDS_DUE,
-      payload: {touched: true}
+  it('should create an action: resetFieldsIsDone', () => {
+    const expectedAction = {
+      type: types.RESET_FIELDS_IS_DONE
     }
-    const expectedActionForTouchedFalse = {
-      type: types.SET_REVALIDATE_FIELDS_DUE,
-      payload: {touched: false}
-    }
-    expect(actions.setRevalidateFieldsDue({touched:true})).toEqual(expectedActionForTouchedTrue)
-    expect(actions.setRevalidateFieldsDue({touched:false})).toEqual(expectedActionForTouchedFalse)
+    expect(actions.resetFieldsIsDone()).toEqual(expectedAction)
   })
 
   it('should create an action: setFieldError', () => {
