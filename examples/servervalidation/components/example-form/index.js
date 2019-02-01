@@ -25,11 +25,7 @@ const definedFieldsForDataHandler = [
     name: 'theNumber',
     formatToStore: number,
     formatFromStore: addCommas,
-    validate: [
-      requiredNum,
-      (value, values) => (!values.isAgreed && value > 42) ?  
-        'You didn`t agree to numbers > 42' : undefined
-    ]
+    validate: requiredNum
   },
   {
     name: 'field2',
@@ -66,7 +62,11 @@ const definedFieldsForDataHandler = [
   }
 ];
 
-export const formDataHandler = createFormDataHandler(definedFieldsForDataHandler);
+const formValidation = values => (!values.isAgreed && values.theNumber > 42) ?  
+{theNumber: 'You didn`t agree to numbers > 42'} : {};
+
+
+export const formDataHandler = createFormDataHandler(definedFieldsForDataHandler, formValidation);
 const fieldDefinitions = getFieldDefinitionsByName(definedFieldsForDataHandler); 
 
 const ExampleForm = (props) => {

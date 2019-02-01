@@ -1,4 +1,4 @@
-export const createFormDataHandler = fieldDefinitions => (
+export const createFormDataHandler = (fieldDefinitions, formValidation=noop) => (
   async (data, {isAlreadyFormattedForStore = true}={}) => {
     const formDataHandler = new FormDataHandler(fieldDefinitions);
 
@@ -9,7 +9,8 @@ export const createFormDataHandler = fieldDefinitions => (
     return {
       fieldValues: storeValues,
       fieldStatus: formDataHandler.validate(storeValues),
-      formStatus: {errorCount: formDataHandler.errorCount}
+      formStatus: {errorCount: formDataHandler.errorCount},
+      fieldErrors: formValidation(storeValues) || {}
     }
   }  
 );
