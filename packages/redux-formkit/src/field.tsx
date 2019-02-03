@@ -206,7 +206,7 @@ const mapStateToProps = (state, ownProps) => {
   const rawValue = getField(state.fieldValues, ownProps.name);
   const status = getField(state.fieldStatus, ownProps.name) || {};
   const touched = status.touched || !ownProps.validate;
-  const error = status.error? status.error: getField(state.fieldErrors, ownProps.name);
+  const error = status.error? status.error: getField(state.formErrors, ownProps.name);
   return {
     rawValue,
     error,

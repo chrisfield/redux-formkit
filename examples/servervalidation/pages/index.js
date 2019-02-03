@@ -28,7 +28,7 @@ Index.getInitialProps = async props => {
     if (req.headers['content-type'] === 'application/json') {
       const formState = await formDataHandler(req.body);
       console.log('formState', formState);
-      const isValid = formState.formStatus.errorCount + Object.keys(formState.fieldErrors).length === 0;
+      const isValid = formState.formStatus.errorCount + Object.keys(formState.formErrors).length === 0;
       res.json({
         errors: {
           formErrorAtTop: isValid? '' : "Form not processed. Please make changes and try again.",
@@ -42,7 +42,7 @@ Index.getInitialProps = async props => {
     } else {
       const formState = await formDataHandler(req.body, {isAlreadyFormattedForStore:false});
       console.log('formState', formState);
-      const isValid = formState.formStatus.errorCount + Object.keys(formState.fieldErrors).length === 0;
+      const isValid = formState.formStatus.errorCount + Object.keys(formState.formErrors).length === 0;
       if (isValid) {
         res.writeHead(301, {Location:  `/page-two?theNumber=${formState.fieldValues.theNumber}`});
         res.end();

@@ -22,7 +22,7 @@ const describeInitFormState = () => {
         },
         fieldStatus: {},
         fieldValues: {},
-        fieldErrors: {}          
+        formErrors: {}          
       }
     })
   })
@@ -34,7 +34,7 @@ const describeInitFormState = () => {
       formStatus: {one: '1st'},
       fieldStatus: {two: '2nd'},
       fieldValues: {three: '3rd'},
-      fieldErrors: {four: '4th'}
+      formErrors: {four: '4th'}
     })
     expect(state).toEqual({
       myForm: {
@@ -46,7 +46,7 @@ const describeInitFormState = () => {
         },
         fieldStatus: {two: '2nd'},
         fieldValues: {three: '3rd'},
-        fieldErrors: {four: '4th'}
+        formErrors: {four: '4th'}
       }
     })
   })
@@ -66,7 +66,7 @@ const describeInitFormState = () => {
         },
         fieldStatus: {},
         fieldValues: {},
-        fieldErrors: {}
+        formErrors: {}
       }
     })
   })  
@@ -86,7 +86,7 @@ const describeInitFormState = () => {
         },
         fieldStatus: {},
         fieldValues: {},
-        fieldErrors: {}
+        formErrors: {}
       }
     })
   })  

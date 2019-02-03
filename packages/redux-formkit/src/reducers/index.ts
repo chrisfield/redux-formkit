@@ -1,7 +1,7 @@
 import {actionTypes} from '../actions';
 import formStatusAndFieldStatus from './form-status-and-field-status';
 import fieldValues from './field-values';
-import fieldErrors from './field-errors';
+import formErrors from './form-errors';
 
 export const initialState = {};
 
@@ -16,7 +16,7 @@ const reducer = (state = initialState, action) => {
         formStatus,
         fieldStatus,
         fieldValues: fieldValues(formState.fieldValues, action),
-        fieldErrors: fieldErrors(formState.fieldErrors, action)
+        formErrors: formErrors(formState.formErrors, action)
       }
     };
   }

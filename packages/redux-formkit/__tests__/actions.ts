@@ -10,7 +10,7 @@ describe('actions', () => {
       formStatus:{},
       fieldStatus:{},
       fieldValues:{},
-      fieldErrors:{}
+      formErrors:{}
     }
     const expectedAction2 = {
       type: types.INIT_FORM_STATE,
@@ -18,7 +18,7 @@ describe('actions', () => {
       formStatus:{},
       fieldStatus:{},
       fieldValues:{f1: 'One'},
-      fieldErrors:{}
+      formErrors:{}
     }
     expect(actions.initFormState(form)).toEqual(expectedAction)
     expect(actions.initFormState(form, {fieldValues: {f1: 'One'}})).toEqual(expectedAction2)
@@ -124,27 +124,18 @@ describe('actions', () => {
   })
 
   it('should create an action: stopSubmit', () => {
-    const errors = {
+    const formErrors = {
       userName: 'This username is already taken'
     }
     const expectedActionWithErrors = {
       type: types.STOP_SUBMIT,
-      errors
+      formErrors
     }
     const expectedActionWithoutErrors = {
       type: types.STOP_SUBMIT
     }
-    expect(actions.stopSubmit(errors)).toEqual(expectedActionWithErrors)
+    expect(actions.stopSubmit(formErrors)).toEqual(expectedActionWithErrors)
     expect(actions.stopSubmit()).toEqual(expectedActionWithoutErrors)
   })
 
-
 })
-
-/*
-
-export const stopSubmit = (errors?) => (
-  {type: actionTypes.STOP_SUBMIT, errors}
-);
-
-*/

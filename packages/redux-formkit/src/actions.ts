@@ -14,8 +14,8 @@ export const actionTypes = {
 
 export const initFormState = (
   form,
-  {formStatus={},fieldStatus={},fieldValues={},fieldErrors={}}={}
-) => ({type: actionTypes.INIT_FORM_STATE, form, formStatus, fieldStatus, fieldValues, fieldErrors});
+  {formStatus={},fieldStatus={},fieldValues={},formErrors={}}={}
+) => ({type: actionTypes.INIT_FORM_STATE, form, formStatus, fieldStatus, fieldValues, formErrors});
 
 export const resetFieldsIsDone = () => (
   {type: actionTypes.RESET_FIELDS_IS_DONE}
@@ -53,6 +53,6 @@ export const startSubmit = () => (
   {type: actionTypes.START_SUBMIT}
 );
 
-export const stopSubmit = (errors?) => (
-  {type: actionTypes.STOP_SUBMIT, errors}
+export const stopSubmit = (formErrors?) => (
+  {type: actionTypes.STOP_SUBMIT, formErrors}
 );
