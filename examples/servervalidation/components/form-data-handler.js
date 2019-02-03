@@ -1,10 +1,6 @@
 export const createFormDataHandler = (fieldDefinitions, formValidation=noop) => (
   async (data, {isAlreadyFormattedForStore = true}={}) => {
-    const formDataHandler = new FormDataHandler(fieldDefinitions);
-
-    console.log('isAlreadyFormattedForStore:', isAlreadyFormattedForStore);
-    console.log('data:', data);
-  
+    const formDataHandler = new FormDataHandler(fieldDefinitions);  
     const storeValues = isAlreadyFormattedForStore? data : formDataHandler.formatValuesToStore(data)
     return {
       fieldValues: storeValues,
@@ -39,8 +35,10 @@ class FormDataHandler {
   formatValuesToStore = rawValues => {
     const values = {}
     this.fields.forEach(field => {
-      const formatToStore = field.formatToStore
-      values[field.name] = formatToStore ? formatToStore(rawValues[field.name]) : rawValues[field.name]
+      const value = field.formatToStore ? field.formatToStore(rawValues[field.name]) : rawValues[field.name];
+      if (value !== undefined){
+        values[field.name] = value;  
+      }
     })
     return values
   }
@@ -79,7 +77,7 @@ class FormDataHandler {
     } else {
       error = fieldValidation(values[field.name], values)
     }
-    const result = {touched: true}
+    const result = {touched: true, validateOnMount: false}
     if (error) {
       this.errorCount ++
       result.error = error

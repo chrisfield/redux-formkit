@@ -16,6 +16,8 @@ const greaterThanField1 = (value, values) => (
   values && value > values.field1? undefined: 'Field two must be greater than field one'
 );
 
+const checkboxChecked = value => !!value;
+
 const definedFieldsForDataHandler = [
   {
     name: 'field1',
@@ -32,8 +34,14 @@ const definedFieldsForDataHandler = [
     validate: greaterThanField1
   },
   {name: 'abc'},
-  {name: 'isAgreed'},
-  {name: 'isAdditionalField'},
+  {
+    name: 'isAgreed',
+    formatToStore: checkboxChecked
+  },
+  {
+    name: 'isAdditionalField',
+    formatToStore: checkboxChecked
+  },
   {
     name: 'additionalField',
     validate: (value, values) => values.isAdditionalField && requiredStr(value)

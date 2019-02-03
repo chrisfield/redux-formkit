@@ -22,7 +22,8 @@ interface FieldProps {
   onChange: any,
   rawValue: any,
   error: any,
-  touched: any
+  touched: any,
+  validateOnMount: any
 }
 
 class Field extends React.PureComponent<FieldProps> {
@@ -54,10 +55,14 @@ class Field extends React.PureComponent<FieldProps> {
     if (this.elementRef) {
       if (!this.props.useTargetCondition || this.props.useTargetCondition(this.elementRef)) {
         const rawValue = this.props.formatToStore(this.props.getTargetValue(this.elementRef));
-        this.validate(rawValue);
+        if (this.props.validateOnMount || rawValue !== this.props.rawValue) {
+          this.validate(rawValue);
+        }
       }        
     } else {
-      this.validate(this.props.rawValue);
+      if (this.props.validateOnMount) {
+        this.validate(this.props.rawValue);
+      }
     }
   }
 
@@ -134,6 +139,7 @@ class Field extends React.PureComponent<FieldProps> {
       rawValue,
       error,
       touched,
+      validateOnMount,
       ...givenProps
     } = props;
     if (typeof Component === 'string') {
@@ -191,7 +197,8 @@ Field.defaultProps = {
     } else {
       return value
     }
-  }
+  },
+  validateOnMount: true
 };
 
 
@@ -203,7 +210,8 @@ const mapStateToProps = (state, ownProps) => {
   return {
     rawValue,
     error,
-    touched
+    touched,
+    validateOnMount: status.validateOnMount
   };
 };
 
