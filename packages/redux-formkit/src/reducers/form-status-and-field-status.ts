@@ -33,7 +33,7 @@ const formStatusAndFieldStatusReducer = (formStatus = initialFormStatus, fieldSt
     }
     case actionTypes.RESET_FIELDS_IS_DONE: {
       return {
-        formStatus: {...formStatus, isResetFieldsDue: false},
+        formStatus: {...formStatus, isResetFieldsDue: false, isPrevalidatedOnServer: false},
         fieldStatus: fieldStatus
       }
     }

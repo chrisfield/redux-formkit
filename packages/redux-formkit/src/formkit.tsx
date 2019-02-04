@@ -69,7 +69,7 @@ const Formkit = ({
 
       constructor(props) {
         super(props); 
-        this.state = {isInitialized: this.props.formState !== undefined}
+        this.state = {isInitialized: this.props.formState !== undefined};
         this.fields = [];
         this.fieldArrays = [];
         this.registerField = this.registerField.bind(this);
@@ -110,6 +110,8 @@ const Formkit = ({
           this.updateFields(initialValues);
         } else if (!this.props.formState) {
           this.updateFields({});
+        } else if (this.props.formState.formStatus.isPrevalidatedOnServer) {
+          this.props.dispatch(resetFieldsIsDone());
         }
         this.setState({isInitialized: true});
       }

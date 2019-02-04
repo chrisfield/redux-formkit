@@ -32,7 +32,7 @@ Index.getInitialProps = async props => {
       res.json({
         errors: {
           formErrorAtTop: isValid? '' : "Form not processed. Please make changes and try again.",
-          ...formState.fieldErrors,
+          ...formState.formErrors,
           ...filterErrors(formState.fieldStatus)
         },
         isValid,

@@ -23,7 +23,7 @@ interface FieldProps {
   rawValue: any,
   error: any,
   touched: any,
-  validateOnMount: any
+  isPrevalidatedOnServer: boolean
 }
 
 class Field extends React.PureComponent<FieldProps> {
@@ -55,12 +55,12 @@ class Field extends React.PureComponent<FieldProps> {
     if (this.elementRef) {
       if (!this.props.useTargetCondition || this.props.useTargetCondition(this.elementRef)) {
         const rawValue = this.props.formatToStore(this.props.getTargetValue(this.elementRef));
-        if (this.props.validateOnMount || rawValue !== this.props.rawValue) {
+        if (!this.props.isPrevalidatedOnServer || rawValue !== this.props.rawValue) {
           this.validate(rawValue);
         }
       }        
     } else {
-      if (this.props.validateOnMount) {
+      if (!this.props.isPrevalidatedOnServer) {
         this.validate(this.props.rawValue);
       }
     }
@@ -139,7 +139,7 @@ class Field extends React.PureComponent<FieldProps> {
       rawValue,
       error,
       touched,
-      validateOnMount,
+      isPrevalidatedOnServer,
       ...givenProps
     } = props;
     if (typeof Component === 'string') {
@@ -198,7 +198,7 @@ Field.defaultProps = {
       return value
     }
   },
-  validateOnMount: true
+  isPrevalidatedOnServer: false
 };
 
 
@@ -211,7 +211,7 @@ const mapStateToProps = (state, ownProps) => {
     rawValue,
     error,
     touched,
-    validateOnMount: status.validateOnMount
+    isPrevalidatedOnServer: state.formStatus.isPrevalidatedOnServer
   };
 };
 
