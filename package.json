@@ -3,6 +3,7 @@
     "check-clean-repo": "test -z \"$(git status --porcelain)\"",
     "bootstrap": "rm -rf packages/*/node_modules && rm -f packages/*/package-lock.json && lerna exec \"npm i\" --concurrency=1",
     "build": "lerna run build --concurrency=1",
+    "lint": "tslint packages/redux-formkit/src/**/*.{ts,tsx}",
     "test-build": "lerna exec \"npm run test && npm run build\" --concurrency=1",
     "safe-publish": "npm run bootstrap && lerna link && npm run build && npm run test-build && lerna publish",
     "unsafe-publish": "lerna publish"
