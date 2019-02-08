@@ -1,5 +1,5 @@
-import {actionTypes} from '../actions';
-import setField from '../state-utils/set-field';
+import {actionTypes} from "../actions";
+import setField from "../state-utils/set-field";
 
 export const initialState = {};
 
@@ -20,4 +20,4 @@ const errorsReducer = (state = initialState, action) => {
   }
 };
 
-export default errorsReducer; 
+export default errorsReducer;

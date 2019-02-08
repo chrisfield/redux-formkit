@@ -1,6 +1,6 @@
-import {actionTypes} from '../actions';
-import getField from '../state-utils/get-field';
-import setField from '../state-utils/set-field';
+import {actionTypes} from "../actions";
+import getField from "../state-utils/get-field";
+import setField from "../state-utils/set-field";
 
 export const initialState = {};
 

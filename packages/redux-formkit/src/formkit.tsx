@@ -1,74 +1,74 @@
-import * as React from 'react';
-import { PureComponent } from 'react';
-import * as PropTypes from 'prop-types';
-import isPromise from 'is-promise';
-import FormkitContext from './formkit-context';
-import {startSubmit, stopSubmit, updateFields, resetFieldsIsDone} from './actions';
-import SubmissionError from './submission-error';
+import isPromise from "is-promise";
+import * as PropTypes from "prop-types";
+import * as React from "react";
+import { PureComponent } from "react";
+import {resetFieldsIsDone, startSubmit, stopSubmit, updateFields} from "./actions";
+import FormkitContext from "./formkit-context";
+import SubmissionError from "./submission-error";
 
 interface FormkitConfig {
-  connect: any
-  name: string, 
-  initialValues: object, 
-  onSubmit: any,
-  onSubmitSuccess: any,
-  getFormState: any
+  connect: any;
+  name: string;
+  initialValues: object;
+  onSubmit: any;
+  onSubmitSuccess: any;
+  getFormState: any;
 }
 
 interface FormInterface {
-  handleSubmit: any,
-  updateFields: any,
-  getField: any,
-  getFieldArray: any,
-  getFormState: any
+  handleSubmit: any;
+  updateFields: any;
+  getField: any;
+  getFieldArray: any;
+  getFormState: any;
 }
 
 interface FormkitInterface {
-  name: string,
-  dispatch: any,
-  getFormState: any,
-  registerField: any,
-  deregisterField: any,
-  registerFieldArray: any,
-  deregisterFieldArray: any,
-  getField: any,
-  getFieldArray: any
+  name: string;
+  dispatch: any;
+  getFormState: any;
+  registerField: any;
+  deregisterField: any;
+  registerFieldArray: any;
+  deregisterFieldArray: any;
+  getField: any;
+  getFieldArray: any;
 }
 
 interface FormkitFormProps {
-  dispatch: any,
-  formState: any
+  dispatch: any;
+  formState: any;
 }
 
 interface FormkitFormState {
-  isInitialized: boolean
+  isInitialized: boolean;
 }
 
-const defaultGetFormState = state => state.form;
+const defaultGetFormState = (state) => state.form;
 
 const Formkit = ({
-  connect, 
-  name, 
-  initialValues, 
+  connect,
+  name,
+  initialValues,
   onSubmit,
-  onSubmitSuccess = noop, 
-  getFormState = defaultGetFormState
+  onSubmitSuccess = noop,
+  getFormState = defaultGetFormState,
 }: FormkitConfig) => {
-  return Form => {
+  return (Form) => {
     class FormkitForm extends PureComponent<FormkitFormProps, FormkitFormState> {
 
-      static propTypes = {
+      public static propTypes = {
         dispatch: PropTypes.func.isRequired,
-        formState: PropTypes.object
-      }
+        formState: PropTypes.object,
+      };
 
-      formInterface: FormInterface
-      formkitInterface: FormkitInterface
-      fields: any
-      fieldArrays: any
+      public formInterface: FormInterface;
+      public formkitInterface: FormkitInterface;
+      public fields: any;
+      public fieldArrays: any;
 
       constructor(props) {
-        super(props); 
+        super(props);
         this.state = {isInitialized: this.props.formState !== undefined};
         this.fields = [];
         this.fieldArrays = [];
@@ -84,28 +84,28 @@ const Formkit = ({
         this.getFormState = this.getFormState.bind(this);
 
         this.formkitInterface = {
-          name,
-          dispatch: this.props.dispatch,
-          getFormState: this.getFormState,
-          registerField: this.registerField,
           deregisterField: this.deregisterField,
-          registerFieldArray: this.registerFieldArray,
           deregisterFieldArray: this.deregisterFieldArray,
+          dispatch: this.props.dispatch,
           getField: this.getField,
-          getFieldArray: this.getFieldArray
+          getFieldArray: this.getFieldArray,
+          getFormState: this.getFormState,
+          name,
+          registerField: this.registerField,
+          registerFieldArray: this.registerFieldArray,
         };
 
         this.formInterface = {
-          handleSubmit: this.handleSubmit,
-          updateFields: this.updateFields,
           getField: this.getFieldInterface,
           getFieldArray: this.getFieldArray,
-          getFormState: this.getFormState
+          getFormState: this.getFormState,
+          handleSubmit: this.handleSubmit,
+          updateFields: this.updateFields,
         };
 
       }
 
-      componentDidMount() {
+      public componentDidMount() {
         if (initialValues) {
           this.updateFields(initialValues);
         } else if (!this.props.formState) {
@@ -116,79 +116,77 @@ const Formkit = ({
         this.setState({isInitialized: true});
       }
 
-      componentDidUpdate() {
+      public componentDidUpdate() {
         if (this.props.formState.formStatus.isResetFieldsDue) {
           this.markAllFieldsAsTouched(false);
           this.props.dispatch(resetFieldsIsDone());
         }
       }
-        
 
-      getFormState() {
+      public getFormState() {
         return this.props.formState;
       }
 
-      registerField(field) {
+      public registerField(field) {
         this.fields.push(field);
       }
 
-      deregisterField(field) {
+      public deregisterField(field) {
         const index = this.fields.indexOf(field);
         if (index > -1) {
           this.fields.splice(index, 1);
         }
-      }        
+      }
 
-      registerFieldArray(fieldArray) {
+      public registerFieldArray(fieldArray) {
         this.fieldArrays.push(fieldArray);
       }
 
-      deregisterFieldArray(fieldArray) { 
+      public deregisterFieldArray(fieldArray) {
         const index = this.fieldArrays.indexOf(fieldArray);
         if (index > -1) {
           this.fieldArrays.splice(index, 1);
         }
       }
 
-      markAllFieldsAsTouched(touched=true) {
-        this.fields.forEach(field => {
+      public markAllFieldsAsTouched(touched= true) {
+        this.fields.forEach((field) => {
           field.props.setTouched(touched);
         });
       }
 
-      getField(name) {
-        for (let i = 0; i < this.fields.length; i++) {
-          if (this.fields[i].props.name === name) {
-            return this.fields[i];
+      public getField(fieldName) {
+        for (const field of this.fields) {
+          if (field.name === fieldName) {
+            return field;
           }
-        };
+        }
       }
 
-      getFieldArray(name) {
-        for (let i = 0; i < this.fieldArrays.length; i++) {
-          if (this.fieldArrays[i].props.name === name) {
-            return this.fieldArrays[i];
+      public getFieldArray(fieldArrayName) {
+        for (const fieldArray of this.fieldArrays) {
+          if (fieldArray.props.name === fieldArrayName) {
+            return fieldArray;
           }
-        };
+        }
       }
 
-      getFieldInterface(name) {
-        for (let i = 0; i < this.fields.length; i++) {
-          if (this.fields[i].props.name === name) {
-            return this.fields[i].fieldInterface;
+      public getFieldInterface(fieldName) {
+        for (const field of this.fields) {
+          if (field.props.name === fieldName) {
+            return field.fieldInterface;
           }
-        };
+        }
       }
 
-      updateFields(values) {
-        this.props.dispatch(updateFields(values))
+      public updateFields(values) {
+        this.props.dispatch(updateFields(values));
       }
 
-      focusOnFieldWithError() {
-        const fields = this.fields;
-        for (let i=0; i<fields.length; i++) {
-          if (fields[i].props.error) {
-            const element = fields[i].elementRef;
+      public focusOnFieldWithError() {
+        for (const field of this.fields) {
+          if (field.props.error) {
+            const element = field.elementRef;
             if (element && element.focus) {
               element.focus();
             }
@@ -196,11 +194,11 @@ const Formkit = ({
               element.scrollIntoView();
             }
             break;
-          } 
+          }
         }
       }
-      
-      handleSubmit(event) {
+
+      public handleSubmit(event) {
         this.markAllFieldsAsTouched();
         const formState = this.props.formState;
         if (!formState.formStatus.isValid) {
@@ -241,21 +239,23 @@ const Formkit = ({
                 return;
               }
               throw asyncError;
-            }
-          );        
+            },
+          );
 
         }
       }
 
-      render() {
+      public render() {
         if (!this.state.isInitialized) {
           return null;
         }
         const {formState, dispatch, ...otherProps} = this.props;
         return (
-          <FormkitContext.Provider value={{formkitForm: this.formkitInterface, formInterface: this.formInterface, formState}}>
+          <FormkitContext.Provider
+            value={{formkitForm: this.formkitInterface, formInterface: this.formInterface, formState}}
+          >
             <Form {...otherProps} form={this.formInterface}/>
-          </FormkitContext.Provider>    
+          </FormkitContext.Provider>
         );
       }
     }
@@ -266,9 +266,9 @@ const Formkit = ({
 
     function mapDispatchToProps(dispatch) {
       return {
-        dispatch: action => {
-          dispatch({...action, form: name})
-        }
+        dispatch: (action) => {
+          dispatch({...action, form: name});
+        },
       };
     }
 
@@ -276,6 +276,6 @@ const Formkit = ({
   };
 };
 
-const noop = () => {};
+const noop = () => undefined;
 
 export default Formkit;
