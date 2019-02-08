@@ -1,13 +1,13 @@
-import connectToFormkit from './connect-to-formkit';
+import connectToFormkit from "./connect-to-formkit";
 
-const FormStatus = props => (
+const FormStatus = (props) => (
   props.children(props)
 );
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   errorCount: state.formStatus.errorCount,
+  isSubmitting: state.formStatus.isSubmitting,
   isValid: state.formStatus.isValid,
-  isSubmitting: state.formStatus.isSubmitting
 });
 
 export default connectToFormkit(mapStateToProps)(FormStatus);

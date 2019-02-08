@@ -1,7 +1,7 @@
-import connectToFormkit from './connect-to-formkit';
-import getField from './state-utils/get-field';
+import connectToFormkit from "./connect-to-formkit";
+import getField from "./state-utils/get-field";
 
-const ValidationStatus = props => (
+const ValidationStatus = (props) => (
   props.children({error: props.error, touched: props.touched})
 );
 
@@ -11,7 +11,7 @@ const mapStateToProps = (state, ownProps) => {
   const error = status.error || getField(state.fieldErrors, ownProps.name);
   return {
     error,
-    touched
+    touched,
   };
 };
 

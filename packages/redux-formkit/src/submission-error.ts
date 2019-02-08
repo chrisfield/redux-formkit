@@ -1,11 +1,9 @@
-import ExtendableError from 'es6-error';
-
-
+import ExtendableError from "es6-error";
 
 class SubmissionError extends ExtendableError {
-  errors: any;
+  public errors: any;
   constructor(errors) {
-    super('Submit Validation Failed');
+    super("Submit Validation Failed");
     this.errors = errors;
   }
 }
