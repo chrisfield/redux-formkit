@@ -83,11 +83,20 @@ class Field extends React.PureComponent<FieldProps> {
 
   public setElementRef(element) {
     this.elementRef = element;
-  }
+  } 
 
   public handleChange(event) {
     const value = this.props.formatToStore(this.props.getTargetValue(event.target, event));
     this.props.updateField(value);
+    if (this.props.getNextCursorPosition && event.target) {
+      const target = event.target;
+      const previousPosition = target.selectionStart;
+      const previousValue = this.props.formatFromStore(this.props.rawValue);
+      this.setState({}, () => {
+        const nextPosition = this.props.getNextCursorPosition(previousPosition, previousValue, this.props.formatFromStore(value));
+        target.setSelectionRange(nextPosition, nextPosition);
+      });
+    }    
   }
 
   public showAnyErrors(event) {
