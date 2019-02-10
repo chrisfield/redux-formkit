@@ -31,6 +31,9 @@ class Field extends React.PureComponent<FieldProps> {
   public static propTypes: any;
   public static defaultProps: any;
 
+  public props: any;
+  public state: any;
+  public setState: any;
   public elementRef: any;
   public fieldInterface: any;
 
@@ -83,20 +86,21 @@ class Field extends React.PureComponent<FieldProps> {
 
   public setElementRef(element) {
     this.elementRef = element;
-  } 
+  }
 
   public handleChange(event) {
-    const value = this.props.formatToStore(this.props.getTargetValue(event.target, event));
-    this.props.updateField(value);
-    if (this.props.getNextCursorPosition && event.target) {
+    const props = this.props;
+    const value = props.formatToStore(props.getTargetValue(event.target, event));
+    props.updateField(value);
+    if (props.getNextCursorPosition && event.target) {
       const target = event.target;
       const previousPosition = target.selectionStart;
-      const previousValue = this.props.formatFromStore(this.props.rawValue);
+      const previousValue = props.formatFromStore(props.rawValue);
       this.setState({}, () => {
-        const nextPosition = this.props.getNextCursorPosition(previousPosition, previousValue, this.props.formatFromStore(value));
+        const nextPosition = props.getNextCursorPosition(previousPosition, previousValue, props.formatFromStore(value));
         target.setSelectionRange(nextPosition, nextPosition);
       });
-    }    
+    }
   }
 
   public showAnyErrors(event) {
