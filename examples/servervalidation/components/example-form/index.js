@@ -121,6 +121,7 @@ const ExampleForm = (props) => {
           {...fieldDefinitions.theNumber}
           validate={requiredNum} /* So the "greater that 42" validation only runs on the server */
           label="Numeric Field"
+          getNextCursorPosition={getNextCursorPositionNum}
         />
 
         <CheckboxField
@@ -242,7 +243,16 @@ const renderHobbies = ({fields}) => (
   </fieldset>
 );
 
-const getNextCursorPosition = prevPosition => (prevPosition);
+const getNextCursorPosition = (prevPosition, prevValue, value) => {
+  return prevPosition;
+};
+
+const getNextCursorPositionNum = (prevPosition, prevValue, value) => {
+  if (value.length === prevValue.length + 2) {
+    return prevPosition + 1;
+  }
+  return prevPosition;
+};
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
