@@ -165,12 +165,12 @@ export default formkit({
 })(ExampleForm);
 
 
-const revalidateField2 = form => {
-  form.getField('field2').validate();
+const revalidateField2 = field => {
+  field.form.getField('field2').validate();
 };
 
-const revalidateTheNumber = form => {
-  form.getField('theNumber').validate();
+const revalidateTheNumber = field => {
+  field.form.getField('theNumber').validate();
 };
 
 const maxLength5 = maxLength(5);

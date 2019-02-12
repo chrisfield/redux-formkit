@@ -27,18 +27,18 @@ export const requiredNum = value => {
   return undefined;
 };
 
-export const getNextCursorPosition = fieldElement => ({cursorPosition: fieldElement.selectionStart});
+export const getNextCursorPosition = field => ({cursorPosition: field.elementRef.selectionStart});
 
-export const getNextCursorPositionNum = (fieldElement, value, nextValue) => {
-  let cursorPosition = fieldElement.selectionStart;
+export const getNextCursorPositionNum = ({ elementRef }, value, nextValue) => {
+  let cursorPosition = elementRef.selectionStart;
   if (nextValue.length === value.length + 2) { // + 2 is for digit and comma
     cursorPosition++;
   }
   return {cursorPosition};
 }
 
-export const setCursorPosition = (fieldElement, { cursorPosition }) => {
-  if (cursorPosition !== undefined && fieldElement.setSelectionRange) {
-    fieldElement.setSelectionRange(cursorPosition, cursorPosition);
+export const setCursorPosition = ({customProps: {cursorPosition}, elementRef}) => {
+  if (cursorPosition !== undefined && elementRef.setSelectionRange) {
+    elementRef.setSelectionRange(cursorPosition, cursorPosition);
   }  
 }

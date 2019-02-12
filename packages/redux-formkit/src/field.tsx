@@ -35,24 +35,16 @@ class Field extends React.PureComponent<FieldProps> {
   public static defaultProps: any;
 
   public props: any;
-  public state: any;
-  public setState: any;
   public elementRef: any;
-  public fieldInterface: any;
 
   constructor(props) {
     super(props);
-    this.state = {};
+    this.getFieldInterface = this.getFieldInterface.bind(this);
     this.setElementRef = this.setElementRef.bind(this);
     this.validate = this.validate.bind(this);
+    this.validateValue = this.validateValue.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.showAnyErrors = this.showAnyErrors.bind(this);
-
-    this.fieldInterface = {
-      validate: () => {
-        this.validate(this.props.rawValue);
-      },
-    };
   }
 
   public componentDidMount() {
@@ -81,14 +73,11 @@ class Field extends React.PureComponent<FieldProps> {
 
     if (this.props.rawValue !== prevProps.rawValue) {
       this.validate(this.props.rawValue);
-      if (this.props.onChange) {
-        this.setState({}, () => {
-          this.props.onChange(this.props.formInterface);
-        });
-      }
     }
-    if (this.elementRef) {
-      this.props.afterUpdate(this.elementRef, this.props.status.customProps || {});
+
+    if (this.props.rawValue !== prevProps.rawValue
+      || Object.keys(this.props.status.customProps || {}).length > 0) {
+      this.props.afterUpdate(this.getFieldInterface());
     }
   }
 
@@ -101,17 +90,23 @@ class Field extends React.PureComponent<FieldProps> {
     this.elementRef = element;
   }
 
+  public getFieldInterface() {
+    return {
+      customProps: this.props.status.customProps || {},
+      elementRef: this.elementRef,
+      form: this.props.formInterface,
+      validate: this.validateValue,
+    };
+  }
+
   public handleChange(event) {
     const props = this.props;
     const value = props.formatToStore(props.getTargetValue(event.target, event));
-    let customProps = {};
-    if (this.elementRef) {
-      customProps = props.beforeUpdate(
-        this.elementRef,
-        props.formatFromStore(props.rawValue),
-        props.formatFromStore(value),
-      );
-    }
+    const customProps = props.beforeUpdate(
+      this.getFieldInterface(),
+      props.formatFromStore(props.rawValue),
+      props.formatFromStore(value),
+    );
     props.updateField(value, customProps);
   }
 
@@ -158,6 +153,7 @@ class Field extends React.PureComponent<FieldProps> {
       deregisterField: deregField,
       setError,
       setTouched,
+      status,
       validate,
       onChange,
       rawValue,
@@ -188,6 +184,10 @@ class Field extends React.PureComponent<FieldProps> {
         />
       );
     }
+  }
+
+  private validateValue() {
+    this.validate(this.props.rawValue);
   }
 }
 

@@ -180,8 +180,13 @@ props.form.getFormState().fieldValues.isAdditionalField
 ```
 form.getField('confirmPassword').validate();
 ```
-The field interface object that is returned only has one method: validate.
-
+The field interface object that is returned has the following properties:
+```
+  customProps: object with any customProps added via beforeUpdate,
+  elementRef: ref to the dom element,
+  form: the form interface for this field,
+  validate: function to validate this field,
+```
 
 ### Field
 Field is api is very simular to the one in redux-form. There are a few ways to use it but typically you would define a custom component:
@@ -237,9 +242,9 @@ const addCommas = number => {
 
 ``` 
 
-* `beforeUpdate : optional function` — provide a function that will return an object containing any custom values that you need to access after the field renders. The values will be saved in form-state fieldStatus as customProps and will later be passed on to any afterUpdate function. The beforeUpdate function will be passed fieldElement, value, nextValue as parameters. A typical use for this function is to save the cursor-position before a field is formatted.
+* `beforeUpdate : optional function` — provide a function that will return an object containing any custom values that you need to access after the field renders. The values will be saved in form-state fieldStatus as customProps and will later be passed on to any afterUpdate function. The beforeUpdate function will be passed fieldInterface, value, nextValue as parameters. A typical use for this function is to save the cursor-position before a field is formatted.
 
-* `afterUpdate : optional function` — provide a function that will called after the field renders and will be passed fieldElement and customProps as parameters. A typical use for this function is to set the cursor-position after a field is formatted.
+* `afterUpdate : optional function` — provide a function that will called after the field renders and will be passed fieldInterface as a parameter. Typical uses for this function would be to set the cursor-position after a field is formatted or to revalidate a second field when one field changes.
 
 * `getTargetValue : optional function` — provide a function to get the value. It will be called with the target and event as a parameters.
 

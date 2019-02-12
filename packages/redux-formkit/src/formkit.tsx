@@ -157,7 +157,7 @@ const Formkit = ({
 
       public getField(fieldName) {
         for (const field of this.fields) {
-          if (field.name === fieldName) {
+          if (field.props.name === fieldName) {
             return field;
           }
         }
@@ -174,7 +174,7 @@ const Formkit = ({
       public getFieldInterface(fieldName) {
         for (const field of this.fields) {
           if (field.props.name === fieldName) {
-            return field.fieldInterface;
+            return field.getFieldInterface();
           }
         }
       }

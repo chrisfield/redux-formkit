@@ -107,7 +107,7 @@ const ExampleForm = (props) => {
         <InputField
           {...fieldDefinitions.field1}
           label="First Field"
-          onChange={revalidateField2}
+          afterUpdate={revalidateField2}
         />
 
         <InputField
@@ -129,7 +129,7 @@ const ExampleForm = (props) => {
         <CheckboxField
           {...fieldDefinitions.isAgreed}
           label="Can the server have a number bigger than 42?"
-          onChange={revalidateTheNumber}
+          afterUpdate={revalidateTheNumber}
         />
 
         <CheckboxField
@@ -278,12 +278,12 @@ export default formkit({
 })(ExampleForm);
 
 
-const revalidateField2 = form => {
-  form.getField('field2').validate();
+const revalidateField2 = field => {
+  field.form.getField('field2').validate();
 };
 
-const revalidateTheNumber = form => {
-  form.getField('theNumber').validate();
+const revalidateTheNumber = field => {
+  field.form.getField('theNumber').validate();
 };
 
 ExampleForm.propTypes = {
