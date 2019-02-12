@@ -37,6 +37,16 @@ const formStatusAndFieldStatusReducer = (formStatus = initialFormStatus, fieldSt
         formStatus: {...formStatus, isResetFieldsDue: false, isPrevalidatedOnServer: false},
       };
     }
+    case actionTypes.UPDATE_FIELD: {
+      const field = getField(fieldStatus, action.field) || {};
+      return {
+        fieldStatus: setField(fieldStatus, action.field, {
+          ...field,
+          customProps: action.customProps,
+        }),
+        formStatus,
+      };
+    }
     case actionTypes.UPDATE_FIELDS: {
       return {
         fieldStatus: initialFieldStatus,

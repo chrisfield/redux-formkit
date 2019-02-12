@@ -21,8 +21,8 @@ export const resetFieldsIsDone = () => (
   {type: actionTypes.RESET_FIELDS_IS_DONE}
 );
 
-export const updateField = (field, value) => (
-  {type: actionTypes.UPDATE_FIELD, field, value}
+export const updateField = (field, value, customProps = {}) => (
+  {type: actionTypes.UPDATE_FIELD, field, value, customProps}
 );
 
 export const updateFields = (fieldValues) => (

@@ -27,12 +27,16 @@ describe('actions', () => {
   it('should create an action: updateField', () => {
     const field = 'myTestField'
     const value = 'value1'
+    const customProps = {
+      cursorPos: 15
+    }
     const expectedAction = {
       type: types.UPDATE_FIELD,
       field,
-      value
+      value,
+      customProps
     }
-    expect(actions.updateField(field, value)).toEqual(expectedAction)
+    expect(actions.updateField(field, value, customProps)).toEqual(expectedAction)
   })
 
   it('should create an action: updateFields', () => {

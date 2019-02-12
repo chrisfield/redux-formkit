@@ -5,6 +5,8 @@ import connectToFormkit from "./connect-to-formkit";
 import getField from "./state-utils/get-field";
 
 interface FieldProps {
+  afterUpdate: any;
+  beforeUpdate: any;
   name: string;
   formkitForm: any;
   formInterface: any;
@@ -18,6 +20,7 @@ interface FieldProps {
   deregisterField: any;
   setError: any;
   setTouched: any;
+  status: any;
   validate: any;
   onChange: any;
   rawValue: any;
@@ -69,6 +72,13 @@ class Field extends React.PureComponent<FieldProps> {
   }
 
   public componentDidUpdate(prevProps) {
+    if (typeof this.props.rawValue === "number"
+      && isNaN(this.props.rawValue)
+      && isNaN(prevProps.rawValue)
+    ) {
+      return;
+    }
+
     if (this.props.rawValue !== prevProps.rawValue) {
       this.validate(this.props.rawValue);
       if (this.props.onChange) {
@@ -76,6 +86,9 @@ class Field extends React.PureComponent<FieldProps> {
           this.props.onChange(this.props.formInterface);
         });
       }
+    }
+    if (this.elementRef) {
+      this.props.afterUpdate(this.elementRef, this.props.status.customProps || {});
     }
   }
 
@@ -91,16 +104,15 @@ class Field extends React.PureComponent<FieldProps> {
   public handleChange(event) {
     const props = this.props;
     const value = props.formatToStore(props.getTargetValue(event.target, event));
-    props.updateField(value);
-    if (props.getNextCursorPosition && event.target) {
-      const target = event.target;
-      const previousPosition = target.selectionStart;
-      const previousValue = props.formatFromStore(props.rawValue);
-      this.setState({}, () => {
-        const nextPosition = props.getNextCursorPosition(previousPosition, previousValue, props.formatFromStore(value));
-        target.setSelectionRange(nextPosition, nextPosition);
-      });
+    let customProps = {};
+    if (this.elementRef) {
+      customProps = props.beforeUpdate(
+        this.elementRef,
+        props.formatFromStore(props.rawValue),
+        props.formatFromStore(value),
+      );
     }
+    props.updateField(value, customProps);
   }
 
   public showAnyErrors(event) {
@@ -132,6 +144,8 @@ class Field extends React.PureComponent<FieldProps> {
     const value = props.formatFromStore(props.rawValue);
     const Component = props.component;
     const {
+      afterUpdate,
+      beforeUpdate,
       formkitForm,
       formInterface,
       component,
@@ -209,6 +223,8 @@ Field.propTypes = {
 };
 
 Field.defaultProps = {
+  afterUpdate: () => (undefined),
+  beforeUpdate: () => ({}),
   formatFromStore: (value = "") => value,
   formatToStore: (value) => value,
   getTargetValue: (target, value) => {
@@ -230,6 +246,7 @@ const mapStateToProps = (state, ownProps) => {
     error,
     isPrevalidatedOnServer: state.formStatus.isPrevalidatedOnServer,
     rawValue,
+    status,
     touched,
   };
 };
@@ -246,8 +263,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     setTouched: (touched) => {
       dispatch(setFieldTouched(fieldName, touched));
     },
-    updateField: (value) => {
-      dispatch(updateField(fieldName, value));
+    updateField: (value, customProps) => {
+      dispatch(updateField(fieldName, value, customProps));
     },
   };
 };

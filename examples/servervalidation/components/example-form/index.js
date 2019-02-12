@@ -121,7 +121,8 @@ const ExampleForm = (props) => {
           {...fieldDefinitions.theNumber}
           validate={requiredNum} /* So the "greater that 42" validation only runs on the server */
           label="Numeric Field"
-          getNextCursorPosition={getNextCursorPositionNum}
+          beforeUpdate={getNextCursorPositionNum}
+          afterUpdate={setCursorPosition}
         />
 
         <CheckboxField
@@ -157,8 +158,8 @@ const ExampleForm = (props) => {
         <InputField
           {...fieldDefinitions.capitals}
           label="Uppercase Field"
-          getNextCursorPosition={getNextCursorPosition}
-        />
+          beforeUpdate={getNextCursorPosition}
+          afterUpdate={setCursorPosition}        />
       </fieldset>
       
       <FieldArray
@@ -243,16 +244,21 @@ const renderHobbies = ({fields}) => (
   </fieldset>
 );
 
-const getNextCursorPosition = (prevPosition, prevValue, value) => {
-  return prevPosition;
-};
+const getNextCursorPosition = fieldElement => ({cursorPosition: fieldElement.selectionStart});
 
-const getNextCursorPositionNum = (prevPosition, prevValue, value) => {
-  if (value.length === prevValue.length + 2) {
-    return prevPosition + 1;
+const getNextCursorPositionNum = (fieldElement, value, nextValue) => {
+  let cursorPosition = fieldElement.selectionStart;
+  if (nextValue.length === value.length + 2) { // + 2 is for digit and comma
+    cursorPosition++;
   }
-  return prevPosition;
-};
+  return {cursorPosition};
+}
+
+const setCursorPosition = (fieldElement, { cursorPosition }) => {
+  if (cursorPosition !== undefined && fieldElement.setSelectionRange) {
+    fieldElement.setSelectionRange(cursorPosition, cursorPosition);
+  }  
+}
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 

@@ -237,7 +237,9 @@ const addCommas = number => {
 
 ``` 
 
-* `getNextCursorPosition : optional function` — provide a function to preserve the cursor position when formatFromStore is used. It will be called with parameters: previousPosition, previousValue, newValue and should return the next cursor position.
+* `beforeUpdate : optional function` — provide a function that will return an object containing any custom values that you need to access after the field renders. The values will be saved in form-state fieldStatus as customProps and will later be passed on to any afterUpdate function. The beforeUpdate function will be passed fieldElement, value, nextValue as parameters. A typical use for this function is to save the cursor-position before a field is formatted.
+
+* `afterUpdate : optional function` — provide a function that will called after the field renders and will be passed fieldElement and customProps as parameters. A typical use for this function is to set the cursor-position after a field is formatted.
 
 * `getTargetValue : optional function` — provide a function to get the value. It will be called with the target and event as a parameters.
 
