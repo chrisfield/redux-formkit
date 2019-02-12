@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import formkit, {FieldArray, FormStatus, NamedValidationStatus, SubmissionError, Field} from 'redux-formkit';
 import {InputField, RadioField, CheckboxField} from '../form-controls';
-import {upper, lower, number, addCommas, maxLength, requiredStr, requiredNum} from '../form-controls/utils';
+import {upper, lower, number, addCommas, maxLength, requiredStr, requiredNum,
+  getNextCursorPositionNum, getNextCursorPosition, setCursorPosition} from '../form-controls/utils';
 import WithClientJsOnly from '../with-client-js-only';
 import { connect } from 'react-redux';
 import fetch from 'isomorphic-unfetch';
@@ -244,21 +245,7 @@ const renderHobbies = ({fields}) => (
   </fieldset>
 );
 
-const getNextCursorPosition = fieldElement => ({cursorPosition: fieldElement.selectionStart});
 
-const getNextCursorPositionNum = (fieldElement, value, nextValue) => {
-  let cursorPosition = fieldElement.selectionStart;
-  if (nextValue.length === value.length + 2) { // + 2 is for digit and comma
-    cursorPosition++;
-  }
-  return {cursorPosition};
-}
-
-const setCursorPosition = (fieldElement, { cursorPosition }) => {
-  if (cursorPosition !== undefined && fieldElement.setSelectionRange) {
-    fieldElement.setSelectionRange(cursorPosition, cursorPosition);
-  }  
-}
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 

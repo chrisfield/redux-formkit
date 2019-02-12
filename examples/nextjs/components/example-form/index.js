@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import formkit, {FieldArray, FormStatus, NamedValidationStatus, SubmissionError, Field} from 'redux-formkit';
 import {InputField, RadioField, CheckboxField} from '../form-controls';
-import {upper, lower, number, addCommas, maxLength, requiredStr, requiredNum} from '../form-controls/utils';
+import {upper, lower, number, addCommas, maxLength, requiredStr, requiredNum,
+  getNextCursorPositionNum, getNextCursorPosition, setCursorPosition} from '../form-controls/utils';
 import WithClientJsOnly from '../with-client-js-only';
 import { connect } from 'react-redux';
 
@@ -54,6 +55,8 @@ const ExampleForm = (props) => {
           formatToStore={number}
           formatFromStore={addCommas}
           validate={requiredNum}
+          beforeUpdate={getNextCursorPositionNum}
+          afterUpdate={setCursorPosition}
         />
 
         <CheckboxField name="isAgreed" label="Can the server have a number bigger than 42?" onChange={revalidateTheNumber}/>
@@ -80,7 +83,8 @@ const ExampleForm = (props) => {
           label="Uppercase Field"
           formatFromStore={upper}
           formatToStore={lower}
-          getNextCursorPosition={getNextCursorPosition}
+          beforeUpdate={getNextCursorPosition}
+          afterUpdate={setCursorPosition}
         />
       </fieldset>
       
@@ -159,8 +163,6 @@ const renderHobbies = ({form, fields}) => (
 const greaterThanField1 = (value, values) => (
   values && value > values.field1? undefined: 'Field two must be greater than field one'
 );
-
-const getNextCursorPosition = prevPosition => (prevPosition);
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 

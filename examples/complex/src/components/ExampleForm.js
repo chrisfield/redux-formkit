@@ -1,7 +1,8 @@
 import React from 'react';
 import formkit, {FieldArray, FormStatus, NamedValidationStatus, SubmissionError} from 'redux-formkit';
 import {InputField, RadioField, CheckboxField} from './form-controls';
-import {upper, lower, number, addCommas, maxLength, requiredStr, requiredNum} from './form-controls/utils';
+import {upper, lower, number, addCommas, maxLength, requiredStr, requiredNum,
+  getNextCursorPositionNum, getNextCursorPosition, setCursorPosition} from './form-controls/utils';
 
 import { connect } from 'react-redux';
 // Alternative connect that uses React.contect instead of Redux
@@ -63,14 +64,18 @@ const ExampleForm = (props) => (
         formatToStore={number}
         formatFromStore={addCommas}
         validate={requiredNum}
+        beforeUpdate={getNextCursorPositionNum}
+        afterUpdate={setCursorPosition}
+
       />
       <InputField
         name="capitals"
         label="Uppercase Field"
         formatFromStore={upper}
         formatToStore={lower}
-        getNextCursorPosition={getNextCursorPosition}
-      />
+        beforeUpdate={getNextCursorPosition}
+        afterUpdate={setCursorPosition}
+    />
     </fieldset>
     
     <FieldArray
@@ -120,10 +125,6 @@ const renderHobbies = ({form, fields}) => (
 
 const greaterThanField1 = (value, values) => (
   values && value > values.field1? undefined: 'greaterThanField1'
-);
-
-const getNextCursorPosition = (prevPosition, previousValue, nextValue) => (
-  prevPosition
 );
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
