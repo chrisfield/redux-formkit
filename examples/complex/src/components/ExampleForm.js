@@ -39,7 +39,7 @@ const ExampleForm = (props) => (
       <InputField
         label="First Field"
         name="field1"
-        onChange={revalidateField2}
+        afterUpdate={revalidateField2}
         validate={requiredMaxLength5}
       />
 

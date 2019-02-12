@@ -36,7 +36,7 @@ const ExampleForm = (props) => {
         <InputField
           label="First Field"
           name="field1"
-          onChange={revalidateField2}
+          afterUpdate={revalidateField2}
           validate={requiredMaxLength5}
         />
 
@@ -59,7 +59,7 @@ const ExampleForm = (props) => {
           afterUpdate={setCursorPosition}
         />
 
-        <CheckboxField name="isAgreed" label="Can the server have a number bigger than 42?" onChange={revalidateTheNumber}/>
+        <CheckboxField name="isAgreed" label="Can the server have a number bigger than 42?" afterUpdate={revalidateTheNumber}/>
 
         <CheckboxField name="isAdditionalField" label="Is Additional Field?"/>
         {  

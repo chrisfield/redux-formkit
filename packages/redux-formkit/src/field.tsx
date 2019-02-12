@@ -22,7 +22,6 @@ interface FieldProps {
   setTouched: any;
   status: any;
   validate: any;
-  onChange: any;
   rawValue: any;
   error: any;
   touched: any;
@@ -155,7 +154,6 @@ class Field extends React.PureComponent<FieldProps> {
       setTouched,
       status,
       validate,
-      onChange,
       rawValue,
       error,
       touched,
@@ -209,7 +207,6 @@ Field.propTypes = {
   getNextCursorPosition: PropTypes.func,
   getTargetValue: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
-  onChange: PropTypes.func,
   rawValue: PropTypes.any,
   setError: PropTypes.func.isRequired,
   setTouched: PropTypes.func.isRequired,
