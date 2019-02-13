@@ -31,8 +31,6 @@ interface FormkitInterface {
   deregisterField: any;
   registerFieldArray: any;
   deregisterFieldArray: any;
-  getField: any;
-  getFieldArray: any;
 }
 
 interface FormkitFormProps {
@@ -76,7 +74,6 @@ const Formkit = ({
         this.deregisterField = this.deregisterField.bind(this);
         this.registerFieldArray = this.registerFieldArray.bind(this);
         this.deregisterFieldArray = this.deregisterFieldArray.bind(this);
-        this.getField = this.getField.bind(this);
         this.getFieldArray = this.getFieldArray.bind(this);
         this.getFieldInterface = this.getFieldInterface.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -87,8 +84,6 @@ const Formkit = ({
           deregisterField: this.deregisterField,
           deregisterFieldArray: this.deregisterFieldArray,
           dispatch: this.props.dispatch,
-          getField: this.getField,
-          getFieldArray: this.getFieldArray,
           getFormState: this.getFormState,
           name,
           registerField: this.registerField,
@@ -153,14 +148,6 @@ const Formkit = ({
         this.fields.forEach((field) => {
           field.props.setTouched(touched);
         });
-      }
-
-      public getField(fieldName) {
-        for (const field of this.fields) {
-          if (field.props.name === fieldName) {
-            return field;
-          }
-        }
       }
 
       public getFieldArray(fieldArrayName) {
