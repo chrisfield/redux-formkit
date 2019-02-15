@@ -1,6 +1,6 @@
 {
   "name": "redux-formkit",
-  "version": "2.6.1",
+  "version": "2.6.2",
   "description": "Isomophic React components to manage form state. Redux is optional.",
   "main": "lib/index.js",
   "repository": {
