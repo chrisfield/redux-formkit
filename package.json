@@ -6,9 +6,15 @@
     "lint": "tslint packages/redux-formkit/src/**/*.{ts,tsx}",
     "test-build": "lerna exec \"npm run test && npm run build\" --concurrency=1",
     "safe-publish": "npm run bootstrap && lerna link && npm run build && npm run test-build && lerna publish",
-    "unsafe-publish": "lerna publish"
+    "storybook": "start-storybook -p 9001 -c .storybook",
+    "storybook:docs": "build-storybook -c .storybook -o docs",
+    "deploy-storybook": "storybook-to-ghpages"
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^4.1.11",
+    "@storybook/addons": "^4.1.11",
+    "@storybook/react": "^4.1.11",
+    "@storybook/storybook-deployer": "^2.8.1",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
@@ -16,12 +22,16 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "lerna": "^3.8.5",
+    "prop-types": "^15.6.2",
+    "react": "^16.8.1",
+    "react-dom": "^16.8.1",
+    "react-redux": "^6.0.0",
+    "redux": "^4.0.1",
+    "redux-devtools-extension": "^2.13.8",
     "rimraf": "^2.6.2",
+    "storybook-readme": "^4.0.5",
     "tslint": "^5.12.1",
     "tslint-react": "^3.6.0",
     "typescript": "^3.3.3"
-  },
-  "dependencies": {
-    "prop-types": "^15.6.2"
   }
 }
