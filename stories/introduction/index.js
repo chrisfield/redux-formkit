@@ -2,8 +2,8 @@ import { withDocs } from 'storybook-readme';
 import readme from './README.md'
 
 import React from 'react';
-import formkit, {connectWithoutRedux as connect} from '../../../packages/redux-formkit';
-import {TextField} from '../../form-controls';
+import formkit, {connectWithoutRedux as connect} from '../../packages/redux-formkit';
+import {TextField} from '../form-controls';
 
 const minLength5 = value => (
   value.length < 5

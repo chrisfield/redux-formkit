@@ -1,9 +1,13 @@
+import React from 'react';
 import { storiesOf } from '@storybook/react';
-import Intro from './intro';
+import introduction from './introduction';
+import formControls from './form-controls';
 import basicForm from './form/basic';
 
-storiesOf('Introduction', module).add('Getting Started', Intro);  
+storiesOf('Overview', module)
+.add('Getting Started', introduction)
+.add('UI Components', formControls);
 
-storiesOf('Form', module)
+storiesOf('Forms', module)
   .add('Basic', basicForm);
   
