@@ -16,17 +16,16 @@ const Input = props => (
          onChange={props.handleChange} 
          onBlur={props.handleBlur}
       />
-      {props.children}
       {props.error && props.touched && <div style={{flex: '0 0 100%'}}>{props.error}</div>}     
     </div>
   );
   
-  const InputField = ({validate, ...props}) => {
-    const validation = props.required ? [requiredStr] : [];
-    if (validate) {
-      validation.push(validate);
+  const TextField = ({validate = [], ...props}) => {
+    const validation = Array.isArray(validate) ? validate.slice() : [validate];
+    if (props.required) {
+      validation.unshift(requiredStr);
     }
     return <Field component={Input} validate={validation} {...props} />;
   };
 
-  export default InputField;
+  export default TextField;

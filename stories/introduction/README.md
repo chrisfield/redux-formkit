@@ -12,8 +12,8 @@ Take a look at the [GitHub](https://github.com/chrisfield/redux-formkit) repo.
 
 ---
 
-#### A One Field Form
-Enter values in the field on the left and see the changes to the state shown on the right. Then have a look at the code snippet and the explanation.
+#### Try it out
+Enter values in the field on the left and see the changes to the state shown on the right. Then have a look at the code snippet read about some key `redux-formkit` concepts.
 
 <!-- STORY -->
 
@@ -63,13 +63,20 @@ export default formkit({
 
 ---
 
-### Explanation
+### Redux-formkit Concepts
 
-You won't be surprised that `redux-formkit` uses events like `onChange` and `onBlur` to propogate ui changes to values stored as state and that it uses React lifecycle methods like componentDidMount and componentDidUpdate to track the status of fields as and when changes are made.
+`redux-formkit` has been designed from day one to allow you to control where the state is stored. The example above it is storing the form data in standard `react` state. So you can use `redux-formkit` without installing `redux`! If later you decide to use `redux` simply `npm install redux react-redux --save` and amend the code to replace:
+- ```import {connectWithoutRedux as connect} from 'redux-formkit'```
+- with ```import {connect}  from react-redux```.
 
-You might be more surprised to learn that `redux-formkit` has been designed from day one to allow you to control where the state is stored and that the example above it is storing the form data in standard `react` state. So, yes, you can use `redux-formkit` without installing `redux`. If later you decide to use `redux` simply `npm install redux react-redux --save` and amend the code to replace:
-```import {connectWithoutRedux as connect} from 'redux-formkit'``` with 
-```import {connect}  from react-redux```.
+Field validation runs whenever a field mounts or updates. This opens up possibilites for the UI to do things such as place ticks next to valid inputs or make the submit button green when there are no errors.
 
-Did you notice that `TextField` is imported from a local folder? This is because `redux-formkit` does not include it's own UI components, instead it provides an api and obviously several example UI components. This gives developers full control over their UI and has other advantages such as keeping the download size low and making `redux-formkit` suitable for both web react-native deployments.
+Although any field erros are always available from the state the UI would not normally want to show a field error until the field has been touched.
+
+Did you notice that `TextField` is imported from a local folder? `redux-formkit` does not include it's own UI components, instead it provides an api and several example UI components. This approach has several advantages:
+- Developers have full control over the UI
+- The download size is low
+- Works well for both web and react-native deployments
+
+There is more information about the implementation details of example UI components in the UI components section. It will be useful to look at this if you want to write new UI components.
 <br/>
