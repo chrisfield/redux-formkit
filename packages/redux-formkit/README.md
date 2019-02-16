@@ -11,9 +11,7 @@ Redux-Formkit aims to provide simular functionality to the excellent [Redux-form
 
 
 ## Getting Started
-Take a look at the [storybook docs](https://chrisfield.github.io/redux-formkit) to see forms running.
-
-Check out the [examples](https://github.com/chrisfield/redux-formkit/tree/master/examples).
+Go to [live examples, code and docs](https://chrisfield.github.io/redux-formkit)
 
 To use it on you own project:
 `npm install --save redux-formkit`
