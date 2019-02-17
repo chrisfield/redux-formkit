@@ -2,7 +2,7 @@
 
 ## TextField
 
-Enter values in the field on the left and see the changes to the state shown on the right. Then have a look at the code snippet read the  explanation.
+As an example of how to implement an ```input``` component lets look at the TextField used on the 'Getting Started' form (shown again below).
 
 <!-- STORY -->
 
@@ -43,7 +43,7 @@ const Input = props => (
 
 ### Explanation of TextField example
 
-```TextField``` renders a ```Redux-formkit Field```. The whole point of ```Field``` is that it will:
+```TextField``` renders a ```redux-formkit Field```. The whole point of ```Field``` is that it will:
 - render whatever ```component``` it is given as a prop
 - pass on props it receives (except for ```component```)
 - add extra props including ```handleChange```, ```handleBlur```, ```setElementRef```, ```touched``` and ```error```

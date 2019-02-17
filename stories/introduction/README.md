@@ -78,5 +78,6 @@ Did you notice that `TextField` is imported from a local folder? `redux-formkit`
 - The download size is low
 - Works well for both web and react-native deployments
 
-There is more information about the implementation details of example UI components in the UI components section. It will be useful to look at this if you want to write new UI components.
+
+Take a look at the UI Components/TextField section to see how easy it is to write UI components.
 <br/>
