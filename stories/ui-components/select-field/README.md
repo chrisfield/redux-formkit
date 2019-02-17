@@ -130,10 +130,10 @@ const FormkitForm = formkit({
 export default FormkitForm;
 ```
 
-### Explanation of SelectField example
+### Explanation of the Form
 There's just a couple of things to mention. Firstly favorateColor includes validation that checks the favorateColor is one of the niceColors.
 
-Secondly, niceColors uses the afterUpdate prop to call a function that revalidates favorateColor.
+Secondly, niceColors uses the ```afterUpdate``` prop to call a function that revalidates favorateColor.
 
 This validation and revalidation prevents the user from submitting after selecting a valid favorateColor and the changing the niceColors to exclude the favorateColor.
 <br/>
