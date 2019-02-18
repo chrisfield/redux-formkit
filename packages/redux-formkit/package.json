@@ -1,7 +1,7 @@
 {
   "name": "redux-formkit",
   "version": "2.6.3",
-  "description": "Isomophic React components to manage form state. Redux is optional.",
+  "description": "A lightweight framework for for client-side and isomorphic forms in React. Redux is optional.",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
