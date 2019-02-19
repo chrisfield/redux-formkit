@@ -1,57 +1,42 @@
 import * as React from "react";
-import { PureComponent } from "react";
 import FormkitContext from "./formkit-context";
 
 const connectToForm = (mapStateToProps, mapDispatchToProps: any = noop) => {
-    return (Field) => {
-      class FieldWithDispatchProps extends PureComponent<{formkitForm: any}> {
-
-        public dispatchers: any;
-
-        constructor(props) {
-          super(props);
-          this.dispatch = this.dispatch.bind(this);
-          const dispatchers = mapDispatchToProps(this.dispatch, props);
-          Object.keys(dispatchers).forEach((key) => {
-            dispatchers[key] = dispatchers[key].bind(this);
-          });
-          this.dispatchers = dispatchers;
-        }
-
-        public dispatch(action) {
-          this.props.formkitForm.dispatch(action);
-        }
-
-        public render() {
-          return (
-            <Field {...this.props} {...this.dispatchers}/>
-          );
-        }
+  return Field => {
+    const FieldWithDispatchProps = props => {
+      const dispatch = action  => {
+        props.formkitForm.dispatch(action);
       }
+      const dispatchers = mapDispatchToProps(dispatch, props);
 
-      const renderFieldWithDispatchProps = (props) => (
-        ({formkitForm, formInterface, formState}) => {
-          const stateProps = mapStateToProps(formState, props);
-          return (
-            <FieldWithDispatchProps
-              formkitForm={formkitForm}
-              formInterface={formInterface}
-              {...stateProps}
-              {...props}
-            />
-          );
-        }
+      return (
+        <Field {...props} {...dispatchers}/>
       );
+    }
 
-      const FieldWithContext = (props) => (
-        <FormkitContext.Consumer>
-          {renderFieldWithDispatchProps(props)}
-        </FormkitContext.Consumer>
-      );
+    const renderFieldWithDispatchProps = (props) => (
+      ({formkitForm, formInterface, formState}) => {
+        const stateProps = mapStateToProps(formState, props);
+        return (
+          <FieldWithDispatchProps
+            formkitForm={formkitForm}
+            formInterface={formInterface}
+            {...stateProps}
+            {...props}
+          />
+        );
+      }
+    );
 
-      return FieldWithContext;
-    };
+    const FieldWithContext = props => (
+      <FormkitContext.Consumer>
+        {renderFieldWithDispatchProps(props)}
+      </FormkitContext.Consumer>
+    );
+
+    return FieldWithContext;
   };
+};
 
 const noop = () => ({});
 
