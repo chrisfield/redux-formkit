@@ -1,14 +1,12 @@
-import formkit from "./formkit";
-export default formkit;
+import { Form } from "./form";
+export { Form };
 
-import connectWithoutRedux from "./connect-without-redux";
-export {connectWithoutRedux};
+import  formStateContext from "./form-state-context";
+import  FormStateProvider from "./form-state-provider";
+export {formStateContext, FormStateProvider };
 
 import formReducer from "./reducers";
 export {formReducer};
-
-import FormStatus from "./form-status";
-export {FormStatus};
 
 import NamedValidationStatus from "./named-validation-status";
 export {NamedValidationStatus};
@@ -26,10 +24,17 @@ import {initFormState as initFormStateAction, updateField, updateFields} from ".
 
 export {initFormStateAction};
 
-export const updateFieldsAction = (form, payload) => (
+export const updateFieldsAction = (form: any, payload: any) => (
   {form, ...updateFields(payload)}
 );
 
-export const updateFieldAction = (form, field, value) => (
-  {form, ...updateField(field, value)}
+export const updateFieldAction = (form: any, field: any, value: any) => (
+  {form, field, ...updateField(value)}
 );
+
+import { useForm }  from './form';
+import useFormReducer  from './form-reducer';
+import useField from './use-field';
+import useFieldArray from './use-field-array';
+
+export {useForm, useFormReducer, useField, useFieldArray}

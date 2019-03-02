@@ -10,7 +10,7 @@ export const initialFormStatus = {
 
 export const initialFieldStatus = {};
 
-const formStatusAndFieldStatusReducer = (formStatus = initialFormStatus, fieldStatus = initialFieldStatus, action) => {
+const formStatusAndFieldStatusReducer = (formStatus = initialFormStatus, fieldStatus = initialFieldStatus, action:any) => {
   const errorCount = formStatus.errorCount;
   switch (action.type) {
     case actionTypes.INIT_FORM_STATE: {

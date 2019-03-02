@@ -3,7 +3,7 @@ import setField from "../state-utils/set-field";
 
 export const initialState = {};
 
-const errorsReducer = (state = initialState, action) => {
+const errorsReducer = (state = initialState, action:any) => {
   switch (action.type) {
     case actionTypes.INIT_FORM_STATE:
       return action.formErrors || {};

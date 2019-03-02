@@ -1,66 +1,82 @@
-import * as PropTypes from "prop-types";
-import * as React from "react";
-import { pushToFieldArray, removeFromFieldArray } from "./actions";
-import connectToFormkit from "./connect-to-formkit";
-import getField from "./state-utils/get-field";
+import React, { useEffect, useRef, memo } from 'react';
+import { pushToFieldArray, removeFromFieldArray } from './actions';
+import { useForm } from './form';
+import useFieldArray from './use-field-array';
 
-interface FieldArrayProps {
-  formkitForm: any;
-  name: string;
-  component: any;
-  fields: any;
-  push: any;
-  remove: any;
+const FieldArrayComponent = (props: any): any => {
+  const fields = {
+    map: (callback: any) => (
+      (props.fields || []).map((item: any, index: number) =>
+        callback(`${props.name}[${index}]`, index),
+      )
+    ),
+    name: props.name,
+    push: props.push,
+    remove: props.remove,
+  };
+
+  const {component: Component, ...rest} = props;
+  return <Component {...rest} fields={fields} />;
 }
 
-class FieldArray extends React.PureComponent<FieldArrayProps> {
-
-  public static propTypes: any;
-
-  public componentDidMount() {
-    this.props.formkitForm.registerFieldArray(this);
-  }
-
-  public componentWillUnmount() {
-    this.props.formkitForm.deregisterFieldArray(this);
-  }
-
-  public render() {
-    const fields = {
-      map: (callback) => (
-        (this.props.fields || []).map((item, index) =>
-          callback(`${this.props.name}[${index}]`, index),
-        )
-      ),
-      name: this.props.name,
-      push: this.props.push,
-      remove: this.props.remove,
-    };
-
-    const {component: Component, ...rest} = this.props;
-    return <Component {...rest} fields={fields} />;
-  }
-}
-
-FieldArray.propTypes = {
-  component: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.func,
-    PropTypes.element,
-  ]).isRequired,
-  fields: PropTypes.array.isRequired,
-  name: PropTypes.string.isRequired,
-  push: PropTypes.func.isRequired,
-  remove: PropTypes.func.isRequired,
+const FieldArray = ({name, ...props}: any) => {
+  const connectionProps = useFieldArray(name);
+  return (
+    <FieldArrayBase
+      name={name}
+      {...props}
+      {...connectionProps}
+    />
+  );
 };
 
-const mapStateToProps = (state, ownProps) => ({
-  fields: getField(state.fieldValues, ownProps.name) || [],
-});
+const FieldArrayBase = memo(({
+  name,
+  dispatch,
+  fields,
+  status, 
+  formState,
+  ...props
+}: any) => {
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  push: () => {dispatch(pushToFieldArray(ownProps.name)); },
-  remove: (index) => {dispatch(removeFromFieldArray(ownProps.name, index)); },
-});
+  console.log(`render FieldArray, ${name}`);
+  
+  const fieldArrayApiRef: any = useRef({
+    name
+  });
 
-export default connectToFormkit(mapStateToProps, mapDispatchToProps)(FieldArray);
+  useEffect(() => {
+    fieldArrayApiRef.current.fields = fields;
+  });
+
+  const formApi = useForm();
+  useEffect(() => {
+    formApi.registerFieldArray(fieldArrayApiRef.current);
+    return () => {
+      formApi.deregisterFieldArray(fieldArrayApiRef.current);
+    }
+  }, []);
+
+  const push = () => {
+    console.log('dispatch push', name)
+    dispatch(pushToFieldArray()); 
+  };
+
+  const remove = (index: number) => {
+    dispatch(removeFromFieldArray(index));
+  }
+
+  return (
+    <FieldArrayComponent
+      fields={fields}
+      name={name}
+      push={push}
+      remove={remove}
+      {...props}
+    />
+  );
+},(prevProps, nextProps)=>(
+  prevProps.fields === nextProps.fields
+));
+
+export default FieldArray;

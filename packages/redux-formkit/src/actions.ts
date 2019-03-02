@@ -1,4 +1,4 @@
-export const actionTypes = {
+export const actionTypes:any = {
   DEREGISTER_FIELD: "DEREGISTER_FIELD",
   INIT_FORM_STATE: "INIT_FORM_STATE",
   PUSH_TO_FIELD_ARRAY: "PUSH_TO_FIELD_ARRAY",
@@ -13,7 +13,7 @@ export const actionTypes = {
 };
 
 export const initFormState = (
-  form,
+  form: string,
   {formStatus= {}, fieldStatus= {}, fieldValues= {}, formErrors= {}}= {},
 ) => ({type: actionTypes.INIT_FORM_STATE, form, formStatus, fieldStatus, fieldValues, formErrors});
 
@@ -21,38 +21,45 @@ export const resetFieldsIsDone = () => (
   {type: actionTypes.RESET_FIELDS_IS_DONE}
 );
 
-export const updateField = (field, value, customProps = {}) => (
-  {type: actionTypes.UPDATE_FIELD, field, value, customProps}
+// field
+export const updateField = (value: any, customProps = {}) => (
+  {type: actionTypes.UPDATE_FIELD, value, customProps}
 );
 
-export const updateFields = (fieldValues) => (
+export const updateFields = (fieldValues: any) => (
   {type: actionTypes.UPDATE_FIELDS, fieldValues}
 );
 
-export const setFieldError = (field, error, value) => (
-  {type: actionTypes.SET_FIELD_ERROR, field, error, value}
+//field
+export const setFieldError = (error: any, value: any) => (
+  {type: actionTypes.SET_FIELD_ERROR, error, value}
 );
 
-export const setFieldTouched = (field, touched) => (
-  {type: actionTypes.SET_FIELD_TOUCHED, field, touched}
+//field
+export const setFieldTouched = (touched: boolean) => (
+  {type: actionTypes.SET_FIELD_TOUCHED, touched}
 );
 
-export const pushToFieldArray = (fieldArray, payload?) => (
-  {type: actionTypes.PUSH_TO_FIELD_ARRAY, fieldArray, payload}
+//fieldArray
+export const pushToFieldArray = (payload?: any) => (
+  {type: actionTypes.PUSH_TO_FIELD_ARRAY, payload}
 );
 
-export const removeFromFieldArray = (fieldArray, index) => (
-  {type: actionTypes.REMOVE_FROM_FIELD_ARRAY, fieldArray, index}
+//fieldArray
+export const removeFromFieldArray = (index: number) => (
+  {type: actionTypes.REMOVE_FROM_FIELD_ARRAY, index}
 );
 
-export const deregisterField = (field) => (
-  {type: actionTypes.DEREGISTER_FIELD, field}
+//field
+export const deregisterField = () => (
+  {type: actionTypes.DEREGISTER_FIELD}
 );
 
+//form
 export const startSubmit = () => (
   {type: actionTypes.START_SUBMIT}
 );
 
-export const stopSubmit = (formErrors?) => (
+export const stopSubmit = (formErrors?: any) => (
   {type: actionTypes.STOP_SUBMIT, formErrors}
 );

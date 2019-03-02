@@ -4,7 +4,7 @@ import setField from "../state-utils/set-field";
 
 export const initialState = {};
 
-const valuesReducer = (state = initialState, action) => {
+const valuesReducer = (state = initialState, action:any) => {
   switch (action.type) {
     case actionTypes.INIT_FORM_STATE:
       return action.fieldValues || {};
@@ -20,7 +20,7 @@ const valuesReducer = (state = initialState, action) => {
     }
     case actionTypes.REMOVE_FROM_FIELD_ARRAY: {
       const originalArray = getField(state, action.fieldArray) || [];
-      const nextArray = originalArray.filter((item, index) => (index !== action.index));
+      const nextArray = originalArray.filter((item:any, index: number) => (index !== action.index));
       return setField(state, action.fieldArray, nextArray);
     }
     case actionTypes.SET_FIELD_ERROR: {

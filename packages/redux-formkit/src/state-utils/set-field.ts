@@ -1,13 +1,13 @@
 import toPath from "lodash.topath";
 
-const setFieldWithPath = (state, value, path, pathIndex) => {
+const setFieldWithPath = (state:any, value: any, path: string[], pathIndex:number):any => {
   if (pathIndex >= path.length) {
     return value;
   }
 
-  const first = path[pathIndex];
-  const firstState = state && (Array.isArray(state) ? state[Number(first)] : state[first]);
-  const next = setFieldWithPath(firstState, value, path, pathIndex + 1);
+  const first:any = path[pathIndex];
+  const firstState:any = state && (Array.isArray(state) ? state[Number(first)] : state[first]);
+  const next:any = setFieldWithPath(firstState, value, path, pathIndex + 1);
 
   if (!state) {
     if (isNaN(first)) {
@@ -30,7 +30,7 @@ const setFieldWithPath = (state, value, path, pathIndex) => {
   };
 };
 
-const setField = (state, field, value) =>
+const setField = (state:any, field:any, value:any) =>
   setFieldWithPath(state, value, toPath(field), 0);
 
 export default setField;

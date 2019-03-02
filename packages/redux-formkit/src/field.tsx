@@ -1,269 +1,177 @@
-import * as PropTypes from "prop-types";
-import * as React from "react";
-import {deregisterField, setFieldError, setFieldTouched, updateField} from "./actions";
-import connectToFormkit from "./connect-to-formkit";
-import getField from "./state-utils/get-field";
+import React, { useEffect, useRef, memo } from 'react';
+import {deregisterField, updateField, setFieldError, setFieldTouched } from './actions';
+import { useForm } from './form';
+import useField from './use-field';
 
-interface FieldProps {
-  afterUpdate: any;
-  beforeUpdate: any;
-  name: string;
-  formkitForm: any;
-  formInterface: any;
-  component: any;
-  updateField: any;
-  formatFromStore: any;
-  formatToStore: any;
-  getNextCursorPosition: any;
-  getTargetValue: any;
-  useTargetCondition: any;
-  deregisterField: any;
-  setError: any;
-  setTouched: any;
-  status: any;
-  validate: any;
-  rawValue: any;
-  error: any;
-  touched: any;
-  isPrevalidatedOnServer: boolean;
+function usePrevious(value: any) {
+  const ref = useRef();
+  useEffect(() => {
+    ref.current = value;
+  });
+  return ref.current;
 }
 
-class Field extends React.PureComponent<FieldProps> {
+function twoInvalidNumbers(x: any, y: any): boolean {
+  return typeof x === "number" && isNaN(x) && isNaN(y);
+}
 
-  public static propTypes: any;
-  public static defaultProps: any;
-
-  public props: any;
-  public elementRef: any;
-
-  constructor(props) {
-    super(props);
-    this.getFieldInterface = this.getFieldInterface.bind(this);
-    this.setElementRef = this.setElementRef.bind(this);
-    this.validate = this.validate.bind(this);
-    this.validateValue = this.validateValue.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.showAnyErrors = this.showAnyErrors.bind(this);
+const FieldComponent = ({component, ...props}: any): any => {
+  if (typeof component === "string") {
+    const {handleBlur, handleChange, elementRef, fieldApi, ...givenProps} = props;
+    return React.createElement(
+      component,
+      {onBlur: handleBlur, onChange: handleChange, ref: elementRef, ...givenProps}
+    );
+  } else {
+    const Component = component;
+    return <Component {...props}/>;  
   }
+}
 
-  public componentDidMount() {
-    this.props.formkitForm.registerField(this);
-    if (this.elementRef) {
-      if (!this.props.useTargetCondition || this.props.useTargetCondition(this.elementRef)) {
-        const rawValue = this.props.formatToStore(this.props.getTargetValue(this.elementRef));
-        if (!this.props.isPrevalidatedOnServer || rawValue !== this.props.rawValue) {
-          this.validate(rawValue);
-        }
-      }
-    } else {
-      if (!this.props.isPrevalidatedOnServer) {
-        this.validate(this.props.rawValue);
-      }
+const Field = ({name, ...props}: any) => {
+  const connectionProps = useField(name);
+  return (
+    <FieldBase
+      name={name}
+      {...props}
+      {...connectionProps}
+    />
+  );
+};
+
+const FieldBase = memo(({
+  name,
+  beforeUpdate,
+  afterUpdate,
+  formatFromStore,
+  formatToStore,
+  getTargetValue,
+  validate,
+  dispatch,
+  value,
+  error,
+  touched,
+  customProps,
+  formState,
+  ...props
+}: any) => {
+
+  console.log(`render Field, ${name}`);
+  
+  const elementRef = useRef();
+  const fieldApiRef: any = useRef({
+    name,
+    elementRef
+  });
+
+  useEffect(() => {
+    fieldApiRef.current.value = value;
+    fieldApiRef.current.error = error;
+    fieldApiRef.current.touched = touched;
+    fieldApiRef.current.customProps = customProps;
+    fieldApiRef.current.validate = () => validateValue(value);
+    fieldApiRef.current.setTouched = (touched:boolean) => dispatch(setFieldTouched(touched));    
+  });
+
+  const formApi = useForm();
+  useEffect(() => {
+    formApi.registerField(fieldApiRef.current);
+    return () => {
+      console.log('dereg', name)
+      dispatch(deregisterField());
+      formApi.deregisterField(fieldApiRef.current);
     }
-  }
+  }, []);
 
-  public componentDidUpdate(prevProps) {
-    if (typeof this.props.rawValue === "number"
-      && isNaN(this.props.rawValue)
-      && isNaN(prevProps.rawValue)
-    ) {
+  const isMountedRef = useRef(false);
+  const previousValue: any = usePrevious(value);
+  useEffect(() => {
+    if (!isMountedRef.current) {
+      isMountedRef.current = true;
+      if (elementRef.current) {
+        const inputValue = formatToStore(getTargetValue(elementRef.current));
+        validateValue(inputValue);
+      } else {
+        validateValue(value);
+      }
       return;
     }
 
-    if (this.props.rawValue !== prevProps.rawValue) {
-      this.validate(this.props.rawValue);
+    if (value !== previousValue && !twoInvalidNumbers(value, previousValue)) {
+      validateValue(value);
     }
 
-    if (this.props.rawValue !== prevProps.rawValue
-      || Object.keys(this.props.status.customProps || {}).length > 0) {
-      this.props.afterUpdate(this.getFieldInterface());
+    if ((value !== previousValue && !twoInvalidNumbers(value, previousValue))
+      || Object.keys(customProps).length > 0) {
+      afterUpdate(fieldApiRef.current);
     }
-  }
-
-  public componentWillUnmount() {
-    this.props.formkitForm.deregisterField(this);
-    this.props.deregisterField();
-  }
-
-  public setElementRef(element) {
-    this.elementRef = element;
-  }
-
-  public getFieldInterface() {
-    return {
-      customProps: this.props.status.customProps || {},
-      elementRef: this.elementRef,
-      form: this.props.formInterface,
-      validate: this.validateValue,
-    };
-  }
-
-  public handleChange(event) {
-    const props = this.props;
-    const value = props.formatToStore(props.getTargetValue(event.target, event));
-    const customProps = props.beforeUpdate(
-      this.getFieldInterface(),
-      props.formatFromStore(props.rawValue),
-      props.formatFromStore(value),
+  });
+  
+  const handleChange = (event: any) => {
+    const valueToStore = formatToStore(getTargetValue(event.target, event));
+    const customProps = beforeUpdate(
+      fieldApiRef.current,
+      formatFromStore(fieldApiRef.current.value),
+      formatFromStore(valueToStore),
     );
-    props.updateField(value, customProps);
-  }
+    dispatch(updateField(valueToStore, customProps));
+  };
 
-  public showAnyErrors(event) {
-    if (!this.props.touched) {
-      if (this.props.error) {
-        event.preventDefault();
-      }
-      this.props.setTouched(true);
-    }
-  }
-
-  public validate(rawValue) {
+  const validateValue = (value: any) => {
     let validateError;
-    if (this.props.validate) {
-      const fieldValues = this.props.formkitForm.getFormState().fieldValues;
-      if (Array.isArray(this.props.validate)) {
-        for (let i = 0; i < this.props.validate.length && !validateError; i++) {
-          validateError = this.props.validate[i](rawValue, fieldValues);
+    if (validate) {
+      const fieldValues = formState.fieldValues;
+      if (Array.isArray(validate)) {
+        for (let i = 0; i < validate.length && !validateError; i++) {
+          validateError = validate[i](value, fieldValues);
         }
       } else {
-        validateError = this.props.validate(rawValue, fieldValues);
+        validateError = validate(value, fieldValues);
       }
     }
-    this.props.setError(validateError, rawValue);
-  }
+    dispatch(setFieldError(validateError, value));
+  };
 
-  public render() {
-    const props = this.props;
-    const value = props.formatFromStore(props.rawValue);
-    const Component = props.component;
-    const {
-      afterUpdate,
-      beforeUpdate,
-      formkitForm,
-      formInterface,
-      component,
-      updateField: updField,
-      formatFromStore,
-      formatToStore,
-      getNextCursorPosition,
-      getTargetValue,
-      useTargetCondition,
-      deregisterField: deregField,
-      setError,
-      setTouched,
-      status,
-      validate,
-      rawValue,
-      error,
-      touched,
-      isPrevalidatedOnServer,
-      ...givenProps
-    } = props;
-    if (typeof Component === "string") {
-      const propsForHtmlElement = {
-        ...givenProps,
-        onBlur: this.showAnyErrors,
-        onChange: this.handleChange,
-        ref: this.setElementRef,
-        value,
-      };
-      return React.createElement(Component, propsForHtmlElement);
-    } else {
-      return (
-        <Component
-          {...givenProps}
-          setElementRef={this.setElementRef}
-          value={value}
-          handleChange={this.handleChange}
-          handleBlur={this.showAnyErrors}
-          error={error}
-          touched={touched}
-        />
-      );
+  const showAnyErrors = (event: any) => {
+    if (!touched) {
+      if (error) {
+        event.preventDefault();
+      }
+      dispatch(setFieldTouched(true));
     }
-  }
+  };
 
-  private validateValue() {
-    this.validate(this.props.rawValue);
-  }
-}
-
-Field.propTypes = {
-  component: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.func,
-    PropTypes.element,
-  ]).isRequired,
-  deregisterField: PropTypes.func.isRequired,
-  error: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.object,
-  ]),
-  formInterface: PropTypes.object.isRequired,
-  formatFromStore: PropTypes.func.isRequired,
-  formatToStore: PropTypes.func.isRequired,
-  formkitForm: PropTypes.object.isRequired,
-  getNextCursorPosition: PropTypes.func,
-  getTargetValue: PropTypes.func.isRequired,
-  name: PropTypes.string.isRequired,
-  rawValue: PropTypes.any,
-  setError: PropTypes.func.isRequired,
-  setTouched: PropTypes.func.isRequired,
-  touched: PropTypes.bool.isRequired,
-  updateField: PropTypes.func.isRequired,
-  useTargetCondition: PropTypes.func,
-  validate: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.array,
-  ]),
-};
+  return (
+    <FieldComponent
+      fieldApi={fieldApiRef.current}
+      elementRef={elementRef}
+      handleChange={handleChange}
+      handleBlur={showAnyErrors}
+      name={name}
+      value={formatFromStore(value)}
+      {...props}
+    />
+  );
+}, (prevProps, nextProps)=>(
+  prevProps.value === nextProps.value
+  && prevProps.touched === nextProps.touched
+  && prevProps.error === nextProps.error
+  && prevProps.customProps === nextProps.customProps
+));
 
 Field.defaultProps = {
   afterUpdate: () => (undefined),
   beforeUpdate: () => ({}),
-  formatFromStore: (value = "") => value,
-  formatToStore: (value) => value,
-  getTargetValue: (target, value) => {
+  formatFromStore: (value: any = "") => value,
+  formatToStore: (value: any) => value,
+  getTargetValue: (target: any, value: any) => {
     if (target) {
       return target.value;
     } else {
       return value;
     }
-  },
-  isPrevalidatedOnServer: false,
+  }
+//  isPrevalidatedOnServer: false,
 };
 
-const mapStateToProps = (state, ownProps) => {
-  const rawValue = getField(state.fieldValues, ownProps.name);
-  const status = getField(state.fieldStatus, ownProps.name) || {};
-  const touched = status.touched || !ownProps.validate;
-  const error = status.error ? status.error : getField(state.formErrors, ownProps.name);
-  return {
-    error,
-    isPrevalidatedOnServer: state.formStatus.isPrevalidatedOnServer,
-    rawValue,
-    status,
-    touched,
-  };
-};
-
-const mapDispatchToProps = (dispatch, ownProps) => {
-  const fieldName = ownProps.name;
-  return {
-    deregisterField: () => {
-      dispatch(deregisterField(fieldName));
-    },
-    setError: (error, value) => {
-      dispatch(setFieldError(fieldName, error, value));
-    },
-    setTouched: (touched) => {
-      dispatch(setFieldTouched(fieldName, touched));
-    },
-    updateField: (value, customProps) => {
-      dispatch(updateField(fieldName, value, customProps));
-    },
-  };
-};
-
-export default connectToFormkit(mapStateToProps, mapDispatchToProps)(Field);
+export default Field;
