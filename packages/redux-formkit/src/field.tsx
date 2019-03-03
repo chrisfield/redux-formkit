@@ -24,7 +24,7 @@ const FieldComponent = ({component, ...props}: any): any => {
     );
   } else {
     const Component = component;
-    return <Component {...props}/>;  
+    return <Component {...props}/>;
   }
 }
 
@@ -56,7 +56,7 @@ const FieldBase = memo(({
   ...props
 }: any) => {
 
-  // console.log(`render Field, ${name}`);
+  console.log(`render Field, ${name}`);
   
   const elementRef = useRef();
   const fieldApiRef: any = useRef({
@@ -144,22 +144,22 @@ const FieldBase = memo(({
   return (
     <FieldComponent
       fieldApi={fieldApiRef.current}
-      touched={fieldApiRef.current.touched}
-      error={fieldApiRef.current.error}
       elementRef={elementRef}
       handleChange={handleChange}
       handleBlur={showAnyErrors}
       name={name}
       value={formatFromStore(value)}
+      touched={touched}
+      error={error}
       {...props}
     />
   );
-}/*, (prevProps, nextProps)=>(
+}, (prevProps, nextProps)=>(
   prevProps.value === nextProps.value
   && prevProps.touched === nextProps.touched
   && prevProps.error === nextProps.error
   && prevProps.customProps === nextProps.customProps
-)*/);
+));
 
 Field.defaultProps = {
   afterUpdate: () => (undefined),
