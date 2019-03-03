@@ -56,7 +56,7 @@ const FieldBase = memo(({
   ...props
 }: any) => {
 
-  console.log(`render Field, ${name}`);
+  // console.log(`render Field, ${name}`);
   
   const elementRef = useRef();
   const fieldApiRef: any = useRef({
@@ -154,12 +154,12 @@ const FieldBase = memo(({
       {...props}
     />
   );
-}, (prevProps, nextProps)=>(
+}/*, (prevProps, nextProps)=>(
   prevProps.value === nextProps.value
   && prevProps.touched === nextProps.touched
   && prevProps.error === nextProps.error
   && prevProps.customProps === nextProps.customProps
-));
+)*/);
 
 Field.defaultProps = {
   afterUpdate: () => (undefined),
