@@ -17,7 +17,7 @@ function twoInvalidNumbers(x: any, y: any): boolean {
 
 const FieldComponent = ({component, ...props}: any): any => {
   if (typeof component === "string") {
-    const {handleBlur, handleChange, elementRef, fieldApi, ...givenProps} = props;
+    const {touched, error, handleBlur, handleChange, elementRef, fieldApi, ...givenProps} = props;
     return React.createElement(
       component,
       {onBlur: handleBlur, onChange: handleChange, ref: elementRef, ...givenProps}
@@ -64,7 +64,9 @@ const FieldBase = memo(({
     elementRef
   });
 
+  const formApi = useForm();
   useEffect(() => {
+    fieldApiRef.current.form = formApi;
     fieldApiRef.current.value = value;
     fieldApiRef.current.error = error;
     fieldApiRef.current.touched = touched;
@@ -73,7 +75,6 @@ const FieldBase = memo(({
     fieldApiRef.current.setTouched = (touched:boolean) => dispatch(setFieldTouched(touched));    
   });
 
-  const formApi = useForm();
   useEffect(() => {
     formApi.registerField(fieldApiRef.current);
     return () => {

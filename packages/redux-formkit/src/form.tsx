@@ -58,6 +58,7 @@ export const Form = ({name, onSubmit=noop, onSubmitSuccess=noop, children}: any)
     registerFieldArray: (fieldArray: any) => {
       fieldArraysRef.current.push(fieldArray);
     },
+    fields: fieldsRef.current,
     formReducerRef
   });
 

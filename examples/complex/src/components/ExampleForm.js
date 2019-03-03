@@ -1,5 +1,5 @@
 import React from 'react';
-import {Form, Field, useFormReducer, FormStatus} from 'redux-formkit';
+import {Form, Field, useFormReducer, NamedValidationStatus} from 'redux-formkit';
 import {InputField, /*RadioField, CheckboxField*/} from './form-controls';
 import {number, addCommas, maxLength, requiredStr, requiredNum} from './form-controls/utils';
 
@@ -11,17 +11,25 @@ const ExampleForm = (props) => {
         name="exampleF"
         initialValues = {initialValues}    
       >
-        <form className="example-form"> {/*No need for this to be a form. It can be a div/section etc */}
-            <Field
-              name="myInput"
-              component="input"
-            />
-            <InputField
-              label="Short Name"
-              name="shortName"
-              validate={requiredMaxLength5}
-            />
-        </form>
+        <NamedValidationStatus name="formErrorAtTop" >
+          {({error}) => {
+            if (error) {
+              return <p>{error}</p>
+            };
+            return null;
+          }}
+        </NamedValidationStatus>
+        <Field
+          name="myInput"
+          component="input"
+        />
+        <InputField
+          label="Short Name"
+          name="shortName"
+          validate={requiredMaxLength5}
+          afterUpdate={revalidateOtherName}
+        />
+        <InputField label="Other Name" name="otherName" validate={greaterThanShortName}/>
       </Form>
       <p>
       Field Values: {JSON.stringify(state.fieldValues)}
@@ -43,5 +51,9 @@ const initialValues = {
 
 const maxLength5 = maxLength(5);
 const requiredMaxLength5 = [requiredStr, maxLength5];
+
+const greaterThanShortName = (value, values) => (
+  values && value > values.shortName? undefined: `Other name should be alphabecically after ${values.shortName}`
+);
 
 export default ExampleForm;
