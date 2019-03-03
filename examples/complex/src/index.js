@@ -2,13 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import {Provider} from 'react-redux';
-import store from './store/store';
+import {FormStateProvider} from 'redux-formkit';
 import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(
-  <Provider store={store}>
+  <FormStateProvider>
     <App/>
-  </Provider>,
+  </FormStateProvider>,
  document.getElementById('root'));
 registerServiceWorker();

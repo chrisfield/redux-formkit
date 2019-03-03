@@ -144,6 +144,8 @@ const FieldBase = memo(({
   return (
     <FieldComponent
       fieldApi={fieldApiRef.current}
+      touched={fieldApiRef.current.touched}
+      error={fieldApiRef.current.error}
       elementRef={elementRef}
       handleChange={handleChange}
       handleBlur={showAnyErrors}
