@@ -1,26 +1,28 @@
 {
-  "name": "formapp",
+  "name": "ex1",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@types/is-promise": "^2.1.0",
     "@types/lodash.topath": "^4.5.5",
     "@types/react": "^16.8.6",
+    "@types/react-dom": "^16.8.2",
     "@types/react-redux": "^7.0.1",
+    "es6-error": "^4.1.1",
+    "lodash.topath": "^4.5.2",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
-    "react-redux": "^6.0.0",
     "react-scripts": "2.1.5",
-    "redux": "^4.0.1",
-    "redux-devtools-extension": "^2.13.7",
-    "redux-formkit": "^3.0.4-alpha.0",
     "typescript": "^3.3.3333"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
   },
   "browserslist": [
     ">0.2%",

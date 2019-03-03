@@ -1,10 +1,10 @@
 import React from 'react';
-import {Form, Field, useFormReducer, NamedValidationStatus} from 'redux-formkit';
+import {Form, Field, useFormReducer, NamedValidationStatus} from '../redux-formkit-copy';
 import {InputField, /*RadioField, CheckboxField*/} from './form-controls';
 import {number, addCommas, maxLength, requiredStr, requiredNum} from './form-controls/utils';
 
 const ExampleForm = (props) => {
-  const [state] = useFormReducer("exampleF");
+  //const [state] = useFormReducer("exampleF");
   return (
     <div>
       <Form
@@ -31,11 +31,6 @@ const ExampleForm = (props) => {
         />
         <InputField label="Other Name" name="otherName" validate={greaterThanShortName}/>
       </Form>
-      <p>
-      Field Values: {JSON.stringify(state.fieldValues)}
-      </p><p>
-      Field Status: {JSON.stringify(state.fieldStatus)}
-      </p>
     </div>
   )
 };
@@ -55,5 +50,9 @@ const requiredMaxLength5 = [requiredStr, maxLength5];
 const greaterThanShortName = (value, values) => (
   values && value > values.shortName? undefined: `Other name should be alphabecically after ${values.shortName}`
 );
+
+const revalidateOtherName = field => {
+  field.form.fields.filter(field => (field.name === 'otherName'))[0].validate();
+};
 
 export default ExampleForm;
