@@ -13,9 +13,10 @@ const Input = props => (
          onChange={props.handleChange} 
          onBlur={props.handleBlur}
       />
-      {props.fieldApi.touched+ ''}
+      Touched: {props.touched + ''}
+      Error: {props.error + ''}
       {props.children}
-      {props.fieldApi.error && props.fieldApi.touched && <p className="error">{props.error}</p>}     
+      {props.error && props.touched && <p className="error">{props.error}</p>}     
     </div>
   );
   
