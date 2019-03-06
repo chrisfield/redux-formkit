@@ -1,6 +1,6 @@
 {
   "name": "redux-formkit",
-  "version": "3.0.4-alpha.0",
+  "version": "3.1.0",
   "description": "A lightweight framework for building client-side and isomorphic forms in React. Redux is optional.",
   "main": "lib/index.js",
   "repository": {
@@ -10,10 +10,8 @@
   "homepage": "https://github.com/chrisfield/redux-formkit/blob/master/packages/redux-formkit/",
   "scripts": {
     "test": "jest",
-    "test:watch": "npm test -- --watch",
-    "build": "npm run clean && tsc -p ./config/tsconfig.build.json",
-    "build:lib": "babel src --out-dir lib",
-    "clean": "rimraf lib"
+    "build": "webpack --mode production",
+    "build:dev": "webpack --mode development"
   },
   "keywords": [
     "react",
@@ -29,49 +27,27 @@
     "next",
     "isomorphic"
   ],
-  "author": "Kit Field",
+  "author": "Chris Field",
   "license": "ISC",
   "files": [
     "README.md",
     "lib/"
   ],
-  "devDependencies": {
-    "@types/jest": "^23.3.12",
-    "@types/lodash.topath": "^4.5.4",
-    "@types/prop-types": "^15.5.8",
-    "@types/react": "^16.7.18",
-    "@types/react-dom": "^16.0.11",
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
-    "babel-jest": "^23.6.0",
-    "babel-loader": "^7.1.4",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-react": "^6.24.1",
-    "jest": "^23.6.0",
-    "lerna": "^3.8.5",
-    "prop-types": "^15.6.2",
-    "react": "^16.8.3",
-    "react-dom": "^16.8.3",
-    "redux-devtools-extension": "^2.13.7",
-    "regenerator-runtime": "^0.13.1",
-    "rimraf": "^2.6.2",
-    "ts-jest": "^23.10.5",
-    "tsutils": "^3.7.0",
-    "typescript": "^3.2.2"
-  },
   "peerDependencies": {
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0",
-    "react-redux": "^6.0.0",
-    "redux": "^4.0.1",
-    "redux-devtools-extension": "^2.13.7"
+    "react": "^16.8.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.5",
+    "jest": "^24.1.0",
+    "react": "^16.8.3",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.2.3"
   },
   "dependencies": {
-    "@babel/runtime": "^7.2.0",
     "es6-error": "^4.1.1",
-    "is-promise": "^2.1.0",
-    "lodash.topath": "^4.5.2",
-    "tslib": "^1.9.3"
+    "lodash.topath": "^4.5.2"
   }
 }

@@ -1,18 +1,9 @@
-# See https://help.github.com/ignore-files/ for more about ignoring files.
-
 # dependencies
 **/node_modules
 **/package-lock.json
-examples/nextjs/.next
 
 # testing
 /coverage
 
 # production
 /packages/redux-formkit/lib
-/packages/redux-formkit/dist
-
-# misc
-.DS_Store
-**/*.log
-

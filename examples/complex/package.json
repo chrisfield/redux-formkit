@@ -1,31 +1,30 @@
 {
-  "name": "formapp",
-  "version": "0.1.0",
-  "private": true,
+  "name": "example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --open --mode development",
+    "build:dev": "webpack --mode development",
+    "build": "webpack --mode production"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.5",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.2.3",
+    "webpack-dev-server": "^3.2.1"
+  },
   "dependencies": {
-    "@types/is-promise": "^2.1.0",
-    "@types/lodash.topath": "^4.5.5",
-    "@types/react": "^16.8.6",
-    "@types/react-redux": "^7.0.1",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
-    "react-redux": "^6.0.0",
-    "react-scripts": "2.1.5",
-    "redux": "^4.0.1",
-    "redux-devtools-extension": "^2.13.7",
-    "redux-formkit": "^3.0.4-alpha.0",
-    "typescript": "^3.3.3333"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+    "redux-formkit": "^3.1.0"
+  }
 }

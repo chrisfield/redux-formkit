@@ -1,13 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import {FormStateProvider} from './redux-formkit-copy';
-import registerServiceWorker from './registerServiceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import {FormStateProvider} from "redux-formkit";
+import MyForm from './my-form.jsx';
 
-ReactDOM.render(
-  <FormStateProvider>
-    <App/>
-  </FormStateProvider>,
- document.getElementById('root'));
-registerServiceWorker();
+const FormContainer = () => {
+  return (
+    <FormStateProvider>
+      <MyForm/>
+    </FormStateProvider>
+  );
+};
+
+const wrapper = document.getElementById("app");
+ReactDOM.render(<FormContainer />, wrapper);
+
+export default FormContainer;
