@@ -11,7 +11,7 @@ Redux-Formkit aims to provide simular functionality to the excellent [Redux-form
 
 
 ## Getting Started
-Go to [Checkout the examples](https://github.com/chrisfield/redux-formkit/tree/before-hooks/examples)
+Checkout [the examples](https://github.com/chrisfield/redux-formkit/tree/master/examples)
 
 To use it on you own project:
 `npm install --save redux-formkit`
@@ -30,6 +30,8 @@ To use it on you own project:
 - Keeps a running error-count and valid/not valid status
 - Synchronous validation including flexible support for inter-field valiation
 - Asynchronous validation
+
+I need to update the examples for version 3 (hooks). The old examples are that show most of thye features are [here](https://github.com/chrisfield/redux-formkit/tree/before-hooks/examples).
 
 
 ## Usage
