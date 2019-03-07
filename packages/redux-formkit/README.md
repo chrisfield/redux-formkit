@@ -3,15 +3,15 @@
 [![NPM Version](https://img.shields.io/npm/v/redux-formkit.svg?style=flat)](https://www.npmjs.com/package/redux-formkit)
 [![NPM Downloads](https://img.shields.io/npm/dm/redux-formkit.svg?style=flat)](https://npmcharts.com/compare/redux-formkit?minimal=true)
 
-Connect form inputs to Redux or standard React state. Includes validation, field-arrays, current valid/not-valid status, asynchronous submission and isomorphic features for frameworks like [nextjs](https://nextjs.org/).
+Connect form inputs to standard React state. Optionally use Redux. Includes validation, field-arrays, current valid/not-valid status, asynchronous submission and isomorphic features for frameworks like [nextjs](https://nextjs.org/).
 
 
 ## Motivation
-Redux-Formkit aims to provide simular functionality to the excellent [Redux-form](https://github.com/erikras/redux-form) but with a really tightly scoped API allowing a smaller codebase (about 25% of the size).
+Redux-Formkit aims to provide simular functionality to the excellent [Redux-form](https://github.com/erikras/redux-form) but with a really tightly scoped API allowing a smaller codebase (about 25% of the size). Version 3 is written with hooks and by default it does not use Redux.
 
 
 ## Getting Started
-Go to [live examples, code and docs](https://chrisfield.github.io/redux-formkit)
+Go to [Checkout the examples](https://github.com/chrisfield/redux-formkit/tree/before-hooks/examples)
 
 To use it on you own project:
 `npm install --save redux-formkit`
@@ -19,10 +19,9 @@ To use it on you own project:
 
 ## Features
 - Small bundle size ([see bundlephobia](https://bundlephobia.com/result?p=redux-formkit))
-- React-native support ([see example](https://github.com/chrisfield/redux-formkit/tree/master/examples/reactnative))
-- Isomophic support to enter values before js downloads ([see example](https://github.com/chrisfield/redux-formkit/tree/master/examples/nextjs))
-- Universal validation. Define rules once: use on client, use on server ([see example](https://github.com/chrisfield/redux-formkit/tree/master/examples/servervalidation))
-- Use it with or without Redux and switch anytime by changing one import ([see example](https://github.com/chrisfield/redux-formkit/tree/master/examples/withoutredux))
+- React-native support
+- Isomophic support to enter values before js downloads
+- Use it with or without Redux and switch anytime by changing one import
 - Easy to migrate from/to redux-form
 - Stores values as semantic types, eg number fields will store numbers
 - Format values, eg to put commas in numbers
@@ -34,22 +33,19 @@ To use it on you own project:
 
 
 ## Usage
-
-Add formReducer to your own reducer
+Add one or more instances of ```FormStateProvider``` anywhere above forms in the component tree. Any components under the FormStateProvider can access the state with the ```useFormReducer``` hook.
 
 ```javascript
-import { formReducer } from 'redux-formkit';
+import {FormStateProvider} from "redux-formkit";
+import MyForm from './my-form.jsx';
 
-export const initialState = {};
-
-const rootReducer = (state = initialState, action) => (
-  {
-    form: formReducer(state.form, action)
-  }
-);
-
-export default rootReducer;
-
+const FormContainer = () => {
+  return (
+    <FormStateProvider>
+      <MyForm/>
+    </FormStateProvider>
+  );
+};
 ```
 
 
@@ -57,65 +53,36 @@ Then write your forms like in the [Simple example](https://github.com/chrisfield
 
 ```javascript
 import React from 'react';
-import formkit from 'redux-formkit';
-import {InputField, RadioField, CheckboxField} from './form-controls';
-import {number, addCommas, requiredStr} from './form-controls/utils';
+import { Form } from 'redux-formkit';
+import {TextInput, NumberInput, Checkbox, RadioButton} from './form-controls';
 
-import { connect } from 'react-redux';
-
-const ExampleForm = (props) => (
-  <form className="example-form">
-
-      <InputField
-        name="field1"
-        label="Required Field"
-        validate={requiredStr}
-      />
-
-      <InputField
-        name="theNumber"
-        label="Numeric Field"
-        formatToStore={number}
-        formatFromStore={addCommas}
-      />
-
-      <CheckboxField name="isAgreed" label="Do you agree?"/>
-      
-      <div className="example-form_item_group">
-        <RadioField name="rb2" label="Red" value="R" />
-        <RadioField name="rb2" label="Green" value="G" />
-        <RadioField name="rb2" label="Blue" value="B" />
+const MyForm = () => {  
+  return (
+    <Form name="myForm" onSubmit={submitValues} onSubmitSuccess={clearValues}>
+      <div>
+        <TextInput name="fieldOne" required/>
+        <NumberInput name="age"/>
+        <Checkbox name="isAgreed" label="Do you agree?"/>
       </div>
-    
-    <button onClick={props.form.handleSubmit}>
-      Send
-    </button>
-    <div>
-      Error Count: {props.form.getFormState().formStatus.errorCount}
-      <pre>
-        Field Values: 
-        {JSON.stringify(props.form.getFormState().fieldValues, undefined, 2)}
-      </pre>
-    </div>
-  </form>  
-);
+      <div>
+        <RadioButton name="rb2" label="Red" value="R" />
+        <RadioButton name="rb2" label="Green" value="G" />
+        <RadioButton name="rb2" label="Blue" value="B" />
+      </div>
+      <button>Submit</button>
+    </Form>
+  );
+};
 
 function submitValues(values) {
   window.alert(`You submitted:${JSON.stringify(values, null, 2)}`)
 }
 
-function clearFormValues(form) {
+function clearValues(form) {
   form.updateFields({});
 }
 
-export default formkit({
-  connect,
-  name: 'exampleF',
-  initialValues: {rb2: 'G'},
-  onSubmit: submitValues,
-  onSubmitSuccess: clearFormValues
-})(ExampleForm);
-
+export default MyForm;
 ```
 
 ## Feedback / contributing
@@ -126,12 +93,9 @@ I'm keen to get feedback please let me know about any issues [here](https://gith
 
 ### Formkit
 
-`formkit` is the higher order component used to wrap forms. You give it a config object and it returns a function to wrap a form. eg `formkit({connect, name:'sign-up'})(SignUp)` would wrap the SignUp form giving it extra facilities. It also gives it one extra prop called `form`.
+`Form` is a component that will render a form and act as a container for Fields.
 
-
-The config object can contain:
-
-* `connect : required function` — Use the import { connect } from 'react-redux' or use import { connectWithoutRedux } from 'redux-formkit'
+It accepts the following props:
 
 * `name : required string` — the name of the form eg 'sign-up'
 
@@ -147,56 +111,15 @@ The config object can contain:
 * `onSubmitSuccess : optional function` — use this to reset the form fields or show a feedback message etc. It will be passed the form instance as a parameter.
 
 
-The form prop passed to your form will contain:
-* `handleSubmit: function` - call this to initiate form submission eg 
-```
-  <button onClick={props.form.handleSubmit}>Send</button>
-```
-
-
-* `getFormState: function` - call this to get the form state
-```
-props.form.getFormState().fieldValues.isAdditionalField
-```
-
-
-* `updateFields: function` - call this to update field values (in the Redux store) eg
-```
-  function clearFormValues(form) {
-    form.updateFields({});
-  }
-
-  export default formkit({
-    connect,
-    name: 'exampleF',
-    initialValues: {rb2: 'G'},
-    onSubmit: submitValues,
-    onSubmitSuccess: clearFormValues
-  })(ExampleForm);
-
-```
-
-* `getField: function` - call this to get a field instance eg
-```
-form.getField('confirmPassword').validate();
-```
-The field interface object that is returned has the following properties:
-```
-  customProps: object with any customProps added via beforeUpdate,
-  elementRef: ref to the dom element,
-  form: the form interface for this field,
-  validate: function to validate this field,
-```
-
 ### Field
 Field is api is very simular to the one in redux-form. There are a few ways to use it but typically you would define a custom component:
 ```
-const Input = props => (
+const InputComponent = props => (
    <div>
      <label htmlFor={props.name}>{props.label}</label>
      <input
        id={props.name}
-       ref={props.setElementRef}
+       ref={props.elementRef}
        value={props.value}
        onChange={props.handleChange}
        onBlur={props.handleBlur}/>
@@ -204,8 +127,8 @@ const Input = props => (
    </div>
 );
 
-const InputField = props => (
-  <Field component={Input} {...props} />
+export const InputField = props => (
+  <Field component={InputComponent} {...props} />
 );
 ```
 
@@ -217,7 +140,6 @@ and use it on the form:
     validate={required}
   />
 ```
-
 
 Field will make use of the following props (other props will be passed straight through to the rendered component):
 * `name : required string` — the name of the field eg 'postcode'
@@ -242,9 +164,7 @@ const addCommas = number => {
 
 ``` 
 
-* `beforeUpdate : optional function` — provide a function that will return an object containing any custom values that you need to access after the field renders. The values will be saved in form-state fieldStatus as customProps and will later be passed on to any afterUpdate function. The beforeUpdate function will be passed fieldInterface, value, nextValue as parameters. A typical use for this function is to save the cursor-position before a field is formatted.
-
-* `afterUpdate : optional function` — provide a function that will called after the field renders and will be passed fieldInterface as a parameter. Typical uses for this function would be to set the cursor-position after a field is formatted or to revalidate a second field when one field changes.
+* `afterUpdate : optional function` — provide a function that will called after the field renders and will be passed fieldInterface as a parameter. Typical uses for this function would be to revalidate a second field when one field changes.
 
 * `getTargetValue : optional function` — provide a function to get the value. It will be called with the target and event as a parameters.
 
@@ -257,7 +177,7 @@ Field will pass these props to the rendered component:
 * `value` value formatted from the store
 * `error` string or object. Will be undefined for a valid field 
 * `touched` boolen
-* `setElementRef` function that can be pass this an the ref prop
+* `elementRef` function that can be pass this an the ref prop
 
 ### updateFieldsAction
 `updateFieldsAction(formName, values)` returns an action object ready to dispatch to Redux. Dispatching this will reinitialize the form updating all form fields with the values provided and setting them all as untouched.

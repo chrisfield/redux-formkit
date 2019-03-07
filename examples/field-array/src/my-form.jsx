@@ -1,5 +1,5 @@
 import React from 'react';
-import {TextInput, NumberInput} from './form-controls.jsx'; 
+import {TextInput, NumberInput} from './form-controls'; 
 import { 
   Form,
   FieldArray,

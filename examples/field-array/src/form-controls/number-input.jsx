@@ -1,30 +1,6 @@
 import React, {useEffect, useRef} from 'react';
 import {Field, usePrevious} from 'redux-formkit';
-
-const TextInputComponent = ({
-  label,
-  name,
-  value,
-  handleChange,
-  handleBlur,
-  elementRef,
-  touched,
-  error,
-  children,
-  ...props}) => 
-(
-    <InputWrapper {...{name, label, touched, error}}>
-      <input
-        id={name}
-        ref={elementRef}
-        value={value}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        {...props}
-      />
-      {children}
-    </InputWrapper>
-);
+import InputWrapper from './input-wrapper.jsx';
 
 const NumberInputComponent = ({
   label,
@@ -65,18 +41,6 @@ const NumberInputComponent = ({
   );
 };
 
-const InputWrapper = ({label, name, touched, error, children}) => (
-  <div>
-    <label htmlFor={name}>{label || name}</label>
-    {children}
-    {touched && error && <p>{error}</p>}
-  </div>
-);
-
-const requiredStr = value => {
-  return value && value.trim && value.trim().length > 0 ? undefined: 'Required Field'
-};
-
 const requiredNum = value => {
   if (value === null || isNaN(value)) {
     return 'required';
@@ -102,15 +66,8 @@ const addCommas = number => {
   return number.toLocaleString();
 };
 
-export const TextInput = ({required, ...props}) => {
-  return <Field
-    component={TextInputComponent}
-    validate={required? requiredStr: undefined}
-    {...props}
-  />
-}
 
-export const NumberInput = ({required, ...props}) => {
+const NumberInput = ({required, ...props}) => {
   return <Field
     component={NumberInputComponent}
     validate={required? requiredNum: undefined}
@@ -118,4 +75,6 @@ export const NumberInput = ({required, ...props}) => {
     formatToStore={number}
     {...props}
   />
-}
+};
+
+export default NumberInput;
