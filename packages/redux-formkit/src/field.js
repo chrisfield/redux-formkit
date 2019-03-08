@@ -48,6 +48,7 @@ const Field = ({name, ...props}) => {
 const FieldBase = memo(({
   name,
   afterUpdate,
+  beforeUpdate,
   formatFromStore,
   formatToStore,
   getTargetValue,
@@ -60,28 +61,34 @@ const FieldBase = memo(({
   formState,
   ...props
 }) => {
-  
   const elementRef = useRef();
-  const fieldApiRef = useRef({
+  const fieldRef = useRef({
     name,
-    elementRef
+    validate: () => validateValue(value),
+    setTouched: touched => dispatch(setFieldTouched(touched))
   });
 
+  const fieldApi = {
+    name,
+    element: elementRef.current,
+    validate: fieldRef.current.validate,
+    setTouched: fieldRef.current.setTouched
+  }
+
   useEffect(() => {
-    fieldApiRef.current.value = value;
-    fieldApiRef.current.error = error;
-    fieldApiRef.current.touched = touched;
-    fieldApiRef.current.customProps = customProps;
-    fieldApiRef.current.validate = () => validateValue(value);
-    fieldApiRef.current.setTouched = (touched) => dispatch(setFieldTouched(touched));    
-  });
+  },[]);
+  // fieldApiRef.current.value = value;
+  // fieldApiRef.current.error = error;
+  // fieldApiRef.current.touched = touched;
+  // fieldApiRef.current.customProps = customProps;
+
 
   const formApi = useForm();
   useEffect(() => {
-    formApi.registerField(fieldApiRef.current);
+    formApi.registerField(fieldRef.current);
     return () => {
       dispatch(deregisterField());
-      formApi.deregisterField(fieldApiRef.current);
+      formApi.deregisterField(fieldRef.current);
     }
   }, []);
 
@@ -103,15 +110,17 @@ const FieldBase = memo(({
       validateValue(value);
     }
 
-    if ((value !== previousValue && !twoInvalidNumbers(value, previousValue))
-      || Object.keys(customProps).length > 0) {
-      afterUpdate(fieldApiRef.current);
-    }
+    afterUpdate(fieldApi, customProps);
   });
   
   const handleChange = (event) => {
-    const valueToStore = formatToStore(getTargetValue(event.target, event));
-    dispatch(updateField(valueToStore, customProps));
+    const nextValueToStore = formatToStore(getTargetValue(event.target, event));
+    const nextCustomProps = beforeUpdate(
+      fieldApi,
+      formatFromStore(value),
+      formatFromStore(nextValueToStore)
+    );
+    dispatch(updateField(nextValueToStore, nextCustomProps));
   };
 
   const validateValue = (value) => {
@@ -157,8 +166,10 @@ const FieldBase = memo(({
   && prevProps.customProps === nextProps.customProps
 ));
 
+const noop = () => (undefined);
 Field.defaultProps = {
-  afterUpdate: () => (undefined),
+  afterUpdate: noop,
+  beforeUpdate: noop,
   formatFromStore: (value = "") => value,
   formatToStore: (value) => value,
   getTargetValue: (target, value) => {

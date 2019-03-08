@@ -41,7 +41,8 @@ const formStatusAndFieldStatusReducer = (formStatus = initialFormStatus, fieldSt
       const field = getField(fieldStatus, action.field) || {};
       return {
         fieldStatus: setField(fieldStatus, action.field, {
-          ...field
+          ...field,
+          customProps: action.customProps
         }),
         formStatus,
       };
