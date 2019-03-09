@@ -39,7 +39,7 @@ const MyForm = () => {
     <Form name="myForm" onSubmit={submitValues} onSubmitSuccess={clearValues}>
       <div>
         <TextInput name="fieldOne" required afterUpdate={revalidateFieldTwo}/>
-        <TextInput name="fieldTwo" validate={greaterThanFieldOne}/>
+        <TextInput name="fieldTwo" required validate={greaterThanFieldOne}/>
         <FieldThree
           label="Name(try Fred):"
           required 
@@ -60,6 +60,7 @@ const MyForm = () => {
 };
 
 const revalidateFieldTwo = ({getField, value}) => {
+  getField('fieldTwo').setTouched(false);
   getField('fieldTwo').validate();
 }
 
@@ -71,7 +72,7 @@ const suggest42ForFred = ({getField, value}) => {
 
 const greaterThanFieldOne = (value, values) => (
   values && value > values.fieldOne? undefined: 'Field two must be greated that field one'
-);
+)
 
 const RenderHobbies = ({fields}) => (
   <fieldset>

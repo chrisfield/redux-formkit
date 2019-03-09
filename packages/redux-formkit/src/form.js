@@ -77,12 +77,13 @@ export const Form = ({name, onSubmit=noop, onSubmitSuccess=noop, children}) => {
 
   const focusOnFieldWithError = () => {
     for (const field of fieldsRef.current) {
-      if (field.error) {
-        const element = field.elementRef.current;
-        if (element && element.focus) {
+      const fieldApi = field.getInterface();
+      if (fieldApi.error && fieldApi.element) {
+        const element = fieldApi.element;
+        if (element.focus) {
           element.focus();
         }
-        if (element && element.scrollIntoView) {
+        if (element.scrollIntoView) {
           element.scrollIntoView();
         }
         break;
@@ -129,7 +130,7 @@ export const Form = ({name, onSubmit=noop, onSubmitSuccess=noop, children}) => {
       (asyncError) => {
         dispatch(stopSubmit(asyncError.errors));
         if (asyncError instanceof SubmissionError) {
-          focusOnFieldWithError;
+          focusOnFieldWithError();
           return;
         }
         throw asyncError;

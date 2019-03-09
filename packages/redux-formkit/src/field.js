@@ -63,6 +63,7 @@ const FieldBase = memo(({
   const elementRef = useRef();
   const fieldRef = useRef({
     name,
+    error,
     setTouched: touched => dispatch(setFieldTouched(touched)),
     getInterface: () => fieldInterfaceRef.current
   });
