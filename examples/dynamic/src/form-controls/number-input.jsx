@@ -14,34 +14,22 @@ const NumberInputComponent = ({
   children,
   ...props}) => 
 {
-  const cursorPosRef = useRef();
-  const handleChange2 = event => {cursorPosRef.current = elementRef.current.selectionStart; handleChange(event)};
-  const previous = usePrevious({value, pos: elementRef.current?  elementRef.current.selectionStart: null})
-  useEffect(() => {
-    if (previous) {
-      let cursorPos = cursorPosRef.current;
-      if (value.length === previous.value.length + 2) { // + 2 is for digit and comma
-        cursorPos += 1;
-      }
-      elementRef.current.setSelectionRange(cursorPos, cursorPos);
-    }
-  });
   return (
-      <InputWrapper {...{name, label, touched, error}}>
-        <input
-          id={name}
-          ref={elementRef}
-          value={value}
-          onChange={handleChange2}
-          onBlur={handleBlur}
-          {...props}
-        />
-        {children}
-      </InputWrapper>
+    <InputWrapper {...{name, label, touched, error}}>
+      <input
+        id={name}
+        ref={elementRef}
+        value={value}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        {...props}
+      />
+      {children}
+    </InputWrapper>
   );
 };
 
-const requiredNum = value => {
+const required = value => {
   if (value === null || isNaN(value)) {
     return 'required';
   }
@@ -67,12 +55,28 @@ const addCommas = number => {
 };
 
 
+export const getNextCursorPosition = ({element}, value, nextValue) => {
+  let cursorPosition = element.selectionStart;
+  if (nextValue.length === value.length + 2) { // + 2 is for digit and comma
+    cursorPosition++;
+  }
+  return cursorPosition;
+}
+
+export const setCursorPosition = ({element}, cursorPosition) => {
+  if (cursorPosition !== undefined && element.setSelectionRange) {
+    element.setSelectionRange(cursorPosition, cursorPosition);
+  }  
+}
+
 const NumberInput = ({required, ...props}) => {
   return <Field
     component={NumberInputComponent}
-    validate={required? requiredNum: undefined}
+    validate={required? required: undefined}
     formatFromStore={addCommas}
     formatToStore={number}
+    beforeUpdate={getNextCursorPosition}
+    afterUpdate={setCursorPosition}
     {...props}
   />
 };

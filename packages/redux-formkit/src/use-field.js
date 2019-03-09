@@ -17,7 +17,7 @@ const useField = (fieldName) => {
   const dispatch = (action) => {
     formDispatch({field: fieldName, ...action });
   };
-  return {value, touched, error, dispatch, formState, customProps};
+  return {value, touched, error, dispatch, customProps};
 };
 
 export default useField;

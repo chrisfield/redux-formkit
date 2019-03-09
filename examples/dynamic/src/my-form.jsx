@@ -38,9 +38,14 @@ const MyForm = () => {
   return (
     <Form name="myForm" onSubmit={submitValues} onSubmitSuccess={clearValues}>
       <div>
-        <TextInput name="fieldOne" required/>
-        <TextInput name="fieldTwo"/>
-        <FieldThree required placeholder="Dynamic - on fieldTwo"/>
+        <TextInput name="fieldOne" required afterUpdate={revalidateFieldTwo}/>
+        <TextInput name="fieldTwo" validate={greaterThanFieldOne}/>
+        <FieldThree
+          label="Name(try Fred):"
+          required 
+          placeholder="Dynamic - on fieldTwo"
+          afterUpdate={suggest42ForFred}
+        />
         <NumberInput name="age"/>
         <TextInput name="fieldFour"/>
       </div>
@@ -53,6 +58,20 @@ const MyForm = () => {
     </Form>
   );
 };
+
+const revalidateFieldTwo = ({getField, value}) => {
+  getField('fieldTwo').validate();
+}
+
+const suggest42ForFred = ({getField, value}) => {
+  if (value.toLowerCase() === 'fred') {
+    getField('age').setValue(42);
+  }
+}
+
+const greaterThanFieldOne = (value, values) => (
+  values && value > values.fieldOne? undefined: 'Field two must be greated that field one'
+);
 
 const RenderHobbies = ({fields}) => (
   <fieldset>

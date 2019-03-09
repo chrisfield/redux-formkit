@@ -11,8 +11,8 @@ export {formReducer};
 import NamedValidationStatus from "./named-validation-status";
 export {NamedValidationStatus};
 
-import Field, {usePrevious} from "./field";
-export {Field, usePrevious};
+import Field from "./field";
+export {Field};
 
 import FieldArray from "./field-array";
 export {FieldArray};

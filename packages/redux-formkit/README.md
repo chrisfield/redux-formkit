@@ -166,12 +166,24 @@ const addCommas = number => {
 
 ``` 
 
-* `afterUpdate : optional function` — provide a function that will called after the field renders and will be passed fieldInterface as a parameter. Typical uses for this function would be to revalidate a second field when one field changes.
+* `beforeUpdate : optional function` — provide a function that will return a custom value (any type) that you can then access after the field renders. The function will be passed the `fieldInterface`, value, nextValue as parameters. The value that your function returns will later be passed on to any afterUpdate function. A typical use for this function is to calculate and return the cursor-position before a field is formatted.
+
+* `afterUpdate : optional function` — provide a function that will called after the field renders. Your function will be passed the `fieldInterface` and as a parameter. Typical uses for this function would be: to use a custom value eg to set the cursor-position or secondly to revalidate a second field when one field changes.
 
 * `getTargetValue : optional function` — provide a function to get the value. It will be called with the target and event as a parameters.
 
 * `useTargetCondition : optional function` — Only relevant for isomorphic forms. Will be called onComponentMount with the elementRef as a parameter.  If it returns true the value of the element will be used to update the store. See it used on the radio-buttons in the next-js example.
 
+The `fieldInterface` object (passed to beforeUpdate and afterUpdate) includes props: 
+* `name` of this field
+* `element` defined if you pass `ref={elementRef}` to the html element
+* `value`
+* `error`
+* `touched`
+* `customProps`
+* `validate: function` no params taken
+* `setTouched:` pass a boolean value
+* `setValue`: pass the value
 
 Field will pass these props to the rendered component:
 * `handleChange` function to call onChange
@@ -179,7 +191,8 @@ Field will pass these props to the rendered component:
 * `value` value formatted from the store
 * `error` string or object. Will be undefined for a valid field 
 * `touched` boolen
-* `elementRef` function that can be pass this an the ref prop
+* `elementRef` pass this an the ref prop
+
 
 ### updateFieldsAction
 `updateFieldsAction(formName, values)` returns an action object ready to dispatch to Redux. Dispatching this will reinitialize the form updating all form fields with the values provided and setting them all as untouched.

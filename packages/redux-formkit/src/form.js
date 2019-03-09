@@ -59,6 +59,13 @@ export const Form = ({name, onSubmit=noop, onSubmitSuccess=noop, children}) => {
       fieldArraysRef.current.push(fieldArray);
     },
     updateFields: fieldValues => {formReducerRef.current[1](updateFields(fieldValues))},
+    getField: fieldName => {
+      for (const field of fieldsRef.current) {
+        if (field.name === fieldName) {
+          return field.getInterface();
+        }
+      }
+    },
     formReducerRef
   });
 

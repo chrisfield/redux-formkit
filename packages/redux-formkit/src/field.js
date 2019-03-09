@@ -3,7 +3,7 @@ import {deregisterField, updateField, setFieldError, setFieldTouched } from './a
 import { useForm } from './form';
 import useField from './use-field';
 
-export function usePrevious(value) {
+function usePrevious(value) {
   const ref = useRef();
   useEffect(() => {
     ref.current = value;
@@ -58,30 +58,14 @@ const FieldBase = memo(({
   error,
   touched,
   customProps,
-  formState,
   ...props
 }) => {
   const elementRef = useRef();
   const fieldRef = useRef({
     name,
-    validate: () => validateValue(value),
-    setTouched: touched => dispatch(setFieldTouched(touched))
+    setTouched: touched => dispatch(setFieldTouched(touched)),
+    getInterface: () => fieldInterfaceRef.current
   });
-
-  const fieldApi = {
-    name,
-    element: elementRef.current,
-    validate: fieldRef.current.validate,
-    setTouched: fieldRef.current.setTouched
-  }
-
-  useEffect(() => {
-  },[]);
-  // fieldApiRef.current.value = value;
-  // fieldApiRef.current.error = error;
-  // fieldApiRef.current.touched = touched;
-  // fieldApiRef.current.customProps = customProps;
-
 
   const formApi = useForm();
   useEffect(() => {
@@ -91,6 +75,22 @@ const FieldBase = memo(({
       formApi.deregisterField(fieldRef.current);
     }
   }, []);
+
+  const fieldInterfaceRef = useRef(); 
+  useEffect(() => {
+    fieldInterfaceRef.current = {
+      name,
+      getField: name => formApi.getField(name),
+      element: elementRef.current,
+      validate: () => {validateValue(value)},
+      setTouched: fieldRef.current.setTouched,
+      setValue: value => dispatch(updateField(value)),
+      value,
+      error,
+      touched,
+      customProps
+    }
+  });
 
   const isMountedRef = useRef(false);
   const previousValue = usePrevious(value);
@@ -110,13 +110,18 @@ const FieldBase = memo(({
       validateValue(value);
     }
 
-    afterUpdate(fieldApi, customProps);
+    if ((value !== previousValue && !twoInvalidNumbers(value, previousValue))
+      || customProps !== undefined) {
+      validateValue(value);
+    }
+
+    afterUpdate(fieldInterfaceRef.current, customProps);
   });
   
   const handleChange = (event) => {
     const nextValueToStore = formatToStore(getTargetValue(event.target, event));
     const nextCustomProps = beforeUpdate(
-      fieldApi,
+      fieldInterfaceRef.current,
       formatFromStore(value),
       formatFromStore(nextValueToStore)
     );
@@ -126,7 +131,7 @@ const FieldBase = memo(({
   const validateValue = (value) => {
     let validateError;
     if (validate) {
-      const fieldValues = formState.fieldValues;
+      const fieldValues = formApi.formReducerRef.current[0].fieldValues;
       if (Array.isArray(validate)) {
         for (let i = 0; i < validate.length && !validateError; i++) {
           validateError = validate[i](value, fieldValues);
