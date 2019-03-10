@@ -7,3 +7,4 @@
 
 # production
 /packages/redux-formkit/lib
+/packages/redux-formkit-redux-state-provider/lib

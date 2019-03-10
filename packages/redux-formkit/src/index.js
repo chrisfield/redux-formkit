@@ -1,9 +1,9 @@
 import { Form } from "./form";
 export { Form };
 
-import  formStateContext from "./form-state-context";
+import  FormStateContext from "./form-state-context";
 import  FormStateProvider from "./form-state-provider";
-export {formStateContext, FormStateProvider };
+export {FormStateContext, FormStateProvider };
 
 import formReducer from "./reducers";
 export {formReducer};
