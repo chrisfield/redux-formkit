@@ -1,28 +1,17 @@
-import { Form } from "./form";
-export { Form };
+export { Form, useForm } from "./form";
+export {initFormState as initFormStateAction} from "./actions";
 
-import  FormStateContext from "./form-state-context";
-import  FormStateProvider from "./form-state-provider";
-export {FormStateContext, FormStateProvider };
+export {default as FormStateContext} from "./form-state-context";
+export {default as FormStateProvider} from "./form-state-provider";
+export {default as formReducer} from "./reducers";
+export {default as Field} from "./field";
+export {default as FieldArray} from "./field-array";
+export {default as SubmissionError} from "./submission-error";
+export {default as useFormReducer}  from './use-form-reducer';
+export {default as useField} from './use-field';
+export {default as useFieldArray} from './use-field-array';
 
-import formReducer from "./reducers";
-export {formReducer};
-
-import NamedValidationStatus from "./named-validation-status";
-export {NamedValidationStatus};
-
-import Field from "./field";
-export {Field};
-
-import FieldArray from "./field-array";
-export {FieldArray};
-
-import SubmissionError from "./submission-error";
-export {SubmissionError};
-
-import {initFormState as initFormStateAction, updateField, updateFields} from "./actions";
-
-export {initFormStateAction};
+import {updateField, updateFields} from "./actions";
 
 export const updateFieldsAction = (form, payload) => (
   {form, ...updateFields(payload)}
@@ -31,10 +20,3 @@ export const updateFieldsAction = (form, payload) => (
 export const updateFieldAction = (form, field, value) => (
   {form, field, ...updateField(value)}
 );
-
-import { useForm }  from './form';
-import useFormReducer  from './use-form-reducer';
-import useField from './use-field';
-import useFieldArray from './use-field-array';
-
-export {useForm, useFormReducer, useField, useFieldArray}

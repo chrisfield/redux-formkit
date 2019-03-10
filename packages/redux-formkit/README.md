@@ -29,7 +29,7 @@ To use it on you own project:
 - Field-arrays for repeated rows with add/remove
 - Keeps a running error-count and valid/not valid status
 - Synchronous validation including flexible support for inter-field valiation
-- Asynchronous validation
+- Asynchronous validation [See example](https://github.com/chrisfield/redux-formkit/tree/master/examples/asynchronous-validation)
 
 I need to update the examples for version 3 (hooks). The old examples are that show most of thye features are [here](https://github.com/chrisfield/redux-formkit/tree/before-hooks/examples).
 
