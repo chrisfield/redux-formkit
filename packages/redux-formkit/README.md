@@ -21,7 +21,7 @@ To use it on you own project:
 - Small bundle size ([see bundlephobia](https://bundlephobia.com/result?p=redux-formkit))
 - React-native support
 - Isomophic support to enter values before js downloads
-- Use it with or without Redux and switch anytime by changing one import
+- Use it with or without Redux and switch anytime by changing the `FormStateProvider`. [See example](https://github.com/chrisfield/redux-formkit/tree/master/examples/with-redux)
 - Easy to migrate from/to redux-form
 - Stores values as semantic types, eg number fields will store numbers
 - Format values, eg to put commas in numbers

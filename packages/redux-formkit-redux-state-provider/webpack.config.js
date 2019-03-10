@@ -4,7 +4,7 @@ module.exports = {
     path: path.join(__dirname, './lib'),
     filename: 'index.js',
     globalObject: 'this',
-    library: 'redux-formkit-state-provider',
+    library: 'redux-formkit-redux-state-provider',
     libraryTarget: 'umd',
     umdNamedDefine: true
   },
