@@ -30,7 +30,7 @@ const FormReducerRef = ({formReducerRef}) => {
   return null;
 };
 
-export const Form = ({name, onSubmit=noop, onSubmitSuccess=noop, children}) => {
+export const Form = ({name, onSubmit=noop, onSubmitSuccess=noop, children, ...props}) => {
 
   const initFields = [];
   const fieldsRef = useRef(initFields);
@@ -143,7 +143,7 @@ export const Form = ({name, onSubmit=noop, onSubmitSuccess=noop, children}) => {
       formApi={formApiRef.current}
     >
       <FormReducerRef formReducerRef={formReducerRef}/>
-      <form onSubmit={handleSubmit}>
+      <form {...props} onSubmit={handleSubmit}>
         {children}
       </form>
     </Provider>
