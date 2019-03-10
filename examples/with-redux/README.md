@@ -22,4 +22,4 @@ yarn start
 ## The idea behind the example
 Version 3 of redux-formkit uses standard react state so I removed it's dependency on redux by splitting out redux related code to a separate npm module - [redux-formkit-redux-state-provider](https://www.npmjs.com/package/redux-formkit-redux-state-provider). This small module passes the redux state and dispatch to the context of redux-formkit.
 
-The relevant code is all in [index.js](https://github.com/chrisfield/redux-formkit/blob/master/examples/with-redux/src/index.js)
+The relevant code is all in [index.js](src/index.js)

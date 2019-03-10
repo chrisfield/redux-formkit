@@ -21,7 +21,7 @@ To use it on you own project:
 - Small bundle size ([see bundlephobia](https://bundlephobia.com/result?p=redux-formkit))
 - React-native support
 - Isomophic support to enter values before js downloads
-- Use it with or without Redux and switch anytime by changing the `FormStateProvider`. [See example](https://github.com/chrisfield/redux-formkit/tree/master/examples/with-redux)
+- Use it with or without Redux and switch anytime by changing the `FormStateProvider`. [See example](../../examples/with-redux)
 - Easy to migrate from/to redux-form
 - Stores values as semantic types, eg number fields will store numbers
 - Format values, eg to put commas in numbers
@@ -29,7 +29,7 @@ To use it on you own project:
 - Field-arrays for repeated rows with add/remove
 - Keeps a running error-count and valid/not valid status
 - Synchronous validation including flexible support for inter-field valiation
-- Asynchronous validation [See example](https://github.com/chrisfield/redux-formkit/tree/master/examples/asynchronous-validation)
+- Asynchronous submit validation [See example](../../examples/asynchronous-submit)
 
 I need to update the examples for version 3 (hooks). The old examples are that show most of thye features are [here](https://github.com/chrisfield/redux-formkit/tree/before-hooks/examples).
 
