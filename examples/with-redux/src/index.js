@@ -21,7 +21,26 @@ const FormContainer = () => {
   );
 };
 
-const wrapper = document.getElementById("app");
-ReactDOM.render(<FormContainer />, wrapper);
+ReactDOM.render(<FormContainer />, document.getElementById("app"));
 
 export default FormContainer;
+
+// The code below shows what this example woulkd be like without redux 
+/*
+import React from "react";
+import ReactDOM from "react-dom";
+import {FormStateProvider} from "redux-formkit";
+import MyForm from './my-form.jsx';
+
+const FormContainer = () => {
+  return (
+    <FormStateProvider>
+      <MyForm/>
+    </FormStateProvider>
+  );
+};
+
+ReactDOM.render(<FormContainer />, document.getElementById("app"));
+
+export default FormContainer;
+*/
