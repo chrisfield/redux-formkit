@@ -1,13 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import FormStateProvider from "redux-formkit-redux-state-provider";
 import { formReducer } from 'redux-formkit';
 import MyForm from './my-form.jsx';
 
+const reducer = combineReducers({
+  // ...your other reducers here
+  form: formReducer // Pass formReducerNamespace prop to FormStateProvider if mount point is not "form"
+});
+
 const store = createStore(
-  formReducer, undefined,
+  reducer, undefined,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
@@ -23,7 +28,6 @@ const FormContainer = () => {
 
 ReactDOM.render(<FormContainer />, document.getElementById("app"));
 
-export default FormContainer;
 
 // The code below shows what this example woulkd be like without redux 
 /*

@@ -1,5 +1,5 @@
 import { useForm } from './form';
-import useFormReducer from './form-reducer';
+import useFormReducer from './use-form-reducer';
 import getField from './state-utils/get-field';
 
 const useFieldArray = (fieldArrayName) => {

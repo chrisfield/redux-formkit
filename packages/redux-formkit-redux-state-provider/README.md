@@ -18,31 +18,36 @@ To use it on you own project:
 
 
 ## Usage
-Add one instance of the ```FormStateProvider``` anywhere below the react-redux provider and above forms in the component tree.
+Combine `formReducer` with your other reducers. Usually you will mount `formReducer` under 'form'. (To mount it elsewhere pass the mount-point key to `FormStateProvider` using prop `formReducerNamespace`).
+
+Add one instance of the `FormStateProvider` anywhere below the react-redux provider and above forms in the component tree. 
 
 ```javascript
 import React from "react";
 import ReactDOM from "react-dom";
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import FormStateProvider from "redux-formkit-redux-state-provider";
 import { formReducer } from 'redux-formkit';
 import MyForm from './my-form.jsx';
 
+const reducer = combineReducers({
+  form: formReducer // Use formReducerNamespace prop mount point is not 'form'
+})
+
 const store = createStore(
-  formReducer, undefined,
+  reducer, undefined,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
 const FormContainer = () => {
   return (
     <Provider store={store}>
-      <FormStateProvider>
+      <FormStateProvider /* formReducerNamespace="my-forms" */ >
         <MyForm/>
       </FormStateProvider>
     </Provider>
   );
 };
 
-ReactDOM.render(<FormContainer />, document.getElementById("app"))
 ```

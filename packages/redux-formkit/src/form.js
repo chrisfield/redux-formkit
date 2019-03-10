@@ -2,7 +2,7 @@ import React, { createContext, useContext, useRef } from 'react';
 import isPromise from "is-promise";
 import SubmissionError from "./submission-error";
 import { startSubmit, stopSubmit, updateFields } from './actions';
-import useFormReducer from './form-reducer';
+import useFormReducer from './use-form-reducer';
 
 export const Context = createContext({});
 

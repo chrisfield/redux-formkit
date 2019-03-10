@@ -33,7 +33,7 @@ export const updateFieldAction = (form, field, value) => (
 );
 
 import { useForm }  from './form';
-import useFormReducer  from './form-reducer';
+import useFormReducer  from './use-form-reducer';
 import useField from './use-field';
 import useFieldArray from './use-field-array';
 
