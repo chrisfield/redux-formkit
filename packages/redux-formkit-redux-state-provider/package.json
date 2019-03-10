@@ -32,7 +32,7 @@
     "react": "^16.8.0",
     "react-redux": "^6.0.0",
     "redux": "^4.0.1",
-    "redux-formkit": "^3.2.4"
+    "redux-formkit": "^3.2.3"
   },
   "devDependencies": {
     "@babel/core": "^7.3.4",
@@ -42,7 +42,7 @@
     "react": "^16.8.3",
     "react-redux": "^6.0.1",
     "redux": "^4.0.1",
-    "redux-formkit": "^3.2.4",
+    "redux-formkit": "^3.2.3",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.2.3"
   }
