@@ -1,5 +1,5 @@
 import React, {useRef} from 'react';
-import {Field} from '../../redux-formkit';
+import {Field} from 'redux-formkit';
 import InputWrapper from './input-wrapper.jsx';
 
 const TextInputComponent = ({

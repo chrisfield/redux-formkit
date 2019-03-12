@@ -1,5 +1,5 @@
 import React, {useEffect, useRef} from 'react';
-import {Field, usePrevious} from '../../redux-formkit';
+import {Field, usePrevious} from 'redux-formkit';
 import InputWrapper from './input-wrapper.jsx';
 
 const NumberInputComponent = ({

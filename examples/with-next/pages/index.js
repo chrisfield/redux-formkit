@@ -1,6 +1,6 @@
 
 import MyForm from '../components/my-form';
-import {useFormReducer, updateFieldsAction} from '../redux-formkit'; 
+import {useFormReducer, updateFieldsAction} from 'redux-formkit'; 
 
 export default () => {
   const dispatch = useFormReducer('myForm')[1];

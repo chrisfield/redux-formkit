@@ -6,7 +6,7 @@ import {
   useForm,
   useField,
   useFormReducer
-} from '../redux-formkit';
+} from 'redux-formkit';
 
 
 const FieldThree = (props) => {

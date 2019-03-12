@@ -1,6 +1,6 @@
 import React from 'react';
 import App, {Container} from 'next/app';
-import { FormStateProvider } from '../redux-formkit';
+import { FormStateProvider } from 'redux-formkit';
 
 class MyApp extends App {
   render () {  
