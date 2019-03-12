@@ -1,6 +1,18 @@
 import React from 'react';
 import { ReactReduxContext } from 'react-redux';
-import { FormStateContext } from 'redux-formkit';
+import {
+  FormStateContext,
+  updateFieldsAction as updateFields,
+  updateFieldAction as updateFields
+} from 'redux-formkit';
+
+export const updateFieldsAction = (form, payload) => (
+  {form, ...updateFields(payload)}
+);
+
+export const updateFieldAction = (form, field, value) => (
+  {form, ...updateField(field, value)}
+);
 
 const FormStateProviderWithRedux = ({ children, formReducerNamespace = 'form' }) => {
   return (

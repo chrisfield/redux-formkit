@@ -13,10 +13,10 @@ export {default as useFieldArray} from './use-field-array';
 
 import {updateField, updateFields} from "./actions";
 
-export const updateFieldsAction = (form, payload) => (
-  {form, ...updateFields(payload)}
+export const updateFieldsAction = (payload) => (
+  {...updateFields(payload)}
 );
 
-export const updateFieldAction = (form, field, value) => (
-  {form, field, ...updateField(value)}
+export const updateFieldAction = (field, value) => (
+  {field, ...updateField(value)}
 );

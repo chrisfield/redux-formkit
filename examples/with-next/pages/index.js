@@ -8,8 +8,7 @@ export default () => {
     <div>
       <MyForm/>
       <p onClick={()=>{
-          dispatch(updateFieldsAction('myForm', {fieldOne:'new f1'}));
-          console.log('here clicked');
+          dispatch(updateFieldsAction({fieldOne:'new f1'}));
         }}
       >click here</p>
     </div>

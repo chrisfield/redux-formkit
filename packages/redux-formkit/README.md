@@ -20,8 +20,8 @@ To use it on you own project:
 ## Features
 - Small bundle size ([see bundlephobia](https://bundlephobia.com/result?p=redux-formkit))
 - React-native support
-- Isomophic support to enter values before js downloads [See example](../../examples/with-next)
-- Use it with or without Redux and switch anytime by changing the `FormStateProvider`. [See example](../../examples/with-redux)
+- Isomophic support to enter values before js downloads [See example](https://github.com/chrisfield/redux-formkit/tree/before-hooks/examples/with-next)
+- Use it with or without Redux and switch anytime by changing the `FormStateProvider`. [See example](https://github.com/chrisfield/redux-formkit/tree/before-hooks/examples/with-redux)
 - Easy to migrate from/to redux-form
 - Stores values as semantic types, eg number fields will store numbers
 - Format values, eg to put commas in numbers
@@ -29,7 +29,7 @@ To use it on you own project:
 - Field-arrays for repeated rows with add/remove
 - Keeps a running error-count and valid/not valid status
 - Synchronous validation including flexible support for inter-field valiation
-- Asynchronous submit validation [See example](../../examples/asynchronous-submit)
+- Asynchronous submit validation [See example](https://github.com/chrisfield/redux-formkit/tree/before-hooks/examples/asynchronous-submit)
 
 I need to update the examples for version 3 (hooks). The old examples are that show most of thye features are [here](https://github.com/chrisfield/redux-formkit/tree/before-hooks/examples).
 
@@ -195,7 +195,7 @@ Field will pass these props to the rendered component:
 
 
 ### updateFieldsAction
-`updateFieldsAction(formName, values)` returns an action object ready to dispatch to Redux. Dispatching this will reinitialize the form updating all form fields with the values provided and setting them all as untouched.
+`updateFieldsAction(values)` returns an action object ready to dispatch to Redux. Dispatching this will reinitialize the form updating all fields with the values provided and setting them all as untouched.
 
 ### updateFieldAction
-`updateFieldAction(formName, fieldName, value)` returns an action object ready to dispatch to Redux. Dispatching this will update one field leaving the others unchanged.
+`updateFieldAction(fieldName, value)` returns an action object ready to dispatch to Redux. Dispatching this will update one field leaving the others unchanged.
