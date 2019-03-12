@@ -3,7 +3,7 @@ import { ReactReduxContext } from 'react-redux';
 import {
   FormStateContext,
   updateFieldsAction as updateFields,
-  updateFieldAction as updateFields
+  updateFieldAction as updateField
 } from 'redux-formkit';
 
 export const updateFieldsAction = (form, payload) => (
