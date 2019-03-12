@@ -193,6 +193,10 @@ Field will pass these props to the rendered component:
 * `touched` boolen
 * `elementRef` pass this an the ref prop
 
+### hooks
+`useFormReducer(formName)` like the familiar useReducer it returns state and dispatch as two elements in an array. This hook can be called from any component under the FormStateProvider (eg if the FormStateProvider is at the root of the component tree it can be called from all components).
+
+`useForm()` 
 
 ### updateFieldsAction
 `updateFieldsAction(values)` returns an action object ready to dispatch to Redux. Dispatching this will reinitialize the form updating all fields with the values provided and setting them all as untouched.
