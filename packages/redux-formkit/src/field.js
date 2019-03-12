@@ -111,8 +111,7 @@ const FieldBase = memo(({
       validateValue(value);
     }
 
-    if ((value !== previousValue && !twoInvalidNumbers(value, previousValue))
-      || customProps !== undefined) {
+    if (value !== previousValue && !twoInvalidNumbers(value, previousValue)) {
       validateValue(value);
     }
 
