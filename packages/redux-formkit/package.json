@@ -1,6 +1,6 @@
 {
   "name": "redux-formkit",
-  "version": "3.2.7",
+  "version": "3.3.0",
   "description": "A lightweight framework for building client-side and isomorphic forms in React. Redux is optional.",
   "main": "lib/index.js",
   "repository": {
