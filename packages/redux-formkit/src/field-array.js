@@ -56,7 +56,6 @@ const FieldArrayBase = memo(({
   }, []);
 
   const push = () => {
-    console.log('dispatch push', name)
     dispatch(pushToFieldArray()); 
   };
 
