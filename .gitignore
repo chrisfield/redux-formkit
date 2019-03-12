@@ -8,3 +8,6 @@
 # production
 /packages/redux-formkit/lib
 /packages/redux-formkit-redux-state-provider/lib
+
+# next examples
+examples/**/.next

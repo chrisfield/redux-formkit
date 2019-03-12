@@ -20,7 +20,7 @@ To use it on you own project:
 ## Features
 - Small bundle size ([see bundlephobia](https://bundlephobia.com/result?p=redux-formkit))
 - React-native support
-- Isomophic support to enter values before js downloads
+- Isomophic support to enter values before js downloads [See example](../../examples/with-next)
 - Use it with or without Redux and switch anytime by changing the `FormStateProvider`. [See example](../../examples/with-redux)
 - Easy to migrate from/to redux-form
 - Stores values as semantic types, eg number fields will store numbers
@@ -199,6 +199,3 @@ Field will pass these props to the rendered component:
 
 ### updateFieldAction
 `updateFieldAction(formName, fieldName, value)` returns an action object ready to dispatch to Redux. Dispatching this will update one field leaving the others unchanged.
-
-### NamedValidationStatus
-This is simply a named container used to position error messages. It can be used to render field error messages separately from the field and also for form wide error messages as thrown by the onSubmit function.
