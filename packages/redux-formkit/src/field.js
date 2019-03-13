@@ -4,7 +4,7 @@ import { useForm } from './form';
 import useField from './use-field';
 
 function usePrevious(value) {
-  const ref = useRef();
+  const ref = useRef({});
   useEffect(() => {
     ref.current = value;
   });
@@ -94,7 +94,7 @@ const FieldBase = memo(({
   });
 
   const isMountedRef = useRef(false);
-  const previousValue = usePrevious(value);
+  const previous = usePrevious({value, customProps});
   useEffect(() => {
     if (!isMountedRef.current) {
       isMountedRef.current = true;
@@ -107,15 +107,14 @@ const FieldBase = memo(({
       return;
     }
 
-    if (value !== previousValue && !twoInvalidNumbers(value, previousValue)) {
+    if (value !== previous.value && !twoInvalidNumbers(value, previous.value)) {
       validateValue(value);
     }
 
-    if (value !== previousValue && !twoInvalidNumbers(value, previousValue)) {
-      validateValue(value);
+    if ((value !== previous.value && !twoInvalidNumbers(value, previous.value))
+      || customProps !== previous.customProps) {
+      afterUpdate(fieldInterfaceRef.current, customProps);
     }
-
-    afterUpdate(fieldInterfaceRef.current, customProps);
   });
   
   const handleChange = (event) => {
