@@ -2,11 +2,11 @@
 import MyForm from '../components/my-form';
 import {useFormReducer, updateFieldsAction} from 'redux-formkit'; 
 
-export default () => {
+const Index = ({initialValues}) => {
   const dispatch = useFormReducer('myForm')[1];
   return (
     <div>
-      <MyForm/>
+      <MyForm {...{ initialValues }}/>
       <p onClick={()=>{
           dispatch(updateFieldsAction({fieldOne:'new f1'}));
         }}
@@ -14,3 +14,12 @@ export default () => {
     </div>
   );
 };
+
+Index.getInitialProps = async () => ({
+  initialValues: {
+    fieldOne:'val f1',
+    hobbies: [{description: 'Cave Diving'}, {description: 'Knitting'}]
+  }
+});
+
+export default Index;

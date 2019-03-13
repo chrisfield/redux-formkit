@@ -34,12 +34,12 @@ const clearValues = (form) => {
   form.updateFields({});
 };
 
-const MyForm = () => {  
+const MyForm = ({initialValues}) => {
   return (
-    <Form name="myForm" onSubmit={submitValues} onSubmitSuccess={clearValues} className="my-form">
+    <Form name="myForm" initialValues={initialValues} onSubmit={submitValues} onSubmitSuccess={clearValues} className="my-form">
       <div>
-        <TextInput name="fieldOne" /*required afterUpdate={revalidateFieldTwo}*//>
-        <TextInput name="fieldTwo" /*required validate={greaterThanFieldOne}*//>
+        <TextInput name="fieldOne" required afterUpdate={revalidateFieldTwo}/>
+        <TextInput name="fieldTwo" required validate={greaterThanFieldOne}/>
         <FieldThree
           label="Name(try Fred):"
           required 

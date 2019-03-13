@@ -21,6 +21,8 @@ yarn dev
 
 ## The idea behind the example
 
+### Handling early input to isomorphically rendered forms
+
 Next.js renders html on the server so the form is available to use while the js bundle downloads.
 
 Without something like redux-formkit any changed field values get overwritten because, when the javascript runs, it sets the controlled inputs to match the react (or redux) form-state.
