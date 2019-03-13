@@ -1,4 +1,10 @@
-export { Form, useForm } from "./form";
+import {Form, useForm as useFormInternal } from "./form";
+export {Form}
+export const useForm = () => {
+  const { name } = useFormInternal();
+  return {name};
+};
+
 export {
   initFormState as initFormStateAction,
   updateFields as updateFieldsAction

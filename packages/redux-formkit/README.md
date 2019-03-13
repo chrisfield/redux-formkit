@@ -20,8 +20,8 @@ To use it on you own project:
 ## Features
 - Small bundle size ([see bundlephobia](https://bundlephobia.com/result?p=redux-formkit))
 - React-native support
-- Isomophic support to enter values before js downloads [See example](https://github.com/chrisfield/redux-formkit/tree/master/examples/with-next)
-- Use it with or without Redux and switch anytime by changing the `FormStateProvider`. [See example](https://github.com/chrisfield/redux-formkit/tree/master/examples/with-redux)
+- Isomophic support to enter values before js downloads ([See example](https://github.com/chrisfield/redux-formkit/tree/master/examples/with-next))
+- Use it with or without Redux and switch anytime by changing the `FormStateProvider` ([See example](https://github.com/chrisfield/redux-formkit/tree/master/examples/with-redux))
 - Easy to migrate from/to redux-form
 - Stores values as semantic types, eg number fields will store numbers
 - Format values, eg to put commas in numbers
@@ -31,7 +31,7 @@ To use it on you own project:
 - Synchronous validation including flexible support for inter-field valiation
 - Asynchronous submit validation [See example](https://github.com/chrisfield/redux-formkit/tree/master/examples/asynchronous-submit)
 
-I need to update the examples for version 3 (hooks). The old examples are that show most of thye features are [here](https://github.com/chrisfield/redux-formkit/tree/before-hooks/examples).
+I need to update some of the examples for version 3 (hooks). The old examples are that show react native and universal validation are [here](https://github.com/chrisfield/redux-formkit/tree/before-hooks/examples).
 
 
 ## Usage
@@ -174,6 +174,7 @@ const addCommas = number => {
 
 * `useTargetCondition : optional function` — Only relevant for isomorphic forms. Will be called onComponentMount with the elementRef as a parameter.  If it returns true the value of the element will be used to update the store. See it used on the radio-buttons in the next-js example.
 
+<a name="fieldInterface"></a>
 The `fieldInterface` object (passed to beforeUpdate and afterUpdate) includes props: 
 * `name` of this field
 * `element` defined if you pass `ref={elementRef}` to the html element
@@ -194,12 +195,14 @@ Field will pass these props to the rendered component:
 * `elementRef` pass this an the ref prop
 
 ### hooks
-`useFormReducer(formName)` like the familiar useReducer it returns state and dispatch as two elements in an array. This hook can be called from any component under the FormStateProvider (eg if the FormStateProvider is at the root of the component tree it can be called from all components).
+`useFormReducer(formName)` like the familiar useReducer it returns state and dispatch as two elements in an array. This hook can be called from any component under the `FormStateProvider` (eg if the `FormStateProvider` is at the root of the component tree it can be called from all components).
 
-`useForm()` 
+`useForm()` returns an object that has one property `name`. It can be called from any components under a `Form`. I expect this to mostly be used together with `useFormReducer` to avoid hardcoding form names.
+
+`useField(fieldName)` returns a <a href="#fieldInterface">`fieldInteface`</a> object. It can be called from any components under a `Form`.
 
 ### updateFieldsAction
-`updateFieldsAction(values)` returns an action object ready to dispatch to Redux. Dispatching this will reinitialize the form updating all fields with the values provided and setting them all as untouched.
+`updateFieldsAction(values)` returns an action object ready to dispatch to a formReducer. Dispatching this will reinitialize the form updating all fields with the values provided and setting them all as untouched.
 
 ### updateFieldAction
-`updateFieldAction(fieldName, value)` returns an action object ready to dispatch to Redux. Dispatching this will update one field leaving the others unchanged.
+`updateFieldAction(fieldName, value)` returns an action object ready to dispatch to a formReducer. Dispatching this will update one field leaving the others unchanged.
