@@ -1,12 +1,12 @@
-# Example form app with next.js
+# Redux-Formkit with next and redux
 
 ## How to use
 
 Download the example [or clone the repo](https://github.com/chrisfield/redux-formkit):
 
 ```bash
-curl https://codeload.github.com/chrisfield/redux-formkit/tar.gz/master | tar -xz --strip=2 "redux-formkit"-master/examples/with-next
-cd with-next
+curl https://codeload.github.com/chrisfield/redux-formkit/tar.gz/master | tar -xz --strip=2 "redux-formkit"-master/examples/with-next-and-redux
+cd with-next-and-redux
 ```
 
 Install it and run:
@@ -20,6 +20,12 @@ yarn dev
 ```
 
 ## The idea behind the example
+
+### Pre populating form values on the server
+In the `with-redux` example the client JS added the initialValues to the blank form sent from the server.
+
+In this example the `Index.getInitialProps` updates the redux-state instead of passing te values directly to the `Form`. Since redux-state is being used on both the client and the server the form will arrive at the client browser fully populated with initialValues.
+  
 
 ### Handling early input to isomorphically rendered forms
 

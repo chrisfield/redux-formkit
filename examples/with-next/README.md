@@ -1,4 +1,4 @@
-# Example form app with next.js
+# Redux-formkit with next.js
 
 ## How to use
 
@@ -21,13 +21,8 @@ yarn dev
 
 ## The idea behind the example
 
-### Handling early input to isomorphically rendered forms
+There is very little to do to use `redux-formkit` with `next`. The pages._app.js includes a `FormStateProvider` so `Forms` can be rendered in any component. In this case I've rendered a form straight from the index page.
 
-Next.js renders html on the server so the form is available to use while the js bundle downloads.
+The most interesting aspects of this implementation are aparent when you compare it to the with-next-and-redux example. There is a fundemental difference in the way the initial values from `Index.getInitialProps` get on to the web page. In this example they are passed as initialValues to the `Form`. `Form` then uses these initialValues in a useEffect (which replaced componentDidMount). Since useEffect is client-only the pre-rendered form sent to the client will be blank and the initialValues will only be added once the JS downloads and runs.
 
-Without something like redux-formkit any changed field values get overwritten because, when the javascript runs, it sets the controlled inputs to match the react (or redux) form-state.
-
-One way round this would be to initially disable the form inputs. Redux-formkit provides a better solution: 
-> The Field component includes code to update the form-state with the value on the page. In this way your form renders quickly, standard html elements are immediately usable, data is not lost and validation, formatting etc kick in as soon as the Javascript is available.
-
-To see this in action run the example and in the chrome dev-tools network tab choose the slow-3g option. While the javascript is downloading you will be able to use the server rendered html-form.
+To see this in action run the example and in the chrome dev-tools network tab choose the slow-3g option. Try entering some values while you wait for the JS to download. Then take a look at the difference with-next-and-redux.
