@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useRef } from 'react';
+import React, { createContext, useContext, useRef, useEffect } from 'react';
 import isPromise from "is-promise";
 import SubmissionError from "./submission-error";
 import { startSubmit, stopSubmit, updateFields } from './actions';
@@ -30,7 +30,7 @@ const FormReducerRef = ({formReducerRef}) => {
   return null;
 };
 
-export const Form = ({name, onSubmit=noop, onSubmitSuccess=noop, children, ...props}) => {
+export const Form = ({name, initialValues, onSubmit=noop, onSubmitSuccess=noop, children, ...props}) => {
 
   const initFields = [];
   const fieldsRef = useRef(initFields);
@@ -137,6 +137,12 @@ export const Form = ({name, onSubmit=noop, onSubmitSuccess=noop, children, ...pr
       }
     );
   };
+
+  useEffect(()=>{
+    if (initialValues) {
+      formReducerRef.current[1](updateFields(initialValues));
+    }
+  }, []);
 
   return (
     <Provider 
