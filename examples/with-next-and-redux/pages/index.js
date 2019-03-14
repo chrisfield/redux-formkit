@@ -1,7 +1,8 @@
 
 import MyForm from '../components/my-form';
 import {useFormReducer} from 'redux-formkit'; 
-import {updateFieldsAction} from 'redux-formkit-redux-state-provider'
+import {updateFieldsAction} from 'redux-formkit';
+import {updateFieldsAction as updateFieldsActionForRedux} from 'redux-formkit-redux-state-provider';
 
 const Index = () => {
   const dispatch = useFormReducer('myForm')[1];
@@ -30,7 +31,7 @@ Index.getInitialProps = ({ reduxStore }) => {
   };
 
 
-  reduxStore.dispatch(updateFieldsAction('myForm', formValues));
+  reduxStore.dispatch(updateFieldsActionForRedux('myForm', formValues));
 
   return {};
 
