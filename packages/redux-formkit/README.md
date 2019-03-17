@@ -32,7 +32,7 @@ To use it on you own project:
 - Synchronous validation including flexible support for inter-field valiation
 - Asynchronous submit validation [See example](https://github.com/chrisfield/redux-formkit/tree/master/examples/asynchronous-submit)
 
-I need to update some of the examples for version 3 (hooks). The old examples are that show react native and universal validation are [here](https://github.com/chrisfield/redux-formkit/tree/before-hooks/examples).
+I need to update the react-native example for version 3 (hooks). The old examples are [here](https://github.com/chrisfield/redux-formkit/tree/before-hooks/examples).
 
 
 ## Usage
