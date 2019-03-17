@@ -5,7 +5,7 @@ export const createFormDataHandler = (fieldDefinitions, formValidation=noop) => 
     return {
       fieldValues: storeValues,
       fieldStatus: formDataHandler.validate(storeValues),
-      formStatus: {errorCount: formDataHandler.errorCount, isPrevalidatedOnServer: true},
+      formStatus: {errorCount: formDataHandler.errorCount},
       formErrors: formValidation(storeValues) || {}
     }
   }  

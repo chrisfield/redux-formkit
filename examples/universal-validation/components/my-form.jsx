@@ -130,10 +130,9 @@ const MyForm = () => {
         <TextInput {...fieldDefinitions.fieldOne} afterUpdate={revalidateFieldTwo}/>
         <TextInput {...fieldDefinitions.fieldTwo}/>
         <FieldThree
-          label="Name(try Fred):"
+          label="Name:"
           required 
           placeholder="Dynamic - on fieldTwo"
-          afterUpdate={suggest42ForFred}
         />
         <Checkbox
           {...fieldDefinitions.isAgreed}
@@ -174,12 +173,6 @@ const revalidateFieldTwo = ({getField, value}) => {
 const revalidateTheNumber = ({getField}) => {
   getField('theNumber').validate();
 };
-
-const suggest42ForFred = ({getField, value}) => {
-  if (value.toLowerCase() === 'fred') {
-    getField('age').setValue(42);
-  }
-}
 
 const RenderHobbies = ({fields}) => (
   <fieldset>
