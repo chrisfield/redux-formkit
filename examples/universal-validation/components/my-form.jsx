@@ -166,8 +166,7 @@ const MyForm = () => {
 };
 
 const revalidateFieldTwo = ({getField, value}) => {
-  getField('fieldTwo').setTouched(false);
-  getField('fieldOne').validate();
+  getField('fieldTwo').validate();
 }
 
 const revalidateTheNumber = ({getField}) => {
