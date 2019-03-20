@@ -15,12 +15,10 @@
   "keywords": [
     "react",
     "redux",
-    "redux-formkit",
-    "react-redux",
-    "react-form",
     "react-native",
-    "redux-form",
-    "form"
+    "form",
+    "state",
+    "hook"
   ],
   "author": "Chris Field",
   "license": "ISC",

@@ -16,16 +16,12 @@
   "keywords": [
     "react",
     "redux",
-    "react-redux",
-    "react-form",
     "react-native",
-    "redux-form",
     "form",
-    "field",
     "validation",
-    "kit",
     "next",
-    "isomorphic"
+    "isomorphic",
+    "hook"
   ],
   "author": "Chris Field",
   "license": "ISC",
