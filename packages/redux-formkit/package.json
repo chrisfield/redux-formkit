@@ -21,7 +21,7 @@
     "validation",
     "next",
     "isomorphic",
-    "hook"
+    "hooks"
   ],
   "author": "Chris Field",
   "license": "ISC",
