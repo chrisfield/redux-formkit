@@ -22,9 +22,9 @@ yarn dev
 ## The idea behind the example
 
 ### Pre populating form values on the server
-In the `with-redux` example the client JS added the initialValues to the blank form sent from the server.
+In the [`with-next` example](https://github.com/chrisfield/redux-formkit/tree/master/examples/with-next) the client JS added the initialValues to the blank form sent from the server.
 
-In this example the `Index.getInitialProps` updates the redux-state instead of passing te values directly to the `Form`. Since redux-state is being used on both the client and the server the form will arrive at the client browser fully populated with initialValues.
+In this example the `Index.getInitialProps` updates the redux-state instead of passing the values directly to the `Form`. Since redux-state is being used on both the client and the server the form will arrive at the client browser fully populated with initialValues.
   
 
 ### Handling early input to isomorphically rendered forms
