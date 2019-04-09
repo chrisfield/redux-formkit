@@ -22,7 +22,7 @@ To use it on you own project:
 - React-native support
 - Simple to use with next js ([See example](https://github.com/chrisfield/redux-formkit/tree/master/examples/with-next))
 - Isomophic support to enter values before js downloads ([See example](https://github.com/chrisfield/redux-formkit/tree/master/examples/with-next-and-redux))
-- Use it with or without Redux and switch anytime by changing the `FormStateProvider` ([See example](https://github.com/chrisfield/redux-formkit/tree/master/examples/with-redux))
+- Use without Redux and switch anytime by installing [`redux-formkit-redux-state-provider`](https://www.npmjs.com/package/redux-formkit-redux-state-provider) ([See example](https://github.com/chrisfield/redux-formkit/tree/master/examples/with-redux))
 - Easy to migrate from/to redux-form
 - Stores values as semantic types, eg number fields will store numbers
 - Format values, eg to put commas in numbers
