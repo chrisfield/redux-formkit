@@ -1,6 +1,6 @@
 {
   "name": "redux-formkit-redux-state-provider",
-  "version": "3.3.7",
+  "version": "3.3.8",
   "description": "Connect redux-formkit to react-redux to store form state.",
   "main": "lib/index.js",
   "repository": {
@@ -40,7 +40,7 @@
     "react": "^16.8.3",
     "react-redux": "^6.0.1",
     "redux": "^4.0.1",
-    "redux-formkit": "^3.3.7",
+    "redux-formkit": "^3.3.8",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.2.3"
   }
