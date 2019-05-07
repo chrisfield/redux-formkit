@@ -1,5 +1,5 @@
 {
-  "name": "with-next",
+  "name": "with-next-and-redux-example",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -17,8 +17,8 @@
     "react-dom": "^16.8.4",
     "react-redux": "^6.0.1",
     "redux": "^4.0.1",
-    "redux-formkit": "^3.3.4",
-    "redux-formkit-redux-state-provider": "^3.3.4"
+    "redux-formkit": "^3.3.9",
+    "redux-formkit-redux-state-provider": "^3.3.9"
   },
   "devDependencies": {
     "redux-devtools-extension": "^2.13.8"

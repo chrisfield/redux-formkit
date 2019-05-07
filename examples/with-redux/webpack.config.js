@@ -20,15 +20,6 @@ module.exports = {
       }
     ]
   },
-  resolve: {
-    alias: {
-      react: path.resolve('./node_modules/react'),
-      'react-dom': path.resolve('./node_modules/react-dom'),
-      'redux': path.resolve('./node_modules/redux'),
-      'react-redux': path.resolve('./node_modules/react-redux'),
-      'redux-formkit': path.resolve('./node_modules/redux-formkit'),
-    }
-  },
   plugins: [
     new HtmlWebPackPlugin({
       template: "./index.html",

@@ -7,7 +7,7 @@ Connect form inputs to standard React state. Optionally use Redux. Includes vali
 
 
 ## Motivation
-Redux-Formkit aims to provide simular functionality to the excellent [Redux-form](https://github.com/erikras/redux-form) but with a really tightly scoped API allowing a smaller codebase (about 25% of the size). Version 3 is written with hooks and by default it does not use Redux.
+Redux-Formkit aims to provide simular functionality to the excellent [Redux-form](https://github.com/erikras/redux-form) but with a really tightly scoped API allowing a smaller codebase (about 25% of the size). Version 3 is influenced by [Informed](https://www.npmjs.com/package/informed), is written with hooks and by default it does not use Redux.
 
 
 ## Getting Started
