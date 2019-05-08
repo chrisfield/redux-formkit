@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "private": true,
   "scripts": {
     "dev": "node server.js",
     "build": "next build",
@@ -21,7 +22,7 @@
     "react-redux": "^6.0.1",
     "redux": "^4.0.1",
     "redux-formkit": "^3.3.9",
-    "redux-formkit-redux-state-provider": "^3.3.9"
+    "redux-formkit-redux-state-provider": "^3.3.10"
   },
   "devDependencies": {
     "redux-devtools-extension": "^2.13.8"

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "private": true,
   "scripts": {
     "start": "webpack-dev-server --open --mode development",
     "build:dev": "webpack --mode development",
@@ -29,6 +30,6 @@
     "react-redux": "^6.0.1",
     "redux": "^4.0.1",
     "redux-formkit": "^3.3.9",
-    "redux-formkit-redux-state-provider": "^3.3.9"
+    "redux-formkit-redux-state-provider": "^3.3.10"
   }
 }

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "private": true,
   "scripts": {
     "dev": "next",
     "build": "next build",
@@ -15,6 +16,6 @@
     "next": "^8.0.3",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
-    "redux-formkit": "^3.3.9"
+    "redux-formkit": "^3.3.10"
   }
 }

@@ -7,7 +7,7 @@ Connect form inputs to standard React state. Optionally use Redux. Includes vali
 
 
 ## Motivation
-Redux-Formkit aims to provide simular functionality to the excellent [Redux-form](https://github.com/erikras/redux-form) but with a really tightly scoped API allowing a smaller codebase (about 25% of the size). Version 3 is influenced by [Informed](https://www.npmjs.com/package/informed), is written with hooks and by default it does not use Redux.
+Redux-Formkit aims to provide simular functionality to the excellent [Redux-form](https://github.com/erikras/redux-form) but with a really tightly scoped API allowing a smaller codebase (about 25% of the size). Version 3 is influenced by [Informed](https://www.npmjs.com/package/informed), it is written with hooks and by default it does not use Redux.
 
 
 ## Getting Started
@@ -36,7 +36,7 @@ I need to update the react-native example for version 3 (hooks). The old example
 
 
 ## Usage
-Add one or more instances of ```FormStateProvider``` anywhere above forms in the component tree. Any components under the FormStateProvider can access the state with the ```useFormReducer``` hook.
+Add one or more instances of ```FormStateProvider```.  Forms and any other components under the FormStateProvider can access the state with the ```useFormReducer``` hook.
 
 ```javascript
 import {FormStateProvider} from "redux-formkit";
