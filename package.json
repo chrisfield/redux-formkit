@@ -8,9 +8,19 @@
     "bootstrap": "rm -rf packages/*/node_modules && rm -f packages/*/package-lock.json && lerna exec \"yarn install\" --concurrency=1",
     "build": "lerna run build --concurrency=1",
     "test-build": "lerna exec \"yarn run test && yarn run build\" --concurrency=1",
-    "safe-publish": "yarn run bootstrap && yarn run build && yarn run test-build && lerna publish"
+    "safe-publish": "yarn run bootstrap && yarn run build && yarn run test-build && lerna publish",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "lerna": "^3.13.4"
+  },
+  "devDependencies": {
+    "@storybook/react": "^5.0.11",
+    "@storybook/addon-actions": "^5.0.11",
+    "@storybook/addon-links": "^5.0.11",
+    "@storybook/addons": "^5.0.11",
+    "@babel/core": "^7.4.4",
+    "babel-loader": "^8.0.5"
   }
 }
