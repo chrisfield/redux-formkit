@@ -8,6 +8,8 @@
 # production
 /packages/redux-formkit/lib
 /packages/redux-formkit-redux-state-provider/lib
+/storybook-static
+yarn-error.log
 
 # next examples
 examples/**/.next

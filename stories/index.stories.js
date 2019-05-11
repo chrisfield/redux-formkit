@@ -1,19 +1,15 @@
-import React from 'react';
-
 import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
-import { linkTo } from '@storybook/addon-links';
+import introduction from './introduction';
+// import textField from './ui-components/text-field';
+// import selectField from './ui-components/select-field';
+// import basicForm from './form/basic';
 
-import { Button, Welcome } from '@storybook/react/demo';
+storiesOf('Overview', module)
+.add('Getting Started', introduction);
 
-storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
+// storiesOf('Forms', module)
+//   .add('Basic', basicForm);
 
-storiesOf('Button', module)
-  .add('with text', () => <Button onClick={action('clicked')}>Hello Button</Button>)
-  .add('with some emoji', () => (
-    <Button onClick={action('clicked')}>
-      <span role="img" aria-label="so cool">
-        😀 😎 👍 💯
-      </span>
-    </Button>
-  ));
+// storiesOf('UI Components', module)
+// .add('TextField', textField)
+// .add('SelectField', selectField);

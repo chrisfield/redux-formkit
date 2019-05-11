@@ -1,4 +1,5 @@
 {
+  "name": "redux-formkit-monorepo",
   "private": true,
   "workspaces": [
     "packages/*",
@@ -10,17 +11,19 @@
     "test-build": "lerna exec \"yarn run test && yarn run build\" --concurrency=1",
     "safe-publish": "yarn run bootstrap && yarn run build && yarn run test-build && lerna publish",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "deploy-storybook": "storybook-to-ghpages --out=_deploy-storybook"
   },
   "dependencies": {
-    "lerna": "^3.13.4"
+    "lerna": "^3.13.4",
+    "storybook-readme": "^5.0.3"
   },
   "devDependencies": {
-    "@storybook/react": "^5.0.11",
-    "@storybook/addon-actions": "^5.0.11",
+    "@babel/core": "^7.4.4",
     "@storybook/addon-links": "^5.0.11",
     "@storybook/addons": "^5.0.11",
-    "@babel/core": "^7.4.4",
+    "@storybook/react": "^5.0.11",
+    "@storybook/storybook-deployer": "^2.8.1",
     "babel-loader": "^8.0.5"
   }
 }

@@ -11,6 +11,9 @@ Redux-Formkit aims to provide simular functionality to the excellent [Redux-form
 
 
 ## Getting Started
+
+Go to [live examples, code and docs](https://chrisfield.github.io/redux-formkit/).
+
 Checkout [the examples](https://github.com/chrisfield/redux-formkit/tree/master/examples)
 
 To use it on you own project:
