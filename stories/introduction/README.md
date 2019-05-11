@@ -7,13 +7,13 @@ npm install --save redux-formkit
 ```
 ---
 
-Enter values and see the changes to the state. Then have a look at the code snippet and read about some key `redux-formkit` concepts.
+Enter values and see the changes to the state. The source code is below the running form.
 
 <!-- STORY -->
 
 ```jsx
 import React from 'react';
-import {FormStateProvider, Form, useForm, useFormReducer} from '../../packages/redux-formkit/src';
+import {FormStateProvider, Form, useForm, useFormReducer} from 'redux-formkit';
 import {TextInput, NumberInput, Checkbox, RadioButton} from '../form-controls';
 
 const TheFormState = () => {
@@ -70,10 +70,11 @@ Field validation runs whenever a field mounts or updates. This opens up possibil
 
 Although any field errors are always available from the state the UI would not normally want to show a field error until the field has been touched.
 
-Did you notice that `TextField` is imported from a local folder? `redux-formkit` does not include it's own UI components, instead it provides an api and several example UI components. This approach has several advantages:
-- Developers have full control over the UI
+The UI components are imported from a local folder. This is because `redux-formkit` does not include it's own UI components, instead it provides an api and several example UI components. This approach has several advantages:
 - The download size is low
 - Works well for both web and react-native deployments
+- It keeps the api small
+- Above all it gives you full control over your UI
 
 Take a look at the Take a look at the [examples](https://github.com/chrisfield/redux-formkit/tree/master/examples) to see how easy it is to write UI components.
 <br/>
