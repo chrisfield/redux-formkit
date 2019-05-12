@@ -133,10 +133,10 @@ const FieldBase = memo(({
       const fieldValues = formApi.formReducerRef.current[0].fieldValues;
       if (Array.isArray(validate)) {
         for (let i = 0; i < validate.length && !validateError; i++) {
-          validateError = validate[i](value, fieldValues);
+          validateError = validate[i](value, fieldValues, {...fieldInterfaceRef.current, ...props});
         }
       } else {
-        validateError = validate(value, fieldValues);
+        validateError = validate(value, fieldValues, {...fieldInterfaceRef.current, ...props});
       }
     }
     dispatch(setFieldError(validateError, value));
