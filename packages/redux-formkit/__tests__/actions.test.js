@@ -45,13 +45,6 @@ describe('actions', () => {
     expect(actions.updateFields(fieldValues)).toEqual(expectedAction)
   })
 
-  it('should create an action: resetFieldsIsDone', () => {
-    const expectedAction = {
-      type: types.RESET_FIELDS_IS_DONE
-    }
-    expect(actions.resetFieldsIsDone()).toEqual(expectedAction)
-  })
-
   it('should create an action: setFieldError', () => {
     const error = 'Required field - please enter a value'
     const value = 'value1'

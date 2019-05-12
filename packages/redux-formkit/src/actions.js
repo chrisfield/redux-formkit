@@ -3,7 +3,6 @@ export const actionTypes = {
   INIT_FORM_STATE: "INIT_FORM_STATE",
   PUSH_TO_FIELD_ARRAY: "PUSH_TO_FIELD_ARRAY",
   REMOVE_FROM_FIELD_ARRAY: "REMOVE_FROM_FIELD_ARRAY",
-  RESET_FIELDS_IS_DONE: "RESET_FIELDS_IS_DONE",
   SET_FIELD_ERROR: "SET_FIELD_ERROR",
   SET_FIELD_TOUCHED: "SET_FIELD_TOUCHED",
   START_SUBMIT: "START_SUBMIT",
@@ -16,10 +15,6 @@ export const initFormState = (
   form,
   {formStatus= {}, fieldStatus= {}, fieldValues= {}, formErrors= {}}= {},
 ) => ({type: actionTypes.INIT_FORM_STATE, form, formStatus, fieldStatus, fieldValues, formErrors});
-
-export const resetFieldsIsDone = () => (
-  {type: actionTypes.RESET_FIELDS_IS_DONE}
-);
 
 // field
 export const updateField = (value, customProps) => (
