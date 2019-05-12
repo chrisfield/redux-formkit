@@ -6,7 +6,7 @@
 [![NPM Downloads](https://img.shields.io/npm/dm/redux-formkit.svg?style=flat)](https://npmcharts.com/compare/redux-formkit?minimal=true)
 
 ## Introduction
-Redux-formkit is a lightwieight, simple, and efficient solution for creating basic to complex forms in react. Use it to get and set field values, to validate and format fields, to create custom inputs and to keep track of the error count so you always know whether the form fields are all valid.
+Redux-formkit is a lightweight, simple, and efficient solution for creating basic to complex forms in react. Use it to get and set field values, to validate and format fields, to create custom inputs and to keep track of the error count so you always know whether the form fields are all valid.
 
 Out of the box it uses standard React state and it's easy to change from/to Redux using [ReduxFormkitReduxStateProvider](https://www.npmjs.com/package/redux-formkit-redux-state-provider).
 
@@ -18,12 +18,8 @@ Earlier versions were influenced by the excellent [Redux-form](https://github.co
 ## Getting Started
 
 ##### Install with npm or yarn
-```
-npm install --save redux-formkit
-```
-```
-yarn add redux-formkit
-```
+`npm install --save redux-formkit` or `yarn add redux-formkit`
+
 
 #### Create a Simple Form
 
