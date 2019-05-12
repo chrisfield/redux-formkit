@@ -70,4 +70,16 @@ export default MyForm;
 
 `Redux-formkit useForm` is a hook you can use to access the `Form`. The example above simply uses it to get the form name (to avoid hardcoding "myForm" again).
 
-`Redux-formkit useFormReducer` is a hook that takes a form-name as a parameter and returns state and dispatch in a two element array. The returned array is like the one that would be returned from standard [React useReducer](https://reactjs.org/docs/hooks-reference.html#usereducer) hook. This simularity is no accident because, when you are not usinf redux, useFormReducer passes the work on to useReducer.
+`Redux-formkit useFormReducer` is a hook that takes a form-name as a parameter and returns state and dispatch in a two element array. The returned array is like the one that would be returned from the standard [React useReducer](https://reactjs.org/docs/hooks-reference.html#usereducer) hook. This simularity is no accident because, when you are not using redux, useFormReducer just passes the work on to useReducer.
+
+
+##### UI Compoments
+Most form framworks either provide a set of built-in UI components (checkbox, select etc) or they add UI specific logic such as `if (type === "checkbox") {/* do checkbox stuff */}`. These approaches make it easy for form developers to get started but there are a couple of downsides:
+- In catering for many build-in UI components the frameworks get heavy.
+- Custom components can seem to be 'special cases' that are hard to write particularly if the build-in UI components by-pass any api.
+
+`redux formkit` takes a different approach: it provides one UI component - `Field` together with an api that aims to make it easy enough to define any UI component. This has many advantages including:
+- Light weight framework.
+- Form developers can build exactly the UI components they want using the same api that was used with standard html form controls.
+
+To get stated developers might want to copy some UI components from the examples (Checkbox, Select etc).
