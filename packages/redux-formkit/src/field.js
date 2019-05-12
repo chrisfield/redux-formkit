@@ -97,15 +97,12 @@ const FieldBase = memo(({
   const previous = usePrevious({value, customProps});
   useEffect(() => {
     if (!isMountedRef.current) {
-      console.log('Field mounted mount', name);
       isMountedRef.current = true;
       if (elementRef.current) {
         const inputValue = formatToStore(getTargetValue(elementRef.current));
         validateValue(inputValue);
-        console.log('inputValue validated on mount', name);
       } else {
         validateValue(value);
-        console.log('value validated on mount', name);
       }
       return;
     }
