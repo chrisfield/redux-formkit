@@ -2,7 +2,8 @@ import { withDocs } from 'storybook-readme';
 import readme from './README.md'
 
 import React from 'react';
-import {FormStateProvider, Form, useForm, useFormReducer, Field} from '../../packages/redux-formkit/src';
+import {FormStateProvider, Form, useForm, useFormReducer} from '../../packages/redux-formkit/src';
+import {TextInput, NumberInput, Checkbox, RadioButton} from '../form-controls';
 
 const TheFormState = () => {
   const [state] = useFormReducer(useForm().name);
@@ -17,22 +18,21 @@ const MyForm = () => {
   return (
     <FormStateProvider>
       <Form name="myForm" onSubmit={submitValues} onSubmitSuccess={clearValues}>
-        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-          <div style={{ flex: 1, marginRight: '2rem' }}>
-            <div>
-              <label>First name: <Field name="firstName" component="input"/></label>
-            </div>
-            <button>Submit</button>
-          </div>
-          <div style={{
-            flex: 2,
-            flexDirection: 'column',
-            display: 'flex',
-            minWidth: '300px'
-          }}>
-            <TheFormState/> 
-          </div>
+        <div>
+          <TextInput name="fieldOne" required/>
+          <NumberInput name="age"/>
+          <Checkbox name="isAgreed" label="Do you agree?"/>
         </div>
+        <div>"
+          <RadioButton name="rb2" label="Red" value="R" />
+          <RadioButton name="rb2" label="Green" value="G" />
+          <RadioButton name="rb2" label="Blue" value="B" />
+        </div>
+        <button>Submit</button>
+        <div>
+          <label>Values:</label>
+            <TheFormState/> 
+        </div>        
       </Form>
     </FormStateProvider>
   );

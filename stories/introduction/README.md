@@ -1,20 +1,26 @@
-# Overview
+# Intro
+
+Redux-formkit is a lightwieight, simple, and efficient solution for creating basic to complex forms in react. Use it to get and set field values, to validate and format fields, to create custom inputs and to keep track of the error count so you always know whether the form fields are all valid.
+
+Out of the box it uses standard React state via it's FormStateProvider but it's easy to change from/to Redux using [ReduxFormkitReduxStateProvider](https://www.npmjs.com/package/redux-formkit-redux-state-provider).
+
+Version 3 was written from scratch to use Hooks. Checkout our [Github](https://github.com/chrisfield/redux-formkit).
 
 ## Getting Started
 
+##### Install with npm
 ```
 npm install --save redux-formkit
 ```
----
 
-Enter values and see the changes to the state. The source code is below the running form.
+##### Have some fun
 
+Go ahead and play around with the form below then take a look at the code snippet: that's all you need to get started.
 <!-- STORY -->
 
 ```jsx
 import React from 'react';
-import {FormStateProvider, Form, useForm, useFormReducer} from 'redux-formkit';
-import {TextInput, NumberInput, Checkbox, RadioButton} from '../form-controls';
+import {FormStateProvider, Form, useForm, useFormReducer, Field} from 'redux-formkit';
 
 const TheFormState = () => {
   const [state] = useFormReducer(useForm().name);
@@ -30,14 +36,7 @@ const MyForm = () => {
     <FormStateProvider>
       <Form name="myForm" onSubmit={submitValues} onSubmitSuccess={clearValues}>
         <div>
-          <TextInput name="fieldOne" required/>
-          <NumberInput name="age"/>
-          <Checkbox name="isAgreed" label="Do you agree?"/>
-        </div>
-        <div>"
-          <RadioButton name="rb2" label="Red" value="R" />
-          <RadioButton name="rb2" label="Green" value="G" />
-          <RadioButton name="rb2" label="Blue" value="B" />
+          <label>First name: <Field name="firstName" component="input"/></label>
         </div>
         <button>Submit</button>
         <div>
@@ -62,19 +61,13 @@ export default MyForm;
 
 ---
 
-### Redux-formkit Concepts
+##### Explanation
+`Redux-formkit FormStateProvider` links `Form` components to React state. To switch to using Redux simply `import FormStateProvider from "redux-formkit-redux-state-provider"`
 
-`redux-formkit` has been designed to make it easy to change where state is stored. The example above it is storing the form data in standard `react` state. So, yes by default `redux-formkit` does not need `redux`. If later you decide to use `redux` simply install `redux-formkit-redux-state-provider` and use it instead of the <FormStateProvider>.
+`Redux-formkit Form` uses an `onSubmit` function to mark the fields as touched, to check if the form is valid and, if it is, to call your `submitValues` function passing in the form values from state.
 
-Field validation runs whenever a field mounts or updates. This opens up possibilites for the UI to do things such as place ticks next to valid inputs or make the submit button green when there are no errors.
+`Redux-formkit Field` uses `onChange`, `onBlur` functions to maintain the field value in state. It renders the *component* ("input" in the above example) passing in the state.
 
-Although any field errors are always available from the state the UI would not normally want to show a field error until the field has been touched.
+`Redux-formkit useForm` is a hook you can use to access the `Form`. The example above simply uses it to get the form name (to avoid hardcoding "myForm" again).
 
-The UI components are imported from a local folder. This is because `redux-formkit` does not include it's own UI components, instead it provides an api and several example UI components. This approach has several advantages:
-- The download size is low
-- Works well for both web and react-native deployments
-- It keeps the api small
-- Above all it gives you full control over your UI
-
-Take a look at the Take a look at the [examples](https://github.com/chrisfield/redux-formkit/tree/master/examples) to see how easy it is to write UI components.
-<br/>
+`Redux-formkit useFormReducer` is a hook that takes a form-name as a parameter and returns state and dispatch in a two element array. The returned array is like the one that would be returned from standard [React useReducer](https://reactjs.org/docs/hooks-reference.html#usereducer) hook. This simularity is no accident because, when you are not usinf redux, useFormReducer passes the work on to useReducer.
