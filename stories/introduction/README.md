@@ -70,3 +70,6 @@ export default MyForm;
 `Redux-formkit useForm` is a hook you can use to access the `Form`. The example above simply uses it to get the form name (to avoid hardcoding "myForm" again).
 
 `Redux-formkit useFormReducer` is a hook that takes a form-name as a parameter and returns state and dispatch in a two element array. The returned array is like the one that would be returned from the standard [React useReducer](https://reactjs.org/docs/hooks-reference.html#usereducer) hook. This simularity is no accident because, when you are not using redux, useFormReducer just passes the work on to useReducer.
+
+#### Next Steps
+The example above renders an `input` because `Field` was given the property `component="input"`. In the next section you can learn how to use `Field` to write your own ui-components.

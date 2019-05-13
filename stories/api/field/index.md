@@ -1,0 +1,146 @@
+# Field Api
+
+`Redux-formkit Field` uses onChange, onBlur functions to maintain the field value in state and it renders a component passing in the state. Use it directly in your forms or use it to define your own UI-components. The following table shows the props that you can pass to `Field`.
+
+| Property Name      | Required | Description                                                                                                                                                                                                                                                                                                                                                                                           |
+|--------------------|----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| name               | Yes      | String. A unique name for the Field                                                                                                                                                                                                                                                                                                                                                                   |
+| component          | Yes      | String or Function for the component to render. Eg `component="input"` will render an input html element and component={Input} will call Input to render the component.                                                                                                                                                                                                                               |
+| validate           |          | Function or array of functions. Validation functions will be called with three parameters: First the stored field value; Second all the field-values (for validating one field against another); Third a `fieldInterface` object. Validation functions should return undefined if the validation passes or an error if the validation fails. The error will often be a string but it can be any object. |
+| formatToStore      |          | Function to convert the event.target.value to whatever semantic value makes sense to store.  Eg `format={str => str.toUpperCase}` will store the number as uppercase.                                                                                                                                                                                                                                 |
+| formatFromStore    |          | Function to format the value in the store to the value as rendered by the component. Eg: `formatFromStore={addCommas}`                                                                                                                                                                                                                                                                                |
+| beforeUpdate       |          | Function that will return a custom value (any type) that you can then access after the field renders. The function will be passed the `fieldInterface`, value, nextValue as parameters. The value that your function returns will later be passed on to any afterUpdate function. A typical use for this function is to calculate and return the cursor-position before a field is formatted.         |
+| afterUpdate        |          | Function that will called after the field renders. Your function will be passed the `fieldInterface` and as a parameter. Typical uses for this function would be: to use a custom value eg to set the cursor-position or secondly to revalidate a second field when one field changes.                                                                                                                |
+| getTargetValue     |          | Function to get the value. It will be called with the target and event as a parameters.                                                                                                                                                                                                                                                                                                               |
+| useTargetCondition |          | Function (only relevant for isomorphic forms). Will be called onComponentMount with the elementRef as a parameter.  If it returns true the value of the element will be used to update the store. See it used on the radio-buttons in the next-js example.                                                                                                                                              |
+
+The `fieldInterface` object (passed to beforeUpdate, afterUpdate and validate functions) includes any extra props passed to `Field` plus these standard props: 
+* `name` of this field
+* `element` defined if you pass `ref={elementRef}` to the html element
+* `value`
+* `error`
+* `touched`
+* `validate: function` no params taken
+* `setTouched:` pass a boolean value
+* `setValue`: pass the value
+
+`Field` will pass these props to the rendered component:
+* `handleChange` function to call onChange
+* `handleBlur` function to call onBlur
+* `value` value formatted from the store
+* `error` string or object. Will be undefined for a valid field 
+* `touched` boolen
+* `elementRef` pass this an the ref prop
+
+---
+
+## Field example
+
+The example below uses core parts of `Field` api to implement a numeric field.
+
+<!-- STORY -->
+
+---
+#### Code
+
+```jsx
+import React from 'react';
+
+const InputWrapper = ({label, name, touched, error, children}) => (
+  <div>
+    <label htmlFor={name}>{label || name}</label>
+    {children}
+    {touched && error && <p>{error}</p>}
+  </div>
+);
+
+export default InputWrapper;
+```
+
+```jsx
+import React from 'react';
+import {Field} from 'redux-formkit';
+import InputWrapper from './input-wrapper.jsx';
+
+const NumberInputComponent = ({
+  label,
+  name,
+  value,
+  handleChange,
+  handleBlur,
+  elementRef,
+  touched,
+  error,
+  children,
+  ...props}) => 
+{
+  return (
+    <InputWrapper {...{name, label, touched, error}}>
+      <input
+        id={name}
+        ref={elementRef}
+        value={value}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        {...props}
+      />
+      {children}
+    </InputWrapper>
+  );
+};
+
+const requiredNum = (value, _values, field) => {
+  if (value === null || isNaN(value)) {
+    return `Please enter a value for ${field.label.toLowerCase()}`;
+  }
+  return undefined;
+};
+
+const number = str => {
+  const num = parseInt(str.replace(/[^\d.-]/g, ""), 10);
+  if (num === null) {
+    return undefined;
+  }
+  return num;
+};
+
+const addCommas = number => {
+  if (number === 0) {
+    return '0';
+  }
+  if (!number) {
+    return '';
+  }
+  return number.toLocaleString();
+};
+
+
+export const getNextCursorPosition = ({element}, value, nextValue) => {
+  let cursorPosition = element.selectionStart;
+  if (nextValue.length === value.length + 2) { // + 2 is for digit and comma
+    cursorPosition++;
+  }
+  return cursorPosition;
+}
+
+export const setCursorPosition = ({element}, cursorPosition) => {
+  if (cursorPosition !== undefined && element.setSelectionRange) {
+    element.setSelectionRange(cursorPosition, cursorPosition);
+  }  
+}
+
+const NumberInput = ({required, ...props}) => {
+  return <Field
+    component={NumberInputComponent}
+    validate={required? requiredNum: undefined}
+    formatFromStore={addCommas}
+    formatToStore={number}
+    beforeUpdate={getNextCursorPosition}
+    afterUpdate={setCursorPosition}
+    {...props}
+  />
+};
+
+export default NumberInput;
+
+```

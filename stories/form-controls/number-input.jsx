@@ -1,5 +1,5 @@
-import React, {useEffect, useRef} from 'react';
-import {Field, usePrevious} from '../../packages/redux-formkit/src';
+import React from 'react';
+import {Field} from '../../packages/redux-formkit/src';
 import InputWrapper from './input-wrapper.jsx';
 
 const NumberInputComponent = ({
@@ -29,9 +29,9 @@ const NumberInputComponent = ({
   );
 };
 
-const required = value => {
+const requiredNum = (value, _values, field) => {
   if (value === null || isNaN(value)) {
-    return 'required';
+    return `Please enter a value for ${field.label.toLowerCase()}`;
   }
   return undefined;
 };
@@ -72,7 +72,7 @@ export const setCursorPosition = ({element}, cursorPosition) => {
 const NumberInput = ({required, ...props}) => {
   return <Field
     component={NumberInputComponent}
-    validate={required? required: undefined}
+    validate={required? requiredNum: undefined}
     formatFromStore={addCommas}
     formatToStore={number}
     beforeUpdate={getNextCursorPosition}
