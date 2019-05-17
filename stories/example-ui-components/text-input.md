@@ -1,4 +1,4 @@
-# User Interface Components
+# Example User Interface Components
 
 #### Approach to defining UI components
 Typically form frameworks provide a set of built-in UI components (Checkbox, Select etc) and/or they include UI specific logic such as `if (type === "checkbox") {/* do checkbox stuff */}`. While this approach does make it easy for form developers to get started it also makes for a larger codebase and it can seem like the built-in components are special priviledged cases (particularly if they make use of internal features or by-pass any api).

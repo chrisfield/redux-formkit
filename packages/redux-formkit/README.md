@@ -62,8 +62,10 @@ export default MyForm;
 
 I need to update the react-native example for version 3 (hooks). The old examples are [here](https://github.com/chrisfield/redux-formkit/tree/before-hooks/examples).
 
-### Go to [live examples, code and docs](https://chrisfield.github.io/redux-formkit/).
 
 ## Feedback / contributing
 I'm keen to get feedback please let me know about any issues [here](https://github.com/chrisfield/redux-formkit/issues/new)
 
+
+---
+### Go to [live examples, code and docs](https://chrisfield.github.io/redux-formkit/).

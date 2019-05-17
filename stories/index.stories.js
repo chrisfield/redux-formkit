@@ -1,6 +1,7 @@
 import { storiesOf } from '@storybook/react';
 import introduction from './introduction';
-import uiComponents from './introduction/ui-components';
+import simpleForm from './introduction/simple-form';
+import textInput from './example-ui-components/text-input';
 import apiForField from './api/field';
 
 
@@ -10,7 +11,10 @@ import apiForField from './api/field';
 
 storiesOf('Overview', module)
 .add('Getting Started', introduction)
-.add('UI Components', uiComponents);
+.add('Simple Form', simpleForm);
+
+storiesOf('Example UI Components', module)
+.add('TextInput', textInput);
 
 storiesOf('Api', module)
 .add('Field', apiForField);

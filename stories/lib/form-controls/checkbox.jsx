@@ -1,5 +1,5 @@
 import React from 'react';
-import {Field} from '../../packages/redux-formkit/src';
+import {Field} from '../../../packages/redux-formkit/src';
 
 const isChecked = target => target.checked;
 
