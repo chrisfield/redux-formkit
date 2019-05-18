@@ -1,6 +1,12 @@
-# Field Api
+# Field
 
-`Redux-formkit Field` uses onChange, onBlur functions to maintain the field value in state and it renders a component passing in the state. Use it directly in your forms or use it to define your own UI-components. The following table shows the props that you can pass to `Field`.
+The Field component renders a UI component and connects it to the state.
+
+You can see an example of a Field being included directly in a Form in the 'Getting Started' section: <Field name="firstName" component="input"/>. 
+
+You can see how it can be used to define ui-components in the 'Example ui-components section'.
+
+`Field` uses onChange, onBlur functions to maintain the value in state. It also renders a component passing in the value from state.
 
 | Property Name      | Required | Description                                                                                                                                                                                                                                                                                                                                                                                           |
 |--------------------|----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|

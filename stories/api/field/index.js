@@ -2,8 +2,8 @@ import { withDocs } from 'storybook-readme';
 import readme from './index.md'
 
 import React from 'react';
-import TheForm from '../../lib/the-form';
-import {NumberInput} from '../../lib/form-controls';
+import TheForm from '../../the-form';
+import {NumberInput} from '../../ui-components';
 
 const MyForm = () => {  
   return (

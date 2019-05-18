@@ -2,8 +2,8 @@ import { storiesOf } from '@storybook/react';
 import introduction from './introduction';
 import simpleForm from './introduction/simple-form';
 import textInput from './example-ui-components/text-input';
+import checkbox from './example-ui-components/checkbox';
 import apiForField from './api/field';
-
 
 // import textField from './ui-components/text-field';
 // import selectField from './ui-components/select-field';
@@ -14,7 +14,8 @@ storiesOf('Overview', module)
 .add('Simple Form', simpleForm);
 
 storiesOf('Example UI Components', module)
-.add('TextInput', textInput);
+.add('TextInput', textInput)
+.add('Checkbox', checkbox);
 
 storiesOf('Api', module)
 .add('Field', apiForField);

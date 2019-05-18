@@ -1,14 +1,14 @@
 import { withDocs } from 'storybook-readme';
-import readme from './text-input.md'
+import readme from './checkbox.md'
 
 import React from 'react';
 import TheForm from '../the-form';
-import {TextInput} from '../ui-components/text-input';
+import Checkbox from '../ui-components/checkbox';
 
 const MyForm = () => {  
   return (
     <TheForm>
-      <TextInput name="firstName" label="First Name" required/>
+      <Checkbox name="isAgreed" label="Do you agree?"/>
     </TheForm>
   );
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import {FormStateProvider, Form, useForm, useFormReducer} from '../../packages/redux-formkit/src';
+import {FormStateProvider, Form, useForm, useFormReducer} from '../packages/redux-formkit/src';
 
 const TheFormState = () => {
   const [state] = useFormReducer(useForm().name);

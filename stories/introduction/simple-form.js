@@ -3,7 +3,7 @@ import readme from './simple-form.md'
 
 import React from 'react';
 import {FormStateProvider, Form, useForm, useFormReducer} from '../../packages/redux-formkit/src';
-import {TextInput, NumberInput, Checkbox, RadioButton} from '../lib/form-controls';
+import {TextInput, NumberInput, Checkbox, RadioButton} from '../ui-components';
 
 const TheFormState = () => {
   const [state] = useFormReducer(useForm().name);

@@ -10,7 +10,7 @@ Version 3 was written from scratch to use Hooks. Check out the [Github repo](htt
 ##### Install with npm or yarn
 `npm install --save redux-formkit` or `yarn add redux-formkit`
 
-## Try out this simple form
+## Try out this minimal form
 
 Go ahead and play around with the form below then take a look at the code snippet and explanation.
 
@@ -72,4 +72,4 @@ export default MyForm;
 `useFormReducer` is a hook that takes a form-name as a parameter and returns state and dispatch in a two element array. The returned array is like the one that would be returned from the standard [React useReducer](https://reactjs.org/docs/hooks-reference.html#usereducer) hook. This simularity is no accident because, when you are not using redux, useFormReducer just passes the work on to useReducer.
 
 #### Next Steps
-The example above renders an `input` because `Field` was given the property `component="input"`. In the next section you can learn how to use `Field` to write your own ui-components.
+In the next section you can see a form with a wider range of ui-components.
