@@ -52,6 +52,7 @@ const FieldBase = memo(({
   formatFromStore,
   formatToStore,
   getTargetValue,
+  useTargetCondition,
   validate,
   dispatch,
   value,
@@ -99,8 +100,10 @@ const FieldBase = memo(({
     if (!isMountedRef.current) {
       isMountedRef.current = true;
       if (elementRef.current) {
-        const inputValue = formatToStore(getTargetValue(elementRef.current));
-        validateValue(inputValue);
+        if (!useTargetCondition || useTargetCondition(elementRef.current)) {
+          const inputValue = formatToStore(getTargetValue(elementRef.current));
+          validateValue(inputValue);
+        }
       } else {
         validateValue(value);
       }

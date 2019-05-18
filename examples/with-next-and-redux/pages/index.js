@@ -27,7 +27,7 @@ Index.getInitialProps = ({ reduxStore }) => {
     fieldOne: 'ssr',
     theNumber: 41,
     isAgreed: true,
-    rb2: 'B'
+    rb2: 'G'
   };
 
 

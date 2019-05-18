@@ -22,7 +22,7 @@
     "react-redux": "^6.0.1",
     "redux": "^4.0.1",
     "redux-formkit": "^3.3.13",
-    "redux-formkit-redux-state-provider": "^3.3.10"
+    "redux-formkit-redux-state-provider": "^3.3.18"
   },
   "devDependencies": {
     "redux-devtools-extension": "^2.13.8"

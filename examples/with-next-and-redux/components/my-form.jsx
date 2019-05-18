@@ -1,5 +1,5 @@
 import React from 'react';
-import {TextInput, NumberInput} from './form-controls'; 
+import {TextInput, NumberInput, RadioButton} from './form-controls'; 
 import { 
   Form,
   FieldArray,
@@ -48,6 +48,11 @@ const MyForm = () => {
         />
         <NumberInput name="age"/>
         <TextInput name="fieldFour"/>
+        <div>
+          <RadioButton name="rb2" label="Red" value="R" />
+          <RadioButton name="rb2" label="Green" value="G" />
+          <RadioButton name="rb2" label="Blue" value="B" />
+        </div>
       </div>
       <FieldArray
         name="hobbies"
