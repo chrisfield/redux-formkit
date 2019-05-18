@@ -12,7 +12,7 @@ import {TextInput, NumberInput, Checkbox, RadioButton} from '../ui-components';
 const MyForm = () => {  
   return (
     <FormStateProvider>
-      <Form name="myForm" onSubmit={submitValues} onSubmitSuccess={clearValues}>
+      <Form name="myForm" initialValues={{rb2: 'G'}} onSubmit={submitValues} onSubmitSuccess={clearValues}>
         <div>
           <TextInput name="fieldOne" label="Field One" required/>
           <NumberInput name="age" label="Age"/>

@@ -28,6 +28,6 @@ export default Checkbox;
 ```
 ---
 #### Explanation
-`Checkbox` renders a `Field`. The `getTargetValue={isChecked}` prop trlls `reduxFormkit` to set the state from this component according to the `checked` attribute of the input.
+`Checkbox` renders a `Field`. The `getTargetValue={isChecked}` prop tells `reduxFormkit` to set the state for this component according to the `checked` attribute of the input.
 
 `CheckboxComponent` is the component the `Field` will render. It renders a standard html input with type="checkbox" and a label.

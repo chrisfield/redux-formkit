@@ -3,6 +3,7 @@ import introduction from './introduction';
 import simpleForm from './introduction/simple-form';
 import textInput from './example-ui-components/text-input';
 import checkbox from './example-ui-components/checkbox';
+import radioButton from './example-ui-components/radio-button';
 import apiForField from './api/field';
 
 // import textField from './ui-components/text-field';
@@ -15,7 +16,8 @@ storiesOf('Overview', module)
 
 storiesOf('Example UI Components', module)
 .add('TextInput', textInput)
-.add('Checkbox', checkbox);
+.add('Checkbox', checkbox)
+.add('RadioButton', radioButton);
 
 storiesOf('Api', module)
 .add('Field', apiForField);

@@ -17,7 +17,7 @@ const TheFormState = () => {
 const MyForm = () => {  
   return (
     <FormStateProvider>
-      <Form name="myForm" onSubmit={submitValues} onSubmitSuccess={clearValues}>
+      <Form name="myForm" initialValues={{rb2: 'G'}} onSubmit={submitValues} onSubmitSuccess={clearValues}>
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           <div style={{ flex: 1, marginRight: '2rem' }}>
             <div>
@@ -25,7 +25,7 @@ const MyForm = () => {
               <NumberInput name="age" label="Age"/>
               <Checkbox name="isAgreed" label="Do you agree?"/>
             </div>
-            <div>"
+            <div>
               <RadioButton name="rb2" label="Red" value="R" />
               <RadioButton name="rb2" label="Green" value="G" />
               <RadioButton name="rb2" label="Blue" value="B" />
