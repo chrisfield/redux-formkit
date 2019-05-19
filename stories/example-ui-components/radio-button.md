@@ -48,4 +48,4 @@ export default RadioButton;
 
 `RadioButtonComponent` is the component the `Field` will render. It renders a standard html input with type="radio" and a label. The radio button will be checked if the `radioValue` equals the value stored in the state.
 
-`useTargetCondition={isChecked}` is necessary on radio buttons because of the way reduxFormkit implements support for isomorphic forms. For more information on this please see the [with-next-and-redux example](https://github.com/chrisfield/redux-formkit/tree/master/examples/with-next-and-redux) to understand more. 
+`useTargetCondition={isChecked}` is necessary on radio buttons because of the way reduxFormkit implements support for isomorphic forms. For more information on this please see the [with-next-and-redux example](https://github.com/chrisfield/redux-formkit/tree/master/examples/with-next-and-redux). 

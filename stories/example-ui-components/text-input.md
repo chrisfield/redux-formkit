@@ -60,10 +60,7 @@ export const TextInput = ({required, ...props}) => {
 #### Explanation
 `TextInput` renders a `Field`. If it is a required `TextInput` the `Field` will be given `requiredStr` as the `validate` prop.
 
-`requiredStr` `Field` will call validate functions when onChange events or onSubmit events fire. Validate functions are called with three params:
-- `value: any`: the latest field value
-- `values: object`: all the fieldValues. Use this to validate one field against another
-- `fieldInterface: object`: Use this to get additional context about the `Field`. In this example the `label` is used in the form error message.
+`requiredStr` returns an error message if the value is missing.
 
 `TextInputComponent` is the component the `Field` will render. It renders a standard html input inside an `InputWrapper`.
 
