@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 No pending (unreleased changes) to mention
 
+## [3.3.19] - 2019-05-20
+### Changed
+- Improve docs
+
 ## [3.3.18] - 2019-05-18
 ### Changed
 - Update Field to reinstate useTargetCondition prop which is useful for writting RadioButton components

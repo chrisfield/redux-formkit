@@ -4,6 +4,7 @@
 
 [![NPM Version](https://img.shields.io/npm/v/redux-formkit.svg?style=flat)](https://www.npmjs.com/package/redux-formkit)
 [![NPM Downloads](https://img.shields.io/npm/dm/redux-formkit.svg?style=flat)](https://npmcharts.com/compare/redux-formkit?minimal=true)
+![npm bundle size](https://img.shields.io/bundlephobia/minzip/redux-formkit.svg)
 
 ## Introduction
 Redux-formkit is a lightweight, simple, and efficient solution for creating basic to complex forms in react. Use it to get and set field values, to validate and format fields, to create custom inputs and to keep track of the error count so you always know whether the form fields are all valid.
@@ -63,7 +64,7 @@ export default MyForm;
 I need to update the react-native example for version 3 (hooks). The old examples are [here](https://github.com/chrisfield/redux-formkit/tree/before-hooks/examples).
 
 
-## Feedback / contributing
+## Contributing [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/chrisfield/redux-formkit/issues)
 I'm keen to get feedback please let me know about any issues [here](https://github.com/chrisfield/redux-formkit/issues/new)
 
 
