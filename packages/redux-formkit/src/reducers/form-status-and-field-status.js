@@ -31,6 +31,12 @@ const formStatusAndFieldStatusReducer = (formStatus = initialFormStatus, fieldSt
         formStatus: {...formStatus, isSubmitting: false},
       };
     }
+    case actionTypes.RESET_FIELDS_IS_DONE: {
+      return {
+        fieldStatus,
+        formStatus: {...formStatus, isResetFieldsDue: false, isPrevalidatedOnServer: false},
+      };
+    }
     case actionTypes.UPDATE_FIELD: {
       const field = getField(fieldStatus, action.field) || {};
       return {
@@ -44,7 +50,7 @@ const formStatusAndFieldStatusReducer = (formStatus = initialFormStatus, fieldSt
     case actionTypes.UPDATE_FIELDS: {
       return {
         fieldStatus: initialFieldStatus,
-        formStatus: {...initialFormStatus},
+        formStatus: {...initialFormStatus, isResetFieldsDue: true},
       };
     }
     case actionTypes.DEREGISTER_FIELD: {
