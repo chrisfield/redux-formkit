@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useRef, useEffect } from 'react';
 import isPromise from "is-promise";
 import SubmissionError from "./submission-error";
-import { startSubmit, stopSubmit, updateFields } from './actions';
+import { startSubmit, stopSubmit, updateFields, resetFieldsIsDone } from './actions';
 import useFormReducer from './use-form-reducer';
 
 export const Context = createContext({});
@@ -138,11 +138,23 @@ export const Form = ({name, initialValues, onSubmit=noop, onSubmitSuccess=noop, 
     );
   };
 
-  useEffect(()=>{
+  // mount
+  useEffect(() => {
     if (initialValues) {
       formReducerRef.current[1](updateFields(initialValues));
     }
   }, []);
+
+  // update
+  const isMountedRef = useRef(false);
+  useEffect(() => {
+    if (!isMountedRef.current) {
+      isMountedRef.current = true;
+    } else if (formReducerRef.current[0].formStatus.isResetFieldsDue) {
+      markAllFieldsAsTouched(false);
+      dispatch(resetFieldsIsDone());
+    }
+  });
 
   return (
     <Provider 

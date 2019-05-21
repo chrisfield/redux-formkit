@@ -11,13 +11,14 @@ const useField = (fieldName) => {
   const value = getField(formState.fieldValues, fieldName);
   const status = getField(formState.fieldStatus, fieldName) || defaultStatus;
   const touched = status.touched;
+  const isResetFieldsDue = !!formState.formStatus.isResetFieldsDue;
   const customProps = status.customProps;
   const error = status.error ? status.error : getField(formState.formErrors, fieldName);
 
   const dispatch = (action) => {
     formDispatch({field: fieldName, ...action });
   };
-  return {value, touched, error, dispatch, customProps};
+  return {value, touched, error, dispatch, customProps, isResetFieldsDue};
 };
 
 export default useField;

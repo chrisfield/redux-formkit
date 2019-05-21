@@ -9,12 +9,17 @@ export const actionTypes = {
   STOP_SUBMIT: "STOP_SUBMIT",
   UPDATE_FIELD: "UPDATE_FIELD",
   UPDATE_FIELDS: "UPDATE_FIELDS",
+  RESET_FIELDS_IS_DONE: "RESET_FIELDS_IS_DONE"
 };
 
 export const initFormState = (
   form,
   {formStatus= {}, fieldStatus= {}, fieldValues= {}, formErrors= {}}= {},
 ) => ({type: actionTypes.INIT_FORM_STATE, form, formStatus, fieldStatus, fieldValues, formErrors});
+
+export const resetFieldsIsDone = () => (
+  {type: actionTypes.RESET_FIELDS_IS_DONE}
+);
 
 // field
 export const updateField = (value, customProps) => (
