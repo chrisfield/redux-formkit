@@ -37,6 +37,7 @@ export const Form = ({name, initialValues, onSubmit=noop, onSubmitSuccess=noop, 
   const initFieldArrays = [];
   const fieldArraysRef = useRef(initFieldArrays);
   const formReducerRef = useRef();
+  const formRef = useRef();
 
   const formApiRef = useRef({
     deregisterField: (field) => {
@@ -99,7 +100,8 @@ export const Form = ({name, initialValues, onSubmit=noop, onSubmitSuccess=noop, 
       focusOnFieldWithError();
       return;
     }
-    if (!onSubmit) {
+    if (onSubmit === noop) {
+      formRef.current.submit();
       return;
     }
     event.preventDefault();
@@ -161,7 +163,7 @@ export const Form = ({name, initialValues, onSubmit=noop, onSubmitSuccess=noop, 
       formApi={formApiRef.current}
     >
       <FormReducerRef formReducerRef={formReducerRef}/>
-      <form {...props} onSubmit={handleSubmit}>
+      <form {...props} onSubmit={handleSubmit} ref={formRef}>
         {children}
       </form>
     </Provider>
