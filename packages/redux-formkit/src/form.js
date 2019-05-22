@@ -152,7 +152,7 @@ export const Form = ({name, initialValues, onSubmit=noop, onSubmitSuccess=noop, 
       isMountedRef.current = true;
     } else if (formReducerRef.current[0].formStatus.isResetFieldsDue) {
       markAllFieldsAsTouched(false);
-      dispatch(resetFieldsIsDone());
+      formReducerRef.current[1](resetFieldsIsDone());
     }
   });
 

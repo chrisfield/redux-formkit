@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 No pending (unreleased changes) to mention
 
+## [3.3.21] - 2019-05-22
+### Fixed
+- Correct dispatch of resetFieldsIsDone which was causing 'ReferenceError: dispatch is not defined'.
+
 ## [3.3.20] - 2019-05-21
 ### Fixed
 - Field error messages were not set correctly when updateFields action was dispatched. This was also impacting forms with initialvalues. 
