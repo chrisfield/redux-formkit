@@ -16,6 +16,6 @@
     "next": "^8.0.3",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
-    "redux-formkit": "^3.3.18"
+    "redux-formkit": "^3.3.21"
   }
 }
