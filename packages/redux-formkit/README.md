@@ -55,7 +55,6 @@ export default MyForm;
 - Easy to migrate from/to redux-form
 - Stores values as semantic types, eg number fields will store numbers
 - Format values, eg to put commas in numbers
-- Not cluttered with ui components or ad-hoc code
 - Field-arrays for repeated rows with add/remove
 - Keeps a running error-count and valid/not valid status
 - Synchronous validation including flexible support for inter-field valiation
