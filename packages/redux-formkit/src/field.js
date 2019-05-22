@@ -173,7 +173,7 @@ const FieldBase = memo(({
   && prevProps.touched === nextProps.touched
   && prevProps.error === nextProps.error
   && prevProps.customProps === nextProps.customProps
-  && nextProps.isResetFieldsDue === prevProps.isResetFieldsDue
+  && !nextProps.isResetFieldsDue
 ));
 
 const noop = () => (undefined);
