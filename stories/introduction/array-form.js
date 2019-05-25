@@ -27,21 +27,6 @@ const clearValues = (form) => {
   form.updateFields({});
 };
 
-const MyForm = () => {  
-  return (
-    <FormStateProvider>
-      <Form name="myForm" initialValues={{hobbies:[{}]}} onSubmit={submitValues} onSubmitSuccess={clearValues} className="my-form">
-        <FieldArray
-          name="hobbies"
-          component={RenderHobbies}
-        />
-        <button>Submit</button>
-        <TheFormState />
-      </Form>
-    </FormStateProvider>
-  );
-};
-
 const RenderHobbies = ({fields}) => (
   <fieldset>
     <legend className="example-form_title">
@@ -70,5 +55,20 @@ const RenderHobbies = ({fields}) => (
     <button type="button" onClick={() => fields.push()}>Add Hobby</button>
   </fieldset>
 );
+
+const MyForm = () => {  
+  return (
+    <FormStateProvider>
+      <Form name="myForm" initialValues={{hobbies:[{}]}} onSubmit={submitValues} onSubmitSuccess={clearValues} className="my-form">
+        <FieldArray
+          name="hobbies"
+          component={RenderHobbies}
+        />
+        <button>Submit</button>
+        <TheFormState />
+      </Form>
+    </FormStateProvider>
+  );
+};
 
 export default withDocs(readme, () => <MyForm/>);

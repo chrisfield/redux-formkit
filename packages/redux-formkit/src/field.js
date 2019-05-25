@@ -58,8 +58,7 @@ const FieldBase = memo(({
   value,
   error,
   touched,
-  customProps,
-  isResetFieldsDue,
+  customProps, 
   ...props
 }) => {
   const elementRef = useRef();
@@ -91,8 +90,7 @@ const FieldBase = memo(({
       value,
       error,
       touched,
-      customProps,
-      isResetFieldsDue
+      customProps
     }
   });
 
@@ -112,7 +110,7 @@ const FieldBase = memo(({
       return;
     }
 
-    if (isResetFieldsDue || value !== previous.value && !twoInvalidNumbers(value, previous.value)) {
+    if (value !== previous.value && !twoInvalidNumbers(value, previous.value)) {
       validateValue(value);
     }
 
@@ -168,13 +166,7 @@ const FieldBase = memo(({
       {...props}
     />
   );
-}, (prevProps, nextProps)=>(
-  (prevProps.value === nextProps.value || twoInvalidNumbers(prevProps.value, nextProps.value))
-  && prevProps.touched === nextProps.touched
-  && prevProps.error === nextProps.error
-  && prevProps.customProps === nextProps.customProps
-  && prevProps.isResetFieldsDue === nextProps.isResetFieldsDue
-));
+});
 
 const noop = () => (undefined);
 Field.defaultProps = {

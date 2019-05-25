@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 No pending (unreleased changes) to mention
 
+## [3.4.3] - 2019-25-23
+### Fixed
+- Simplification refactor. Much less likely to get looping render bugs or unnecessary rerendering.
+
 ## [3.4.2] - 2019-05-23
 ### Fixed
 - Fix rerender loop on updateFields action.

@@ -16,6 +16,9 @@ const FieldArrayComponent = (props) => {
   };
 
   const {component: Component, ...rest} = props;
+  if (!Component) {
+    return null
+  }
   return <Component {...rest} fields={fields} />;
 }
 
