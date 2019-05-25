@@ -6,7 +6,7 @@ import { initFormState } from './actions';
 const useFormReducer = (formName) => {
   const [state, dispatch] = useContext(Context);
   if (!dispatch) {
-    throw "redux-formkit: Form has no context. Likely it is not inside a <FormStateProvider>";
+    throw "redux-formkit: useFormReducer has no context. Likely it has been called from a component not inside a <FormStateProvider>";
   }
   const formState = state[formName] ? state[formName]: reducer(initialState, initFormState(formName))[formName];
   const formDispatchRef = useRef((action) => {
