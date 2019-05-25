@@ -11,7 +11,6 @@ const TextInputComponent = ({
   elementRef,
   touched,
   error,
-  children,
   ...props}) => 
 (
     <InputWrapper {...{name, label, touched, error}}>

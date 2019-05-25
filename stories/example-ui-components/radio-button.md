@@ -1,4 +1,4 @@
-# Example User Interface Components
+# User Interface Components
 
 
 ## Example RadioButton
