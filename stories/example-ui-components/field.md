@@ -1,9 +1,11 @@
 # User Interface Components
 
 
-## Field
+## Field - the only built-in ui-component
 
-The example below is similar to the one in "Getting Started" but has been extended to include validation. 
+Field can be used directly on a Form but is more likely to be used to build other ui-components.
+
+The example below shows a direct use and is similar to the one in "Getting Started" but with validation. 
 
 <!-- STORY -->
 
