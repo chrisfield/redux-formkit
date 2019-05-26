@@ -26,6 +26,6 @@
   "dependencies": {
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
-    "redux-formkit": "^3.4.3"
+    "redux-formkit": "^3.4.4"
   }
 }

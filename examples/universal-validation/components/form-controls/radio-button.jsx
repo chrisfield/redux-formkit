@@ -7,7 +7,7 @@ const RadioButtonComponent = props => {
   const id = `${props.name}-${props.radioValue}`;
   return (
     <div>
-      <input id={id} type="radio" ref={props.setElementRef} name={props.name} value={props.radioValue} checked={props.radioValue===props.value} onChange={props.handleChange}/>
+      <input id={id} type="radio" ref={props.elementRef} name={props.name} value={props.radioValue} checked={props.radioValue===props.value} onChange={props.handleChange}/>
       <label htmlFor={id}>{props.label}</label>
     </div>
   );

@@ -4,7 +4,7 @@ import {TextInput, NumberInput, Checkbox, RadioButton} from './form-controls';
 
 const MyForm = () => {  
   return (
-    <Form name="myForm" onSubmit={submitValues} onSubmitSuccess={clearValues}>
+    <Form name="myForm" initialValues={{rb2: 'G'}} onSubmit={submitValues} onSubmitSuccess={clearValues}>
       <div>
         <TextInput name="fieldOne" required/>
         <NumberInput name="age"/>
