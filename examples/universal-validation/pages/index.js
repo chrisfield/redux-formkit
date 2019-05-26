@@ -10,7 +10,7 @@ const Index = () => {
     <div>
       <MyForm/>
       <p onClick={()=>{
-          dispatch(updateFieldsAction({fieldOne:'new f1'}));
+          dispatch(updateFieldsAction({fieldOne:'new f1', rb2: 'G', hobbies:[{name: 'Flying Kites'}]}));
         }}
       >click here</p>
     </div>
