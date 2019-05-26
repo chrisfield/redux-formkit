@@ -39,12 +39,14 @@ export const Form = ({name, initialValues, onSubmit=noop, onSubmitSuccess=noop, 
   const formReducerRef = useRef([]);
   const formRef = useRef();
 
-  const [initialized, setInitialized] = useState(false);
+  const [initialized, setInitialized] = useState(typeof window === 'undefined');
 
   useEffect(() => {
     if (!initialized) {
       const dispatch = formReducerRef.current[1];
-      dispatch(updateFields(initialValues || {}));
+      if (initialValues) {
+        dispatch(updateFields(initialValues || {}));
+      }
       setInitialized(true);
     }
   });
@@ -155,11 +157,9 @@ export const Form = ({name, initialValues, onSubmit=noop, onSubmitSuccess=noop, 
       formApi={formApiRef.current}
     >
       <FormReducerRef formReducerRef={formReducerRef}/>
-      {initialized &&
         <form {...props} onSubmit={handleSubmit} ref={formRef}>
           {children}
         </form>
-      }
     </Provider>
   );
 };

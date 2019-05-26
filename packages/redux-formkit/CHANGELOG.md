@@ -7,7 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 No pending (unreleased changes) to mention
 
-## [3.4.3] - 2019-25-23
+## [3.4.4] - 2019-05-26
+### Fixed
+- Serverside forms were rendering as empty until client js loaded.
+
+## [3.4.3] - 2019-05-25
 ### Fixed
 - Simplification refactor. Much less likely to get looping render bugs or unnecessary rerendering.
 
