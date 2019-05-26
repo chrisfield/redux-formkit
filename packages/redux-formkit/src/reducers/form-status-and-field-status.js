@@ -41,10 +41,16 @@ const formStatusAndFieldStatusReducer = (formStatus = initialFormStatus, fieldSt
         formStatus,
       };
     }
+    case actionTypes.RESET_FIELDS_IS_DONE: {
+      return {
+        fieldStatus,
+        formStatus: {...formStatus, isResetFieldsDue: false},
+      };
+    }    
     case actionTypes.UPDATE_FIELDS: {
       return {
         fieldStatus: initialFieldStatus,
-        formStatus: {...initialFormStatus},
+        formStatus: {...initialFormStatus, isResetFieldsDue: true},
       };
     }
     case actionTypes.DEREGISTER_FIELD: {

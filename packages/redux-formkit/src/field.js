@@ -58,7 +58,8 @@ const FieldBase = memo(({
   value,
   error,
   touched,
-  customProps, 
+  customProps,
+  isResetFieldsDue,
   ...props
 }) => {
   const elementRef = useRef();
@@ -110,7 +111,7 @@ const FieldBase = memo(({
       return;
     }
 
-    if (value !== previous.value && !twoInvalidNumbers(value, previous.value)) {
+    if (isResetFieldsDue || (value !== previous.value && !twoInvalidNumbers(value, previous.value))) {
       validateValue(value);
     }
 
