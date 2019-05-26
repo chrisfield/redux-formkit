@@ -53,6 +53,13 @@ const RenderHobbies = ({fields}) => (
   </fieldset>
 );
 
+const SubmitButton = () => {
+  const [state] = useFormReducer(useForm().name);
+  return (
+    <button style={{backgroundColor: state.formStatus.isValid? 'green': 'cyan'}} >Submit</button>
+  );
+};
+
 const MyForm = () => {  
   return (
     <FormStateProvider>
@@ -61,7 +68,7 @@ const MyForm = () => {
           name="hobbies"
           component={RenderHobbies}
         />
-        <button>Submit</button>
+        <SubmitButton/>
         <TheFormState />
       </Form>
     </FormStateProvider>

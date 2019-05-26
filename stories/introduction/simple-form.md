@@ -9,6 +9,13 @@ import React from 'react';
 import {FormStateProvider, Form, useForm, useFormReducer} from 'redux-formkit';
 import {TextInput, NumberInput, Checkbox, RadioButton} from '../ui-components';
 
+const SubmitButton = () => {
+  const [state] = useFormReducer(useForm().name);
+  return (
+    <button style={{backgroundColor: state.formStatus.isValid? 'green': 'cyan'}} >Submit</button>
+  );
+};
+
 const MyForm = () => {  
   return (
     <FormStateProvider>
@@ -23,7 +30,7 @@ const MyForm = () => {
           <RadioButton name="rb2" label="Green" value="G" />
           <RadioButton name="rb2" label="Blue" value="B" />
         </div>
-        <button>Submit</button>
+        <SubmitButton/>
       </Form>
     </FormStateProvider>
   );
