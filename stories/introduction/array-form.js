@@ -19,6 +19,13 @@ const TheFormState = () => {
   );
 };
 
+const Button = () => {
+  const [state] = useFormReducer(useForm().name);
+  return (
+    <button style={{backgroundColor: state.formStatus.isValid? 'green': 'cyan'}} >Submit</button>
+  );
+};
+
 const submitValues = (values) => {
   alert(`You submitted: ${JSON.stringify(values, undefined, 2)}`);
 };
@@ -64,7 +71,7 @@ const MyForm = () => {
           name="hobbies"
           component={RenderHobbies}
         />
-        <button>Submit</button>
+        <Button/>
         <TheFormState />
       </Form>
     </FormStateProvider>
