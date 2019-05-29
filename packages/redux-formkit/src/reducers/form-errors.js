@@ -1,5 +1,6 @@
 import {actionTypes} from "../actions";
 import setField from "../state-utils/set-field";
+import isField from "../state-utils/is-field";
 
 export const initialState = {};
 
@@ -14,7 +15,10 @@ const errorsReducer = (state = initialState, action) => {
     case actionTypes.STOP_SUBMIT:
       return action.formErrors;
     case actionTypes.SET_FIELD_ERROR:
-      return setField(state, action.field, undefined);
+      if (isField(state, action.field)) {
+        return setField(state, action.field, undefined);
+      } 
+      return state;
     default:
       return state;
   }
