@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 No pending (unreleased changes) to mention
 
+## [3.5.0] - 2019-05-11
+### Added
+- <Form> now also supports a render prop function or a render child function.
+
 ## [3.4.6] - 2019-05-29
 ### Fixed
 - Tidy up the state held for formErrors for fieldArrays.

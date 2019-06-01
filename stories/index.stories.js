@@ -2,13 +2,15 @@ import { storiesOf } from '@storybook/react';
 
 import introduction from './introduction';
 import simpleForm from './introduction/simple-form';
-import arrayForm from './introduction/array-form';
 
 import field from './example-ui-components/field';
 import textInput from './example-ui-components/text-input';
 import numberInput from './example-ui-components/number-input';
 import checkbox from './example-ui-components/checkbox';
 import radioButton from './example-ui-components/radio-button';
+
+import arrayForm from './forms/array-form';
+import renderingForms from './forms/rendering';
 
 import apiForFormStateProvider from './api/form-state-provider';
 import apiForForm from './api/form';
@@ -19,8 +21,7 @@ import nextJs from './next-js';
 
 storiesOf('Overview', module)
 .add('Getting Started', introduction)
-.add('Simple Form', simpleForm)
-.add('Array Form', arrayForm);
+.add('Simple Form', simpleForm);
 
 storiesOf('UI Components', module)
 .add('Field', field)
@@ -28,6 +29,11 @@ storiesOf('UI Components', module)
 .add('Checkbox', checkbox)
 .add('RadioButton', radioButton)
 .add('NumberInput', numberInput);
+
+storiesOf('Forms', module)
+.add('Array Form', arrayForm)
+.add('Rendering', renderingForms);
+
 
 storiesOf('Api', module)
 .add('FormStateProvider', apiForFormStateProvider)

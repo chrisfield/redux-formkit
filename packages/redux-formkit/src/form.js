@@ -30,7 +30,15 @@ const FormReducerRef = ({formReducerRef}) => {
   return null;
 };
 
-export const Form = ({name, initialValues, onSubmit=noop, onSubmitSuccess=noop, children, ...props}) => {
+export const Form = ({
+  name,
+  initialValues,
+  onSubmit=noop,
+  onSubmitSuccess=noop,
+  children,
+  render,
+  ...props
+}) => {
 
   const initFields = [];
   const fieldsRef = useRef(initFields);
@@ -113,7 +121,7 @@ export const Form = ({name, initialValues, onSubmit=noop, onSubmitSuccess=noop, 
       focusOnFieldWithError();
       return;
     }
-    if (onSubmit === noop) {
+    if (onSubmit === noop && formRef.current) {
       formRef.current.submit();
       return;
     }
@@ -153,14 +161,26 @@ export const Form = ({name, initialValues, onSubmit=noop, onSubmitSuccess=noop, 
     );
   };
 
+  const getContent = () => {
+    if (render) {
+      return render(props);
+    }
+    if (typeof children === 'function') {
+      return children({handleSubmit});
+    }
+    return (
+      <form {...props} onSubmit={handleSubmit} ref={formRef}>
+        {children}
+      </form>
+    );
+  }
+
   return (
     <Provider 
       formApi={formApiRef.current}
     >
       <FormReducerRef formReducerRef={formReducerRef}/>
-        <form {...props} onSubmit={handleSubmit} ref={formRef}>
-          {children}
-        </form>
+      {getContent()}
     </Provider>
   );
 };

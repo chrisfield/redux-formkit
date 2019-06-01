@@ -1,5 +1,5 @@
 import { withDocs } from 'storybook-readme';
-import readme from './simple-form.md'
+import readme from './rendering.md'
 
 import React from 'react';
 import {FormStateProvider, Form, useForm, useFormReducer} from '../../packages/redux-formkit/src';
