@@ -48,7 +48,7 @@ export default MyForm;
 
 ## Features
 - Small bundle size ([see bundlephobia](https://bundlephobia.com/result?p=redux-formkit))
-- React-native support
+- React-native support ([See example](https://github.com/chrisfield/redux-formkit/tree/master/examples/with_react_native))
 - Simple to use with next js ([See example](https://github.com/chrisfield/redux-formkit/tree/master/examples/with-next))
 - Isomophic support to enter values before js downloads ([See example](https://github.com/chrisfield/redux-formkit/tree/master/examples/with-next-and-redux))
 - Use without Redux and switch anytime by installing [`redux-formkit-redux-state-provider`](https://www.npmjs.com/package/redux-formkit-redux-state-provider) ([See example](https://github.com/chrisfield/redux-formkit/tree/master/examples/with-redux))
@@ -59,8 +59,6 @@ export default MyForm;
 - Keeps a running error-count and valid/not valid status
 - Synchronous validation including flexible support for inter-field valiation
 - Asynchronous submit validation [See example](https://github.com/chrisfield/redux-formkit/tree/master/examples/asynchronous-submit)
-
-I need to update the react-native example for version 3 (hooks). The old examples are [here](https://github.com/chrisfield/redux-formkit/tree/before-hooks/examples).
 
 
 ## Contributing [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/chrisfield/redux-formkit/issues)

@@ -7,7 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 No pending (unreleased changes) to mention
 
-## [3.5.0] - 2019-05-11
+## [3.5.1] - 2019-06-02
+### Added
+- React-native example
+
+## [3.5.0] - 2019-06-01
 ### Added
 - <Form> now also supports a render prop function or a render child function.
 
