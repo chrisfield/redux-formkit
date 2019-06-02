@@ -37,6 +37,7 @@ export const Form = ({
   onSubmitSuccess=noop,
   children,
   render,
+  component = 'form',
   ...props
 }) => {
 
@@ -168,11 +169,14 @@ export const Form = ({
     if (typeof children === 'function') {
       return children({handleSubmit});
     }
-    return (
-      <form {...props} onSubmit={handleSubmit} ref={formRef}>
-        {children}
-      </form>
-    );
+    if (typeof component === "string") {
+      return React.createElement(
+        component,
+        {children, onSubmit: handleSubmit, ref: formRef, ...props}
+      );
+    }
+    const Component = component;
+    return <Component {...props} onSubmit={handleSubmit} elementRef={formRef}/>;
   }
 
   return (
