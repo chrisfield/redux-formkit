@@ -15,7 +15,13 @@ function twoInvalidNumbers(x, y) {
   return typeof x === "number" && isNaN(x) && isNaN(y);
 }
 
-const FieldComponent = ({component, ...props}) => {
+const FieldComponent = ({render, children, component, ...props}) => {
+  if (render) {
+    return render(props);
+  }
+  if (typeof children === 'function') {
+    return children(props);
+  }
   if (typeof component === "string") {
     const {
       handleBlur,
@@ -28,10 +34,9 @@ const FieldComponent = ({component, ...props}) => {
       component,
       {onBlur: handleBlur, onChange: handleChange, ref: elementRef, ...givenProps}
     );
-  } else {
-    const Component = component;
-    return <Component {...props}/>;  
   }
+  const Component = component;
+  return <Component {...props}/>;
 }
 
 const Field = ({name, ...props}) => {
