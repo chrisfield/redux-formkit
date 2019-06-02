@@ -164,10 +164,10 @@ export const Form = ({
 
   const getContent = () => {
     if (render) {
-      return render(props);
+      return render({handleSubmit,  elementRef:formRef, ...props});
     }
     if (typeof children === 'function') {
-      return children({handleSubmit});
+      return children({handleSubmit, elementRef: formRef, ...props});
     }
     if (typeof component === "string") {
       return React.createElement(
@@ -176,7 +176,7 @@ export const Form = ({
       );
     }
     const Component = component;
-    return <Component {...props} onSubmit={handleSubmit} elementRef={formRef}/>;
+    return <Component {...props} children={children} onSubmit={handleSubmit} elementRef={formRef}/>;
   }
 
   return (
