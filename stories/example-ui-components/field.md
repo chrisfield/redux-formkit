@@ -3,9 +3,9 @@
 
 ## Field - the only built-in ui-component
 
-Field can be used directly on a Form but is more likely to be used to build other ui-components.
+`Field` can be used directly on a Form like the examples on this page. 
 
-The example below shows a direct use and is similar to the one in "Getting Started" but with validation. 
+First name is similar to the one in "Getting Started" but with validation. The middle and last name fields show alternative ways `Field` can be used: a render prop and a child render function.
 
 <!-- STORY -->
 
@@ -31,23 +31,49 @@ const MyForm = () => {
         <ErrorMessage name="firstName"/>
       </div>
       <div>
-        <label>Last name: <Field name="lastName" component="input" validate={required}/></label>
-        <ErrorMessage name="lastName"/>
+        <label>Middle name: 
+          <Field name="middleName" validate={required} render= {
+            ({handleChange, handleBlur, value, touched, error}) => (
+              <>
+                <input onChange={handleChange} onBlur={handleBlur} value={value}/>
+                {(touched && error)? <p>Error: {error}</p>: null}
+              </>
+            )
+          }/>
+        </label>
+      </div>
+      <div>
+        <label>Last name: 
+          <Field name="lastName" validate={required}>
+            {({handleChange, handleBlur, value, touched, error}) => (
+              <>
+                <input onChange={handleChange} onBlur={handleBlur} value={value}/>
+                {(touched && error)? <p>Error: {error}</p>: null}
+              </>
+            )}
+          </Field>
+        </label>
       </div>
     </TheForm>
   );
 };
-
-export MyForm;
 ```
 ---
-#### Explanation
-`Field` renders the component ("input" in the above example). It will add an onChange event to the input that will call validate.
+#### Component prop render
+The firstName `Field` renders the component ("input" in the above example). It will add an onChange event to the input that will call validate.
 
 `required` returns an error message if the value is missing.
 
 `ErrorMessage` renders an error if the Field is touched.
 
 
-#### Next Steps
-You may well want ui-components that conviniently combine inputs, labels and error messages. These are not provided by the framework but they are easy to write. Several examples are shown in the remainder of this section. 
+#### Render prop
+The middleName `Field` has a render function that will be called from field and passed useful props.
+
+
+#### Child function render
+The lastName `Field` has child function that will be called from field and passed useful props.
+
+
+#### Next steps
+You have seen that `Field` can be used directly on a Form in the UI components section you can see how it can be used to build other ui-components.

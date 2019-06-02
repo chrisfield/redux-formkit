@@ -22,8 +22,28 @@ const MyForm = () => {
         <ErrorMessage name="firstName"/>
       </div>
       <div>
-        <label>Last name: <Field name="lastName" component="input" validate={required}/></label>
-        <ErrorMessage name="lastName"/>
+        <label>Middle name: 
+          <Field name="middleName" validate={required} render= {
+            ({handleChange, handleBlur, value, touched, error}) => (
+              <>
+                <input onChange={handleChange} onBlur={handleBlur} value={value}/>
+                {(touched && error)? <p>Error: {error}</p>: null}
+              </>
+            )
+          }/>
+        </label>
+      </div>
+      <div>
+        <label>Last name: 
+          <Field name="lastName" validate={required}>
+            {({handleChange, handleBlur, value, touched, error}) => (
+              <>
+                <input onChange={handleChange} onBlur={handleBlur} value={value}/>
+                {(touched && error)? <p>Error: {error}</p>: null}
+              </>
+            )}
+          </Field>
+        </label>
       </div>
     </TheForm>
   );

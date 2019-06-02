@@ -19,6 +19,10 @@ You can see how it can be used to define ui-components in the 'Example ui-compon
 | afterUpdate        |          | Function that will called after the field renders. Your function will be passed the `fieldInterface` and as a parameter. Typical uses for this function would be: to use a custom value eg to set the cursor-position or secondly to revalidate a second field when one field changes.                                                                                                                |
 | getTargetValue     |          | Function to get the value. It will be called with the target and event as a parameters.                                                                                                                                                                                                                                                                                                               |
 | useTargetCondition |          | Function (only relevant for isomorphic forms). Will be called onComponentMount with the elementRef as a parameter.  If it returns true the value of the element will be used to update the store. See it used on the radio-buttons in the next-js example.                                                                                                                                              |
+| component          |          | String or node. This is what will be rendered |
+| render             |          | function. A render function that will be called with props |
+| children           |          | Node or function. A function that will be called with props. Or normal JSX children |
+
 
 The `fieldInterface` object (passed to beforeUpdate, afterUpdate and validate functions) includes any extra props passed to `Field` plus these standard props: 
 * `name` of this field
