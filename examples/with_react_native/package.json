@@ -10,7 +10,7 @@
   "dependencies": {
     "react": "16.8.3",
     "react-native": "0.59.8",
-    "redux-formkit": "^3.5.0"
+    "redux-formkit": "^3.7.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",

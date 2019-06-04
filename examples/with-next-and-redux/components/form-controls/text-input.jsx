@@ -13,8 +13,8 @@ const TextInputComponent = ({
   error,
   children,
   ...props}) => 
-(
-    <InputWrapper {...{name, label, touched, error}}>
+{
+    return <InputWrapper {...{name, label, touched, error}}>
       <input
         id={name}
         ref={elementRef}
@@ -25,7 +25,7 @@ const TextInputComponent = ({
       />
       {children}
     </InputWrapper>
-);
+};
 
 const requiredStr = value => {
   return value && value.trim && value.trim().length > 0 ? undefined: 'Required Field'

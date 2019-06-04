@@ -21,7 +21,7 @@ const Button = (props) => {
   );
 };
 
-const MyForm = () => {  
+const MyForm = () => {
   return (
     <FormStateProvider>
       <Form name="myForm" initialValues={{rb2: 'G'}} onSubmit={submitValues} onSubmitSuccess={clearValues}>

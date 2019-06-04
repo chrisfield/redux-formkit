@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 No pending (unreleased changes) to mention
 
+## [3.7.0] - 2019-06-04
+### Fixed
+- Change the way Form initializes to optimize render of fields on page load.
+
 ## [3.6.1] - 2019-06-03
 ### Fixed
 - Update Form so it passes handleSubmit to the render prop function.

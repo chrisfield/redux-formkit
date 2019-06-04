@@ -36,7 +36,13 @@ const clearValues = (form) => {
 
 const MyForm = ({initialValues}) => {
   return (
-    <Form name="myForm" initialValues={initialValues} onSubmit={submitValues} onSubmitSuccess={clearValues} className="my-form">
+    <Form name="myForm"
+      initialValues={initialValues}
+      onSubmit={submitValues}
+      onSubmitSuccess={clearValues}
+      className="my-form"
+      forceEarlyRender={true}
+    >
       <div>
         <TextInput name="fieldOne" required afterUpdate={revalidateFieldTwo}/>
         <TextInput name="fieldTwo" required validate={greaterThanFieldOne}/>

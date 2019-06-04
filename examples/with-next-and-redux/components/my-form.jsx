@@ -36,7 +36,7 @@ const clearValues = (form) => {
 
 const MyForm = () => {
   return (
-    <Form name="myForm" initialValues={{rb2: 'G'}} onSubmit={submitValues} onSubmitSuccess={clearValues} className="my-form">
+    <Form name="myForm" onSubmit={submitValues} onSubmitSuccess={clearValues} className="my-form">
       <div>
         <TextInput name="fieldOne" required afterUpdate={revalidateFieldTwo}/>
         <TextInput name="fieldTwo" required validate={greaterThanFieldOne}/>

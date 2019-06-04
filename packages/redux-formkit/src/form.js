@@ -38,6 +38,7 @@ export const Form = ({
   children,
   render,
   component = 'form',
+  forceEarlyRender = false,
   ...props
 }) => {
 
@@ -47,15 +48,13 @@ export const Form = ({
   const fieldArraysRef = useRef(initFieldArrays);
   const formReducerRef = useRef([]);
   const formRef = useRef();
+  const [initialized, setInitialized] = useState(!initialValues);
 
-  const isMountedRef = useRef(false);
   useEffect(() => {
     const dispatch = formReducerRef.current[1];
-    if (!isMountedRef.current) {
-      isMountedRef.current = true;
-      if (initialValues) {
-        dispatch(updateFields(initialValues));
-      }  
+    if (!initialized) {
+      setInitialized(true);
+      dispatch(updateFields(initialValues));
     } else if (formReducerRef.current[0].formStatus.isResetFieldsDue) {
       formReducerRef.current[1](resetFieldsIsDone());
     }
@@ -184,7 +183,7 @@ export const Form = ({
       formApi={formApiRef.current}
     >
       <FormReducerRef formReducerRef={formReducerRef}/>
-      {getContent()}
+      {(initialized || forceEarlyRender) && getContent()}
     </Provider>
   );
 };
