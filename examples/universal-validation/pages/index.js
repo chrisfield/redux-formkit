@@ -4,15 +4,21 @@ import {useFormReducer} from 'redux-formkit';
 import {updateFieldsAction, initFormStateAction} from 'redux-formkit';
 import {updateFieldsAction as updateFieldsActionForRedux} from 'redux-formkit-redux-state-provider';
 
+const ResetButton = () => {
+  const [dispatch] = useFormReducer('myForm');
+  return (
+    <p onClick={()=>{
+        dispatch(updateFieldsAction({fieldOne:'new f1', rb2: 'R'}));
+      }}
+    >click here</p>
+  );
+}
+
 const Index = () => {
-  const dispatch = useFormReducer('myForm')[1];
   return (
     <div>
       <MyForm/>
-      <p onClick={()=>{
-          dispatch(updateFieldsAction({fieldOne:'new f1', rb2: 'G', hobbies:[{name: 'Flying Kites'}]}));
-        }}
-      >click here</p>
+      <ResetButton/>
     </div>
   );
 };
