@@ -5,7 +5,7 @@ import {updateFieldsAction} from 'redux-formkit';
 import {updateFieldsAction as updateFieldsActionForRedux} from 'redux-formkit-redux-state-provider';
 
 const ResetButton = () => {
-  const [dispatch] = useFormReducer('myForm');
+  const dispatch = useFormReducer('myForm')[1];
   return (
     <p onClick={()=>{
         dispatch(updateFieldsAction({fieldOne:'new f1', rb2: 'R'}));
