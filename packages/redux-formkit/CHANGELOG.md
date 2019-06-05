@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 No pending (unreleased changes) to mention
 
+## [3.8.0] - 2019-06-05
+### Added
+- FormStateProvider can now be initialized with state. This is particularly useful for server rendered forms and is the preferred way to get values on to the page. Please see the with-next example.
+- Also remove the forceEarlyRender prop from form as it is not needed.
+
 ## [3.7.0] - 2019-06-04
 ### Fixed
 - Change the way Form initializes to optimize render of fields on page load.

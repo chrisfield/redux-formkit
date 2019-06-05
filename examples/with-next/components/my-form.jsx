@@ -34,36 +34,32 @@ const clearValues = (form) => {
   form.updateFields({});
 };
 
-const MyForm = ({initialValues}) => {
-  return (
-    <Form name="myForm"
-      initialValues={initialValues}
-      onSubmit={submitValues}
-      onSubmitSuccess={clearValues}
-      className="my-form"
-      forceEarlyRender={true}
-    >
-      <div>
-        <TextInput name="fieldOne" required afterUpdate={revalidateFieldTwo}/>
-        <TextInput name="fieldTwo" required validate={greaterThanFieldOne}/>
-        <FieldThree
-          label="Name(try Fred):"
-          required 
-          placeholder="Dynamic - on fieldTwo"
-          afterUpdate={suggest42ForFred}
-        />
-        <NumberInput name="age"/>
-        <TextInput name="fieldFour"/>
-      </div>
-      <FieldArray
-        name="hobbies"
-        component={RenderHobbies}
+const MyForm = () => (
+  <Form name="myForm"
+    onSubmit={submitValues}
+    onSubmitSuccess={clearValues}
+    className="my-form"
+  >
+    <div>
+      <TextInput name="fieldOne" required afterUpdate={revalidateFieldTwo}/>
+      <TextInput name="fieldTwo" required validate={greaterThanFieldOne}/>
+      <FieldThree
+        label="Name(try Fred):"
+        required 
+        placeholder="Dynamic - on fieldTwo"
+        afterUpdate={suggest42ForFred}
       />
-      <button>Submit</button>
-      <TheFormState />
-    </Form>
-  );
-};
+      <NumberInput name="age"/>
+      <TextInput name="fieldFour"/>
+    </div>
+    <FieldArray
+      name="hobbies"
+      component={RenderHobbies}
+    />
+    <button>Submit</button>
+    <TheFormState />
+  </Form>
+);
 
 const revalidateFieldTwo = ({getField, value}) => {
   getField('fieldTwo').setTouched(false);

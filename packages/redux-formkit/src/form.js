@@ -38,7 +38,6 @@ export const Form = ({
   children,
   render,
   component = 'form',
-  forceEarlyRender = false,
   ...props
 }) => {
 
@@ -183,7 +182,7 @@ export const Form = ({
       formApi={formApiRef.current}
     >
       <FormReducerRef formReducerRef={formReducerRef}/>
-      {(initialized || forceEarlyRender) && getContent()}
+      {initialized && getContent()}
     </Provider>
   );
 };

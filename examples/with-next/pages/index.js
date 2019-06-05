@@ -1,12 +1,12 @@
 
 import MyForm from '../components/my-form';
-import {useFormReducer, updateFieldsAction} from 'redux-formkit'; 
+import {FormStateProvider, useFormReducer, updateFieldsAction, formReducer} from 'redux-formkit'; 
 
 const ResetButton = () => {
   const dispatch = useFormReducer('myForm')[1];
   return (
     <p onClick={()=>{
-        dispatch(updateFieldsAction({fieldOne:'new f1', rb2: 'R'}));
+        dispatch(updateFieldsAction({fieldOne:'new f1'}));
       }}
     >click here</p>
   );
@@ -14,10 +14,10 @@ const ResetButton = () => {
 
 const Index = ({initialValues}) => {
   return (
-    <div>
-      <MyForm {...{ initialValues }}/>
+    <FormStateProvider initialState={formReducer(undefined, {form: 'myForm', ...updateFieldsAction(initialValues)})}>
+      <MyForm/>
       <ResetButton/>
-    </div>
+    </FormStateProvider>
   );
 };
 

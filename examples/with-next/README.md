@@ -20,9 +20,6 @@ yarn dev
 ```
 
 ## The idea behind the example
+Using `redux-formkit` with `next` is simple. The pages/index.js includes a `FormStateProvider` containing the form. The FormStateProvider has the initial state set using the redux-formkit formReducer with an updateFields action.
 
-Using `redux-formkit` with `next` is simple. The pages._app.js includes a `FormStateProvider` so `Forms` can be rendered in any component. In this case I've rendered a form straight from the index page.
-
-An interesting aspect of this implementation is aparent when you compare it to the [with-next-and-redux example](https://github.com/chrisfield/redux-formkit/tree/master/examples/with-next-and-redux). There is a fundemental difference in the way the initial values from `Index.getInitialProps` get on to the web page. 
-
-In this example they are passed as initialValues directly to the `Form`. `Form` then uses these initialValues in a useEffect (which replaced componentDidMount). Since useEffect is client-only the pre-rendered form sent to the client will be blank and the initialValues will only be added once the JS downloads and runs.
+Normally updateFields would have the form name added by the dispatch function returned from useFormReducer. Here, since we are not using that dispatch function I had to add the form-name separately.
