@@ -44,7 +44,7 @@ export default Index;
 ```
 
 #### Explaination
-The code in the getInitialProps (called ny next-js) returns the initialValues for the Index function.
+The code in the getInitialProps (called by next-js) returns the initialValues for the Index function.
 
 Index passes these values to the `FormStateProvider`. The values will be included on the server rendered form and also sent to the browser to initialize the client React state.
 
