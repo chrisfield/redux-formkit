@@ -1,5 +1,9 @@
 # redux-formkit-redux-state-provider
 
+
+## ⚠️ ATTENTION ⚠️
+By default Redux-formkit does not use Redux - obviously this is not communicated well by the name. For this reason I have created [react-form-composer-redux-provider](https://www.npmjs.com/package/react-form-composer-redux-provider) which is 100% compatible and I recommend switching to it.
+
 [![NPM Version](https://img.shields.io/npm/v/redux-formkit-redux-state-provider.svg?style=flat)](https://www.npmjs.com/package/redux-formkit-redux-state-provider)
 [![NPM Downloads](https://img.shields.io/npm/dm/redux-formkit-redux-state-provider.svg?style=flat)](https://npmcharts.com/compare/redux-formkit-redux-state-provider?minimal=true)
 
