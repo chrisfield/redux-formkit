@@ -1,7 +1,7 @@
 # redux-formkit
 
 ## ⚠️ ATTENTION ⚠️
-By default Redux-formkit does not use Redux - obviously this is not communicated well by the name. For this reason I have created [react-form-composer](https://www.npmjs.com/package/react-form-composer) which is 100% compatible and I recommend switching to it.
+By default Redux-formkit does not use Redux - obviously this is not communicated well by the name. For this reason I have created [react-form-composer](https://www.npmjs.com/package/react-form-composer). Version 1 is 100% compatible with this package and version 2 is an easy upgrade. It has some good features like Scopes, zero dependencies and a smaller download. See the [CHANGELOG](https://github.com/chrisfield/react-form-composer/blob/master/packages/react-form-composer/CHANGELOG.md) for more information.
 
 ### Go to [live examples, code and docs](https://chrisfield.github.io/redux-formkit/).
 

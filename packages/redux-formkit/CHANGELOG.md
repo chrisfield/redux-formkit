@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 No pending (unreleased changes) to mention
 
+## [4.0.0] - 2019-06-17
+### Fixed 
+Repeat recomendation to switch to react-form-composer
+
 ## [3.8.1] - 2019-06-13
 ### Fixed 
 Add recomendation to switch to react-form-composer
