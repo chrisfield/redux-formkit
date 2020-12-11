@@ -2654,9 +2654,9 @@ inherits@2, inherits@2.0.3, inherits@^2.0.3, inherits@~2.0.3:
   integrity sha1-Yzwsg+PaQqUC9SRmAiSA9CCCYd4=
 
 ini@~1.3.0:
-  version "1.3.5"
-  resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.5.tgz#eee25f56db1c9ec6085e0c22778083f596abf927"
-  integrity sha512-RZY5huIKCMRWDUqZlEi72f/lmXKMvuszcMBduliQ3nnWbx9X/ZBQO7DijMEYS9EhHBb2qacRUMtC7svLwe0lcw==
+  version "1.3.7"
+  resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.7.tgz#a09363e1911972ea16d7a8851005d84cf09a9a84"
+  integrity sha512-iKpRpXP+CrP2jyrxvg1kMUpXDyRUFDWurxbnVT1vQPx+Wz9uCYsMIqYuSBLV+PAaZG/d7kRLKRFc9oDMsH+mFQ==
 
 inquirer@^3.0.6:
   version "3.3.0"
@@ -5009,10 +5009,10 @@ realpath-native@^1.1.0:
   dependencies:
     util.promisify "^1.0.0"
 
-redux-formkit@^3.5.0:
-  version "3.5.0"
-  resolved "https://registry.yarnpkg.com/redux-formkit/-/redux-formkit-3.5.0.tgz#effb3455ae7d9940c00e1814880c6552add2ea21"
-  integrity sha512-TGD635MBrC8ScrL7p4kRZjvLFJVNI3u4vLYGaAT/7R3aHS9ieUwEfEjtJA/nX6Brj32IiAqs+eV/d+VFnDZ5cA==
+redux-formkit@^3.8.0:
+  version "3.8.1"
+  resolved "https://registry.yarnpkg.com/redux-formkit/-/redux-formkit-3.8.1.tgz#6a4d3405c321b29d343c0a055059b9c2030b8f9f"
+  integrity sha512-FYRCwCdLCwmcfT6lD5ZcKQ/P90xR4e7BKkPajETf2THdgeI855sPjLVUYRtex8jF0FaHVPbrUiA3yxe1We9N5g==
   dependencies:
     es6-error "^4.1.1"
     is-promise "^2.1.0"
