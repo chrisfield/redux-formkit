@@ -11679,9 +11679,9 @@ querystring@0.2.0, querystring@^0.2.0:
   integrity sha1-sgmEkgO7Jd+CDadW50cAWHhSFiA=
 
 querystringify@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/querystringify/-/querystringify-2.1.1.tgz#60e5a5fd64a7f8bfa4d2ab2ed6fdf4c85bad154e"
-  integrity sha512-w7fLxIRCRT7U8Qu53jQnJyPkYZIaR4n5151KMfcJlO/A9397Wxb1amJvROTK6TOnp7PfoAmg/qXiNHI+08jRfA==
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/querystringify/-/querystringify-2.2.0.tgz#3345941b4153cb9d082d8eee4cda2016a9aef7f6"
+  integrity sha512-FIqgj2EUvTa7R50u0rGsyTftzjYmv/a3hO345bZNrqabNqjtgiDMgmo4mkUjd+nzU5oF3dClKqFIPUKybUyqoQ==
 
 quick-lru@^1.0.0:
   version "1.1.0"
@@ -12334,6 +12334,20 @@ redux-devtools-extension@^2.13.8:
   version "2.13.8"
   resolved "https://registry.yarnpkg.com/redux-devtools-extension/-/redux-devtools-extension-2.13.8.tgz#37b982688626e5e4993ff87220c9bbb7cd2d96e1"
   integrity sha512-8qlpooP2QqPtZHQZRhx3x3OP5skEV1py/zUdMY28WNAocbafxdG2tRD1MWE7sp8obGMNYuLWanhhQ7EQvT1FBg==
+
+redux-formkit-redux-state-provider@^3.3.10:
+  version "3.8.1"
+  resolved "https://registry.yarnpkg.com/redux-formkit-redux-state-provider/-/redux-formkit-redux-state-provider-3.8.1.tgz#a4feb9362c277d0446c3ff6baa98bada5ed10947"
+  integrity sha512-JBXlNub55/taDdSUcoUjyIBiZOxvaoqEOL5ji3HjG7lvghS6SKri8PtGh6QgCOQfTKtkfD+X8VNdM4BjT+da3g==
+
+redux-formkit@^3.8.0:
+  version "3.8.1"
+  resolved "https://registry.yarnpkg.com/redux-formkit/-/redux-formkit-3.8.1.tgz#6a4d3405c321b29d343c0a055059b9c2030b8f9f"
+  integrity sha512-FYRCwCdLCwmcfT6lD5ZcKQ/P90xR4e7BKkPajETf2THdgeI855sPjLVUYRtex8jF0FaHVPbrUiA3yxe1We9N5g==
+  dependencies:
+    es6-error "^4.1.1"
+    is-promise "^2.1.0"
+    lodash.topath "^4.5.2"
 
 redux@^4.0.1:
   version "4.0.1"
@@ -14265,9 +14279,9 @@ url-parse-lax@^3.0.0:
     prepend-http "^2.0.0"
 
 url-parse@^1.4.3:
-  version "1.4.7"
-  resolved "https://registry.yarnpkg.com/url-parse/-/url-parse-1.4.7.tgz#a8a83535e8c00a316e403a5db4ac1b9b853ae278"
-  integrity sha512-d3uaVyzDB9tQoSXFvuSUNFibTd9zxd2bkVrDRvF5TmvWWQwqE4lgYJ5m+x1DbecWkw+LK4RNl2CU1hHuOKPVlg==
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/url-parse/-/url-parse-1.5.1.tgz#d5fa9890af8a5e1f274a2c98376510f6425f6e3b"
+  integrity sha512-HOfCOUJt7iSYzEx/UqgtwKRMC6EU91NFhsCHMv9oM03VJcVo2Qrp8T8kI9D7amFf1cu+/3CEhgb3rF9zL7k85Q==
   dependencies:
     querystringify "^2.1.1"
     requires-port "^1.0.0"
