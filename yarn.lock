@@ -7327,9 +7327,9 @@ homedir-polyfill@^1.0.1:
     parse-passwd "^1.0.0"
 
 hosted-git-info@^2.1.4, hosted-git-info@^2.6.0:
-  version "2.7.1"
-  resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.7.1.tgz#97f236977bd6e125408930ff6de3eec6281ec047"
-  integrity sha512-7T/BxH19zbcCTa8XkMlbK5lTo1WtgkFi3GvdWEyNuc4Vex7/9Dqbnpsf4JMydcfj9HCg4zUWFTL3Za6lapg5/w==
+  version "2.8.9"
+  resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.8.9.tgz#dffc0bf9a21c02209090f2aa69429e1414daf3f9"
+  integrity sha512-mxIDAb9Lsm6DoOJ7xH+5+X4y1LU/4Hi50L9C5sIswK3JzULS4bwk1FvjdBgvYR4bzT4tuUQiC15FE2f5HbLvYw==
 
 hpack.js@^2.1.6:
   version "2.1.6"
@@ -12334,6 +12334,20 @@ redux-devtools-extension@^2.13.8:
   version "2.13.8"
   resolved "https://registry.yarnpkg.com/redux-devtools-extension/-/redux-devtools-extension-2.13.8.tgz#37b982688626e5e4993ff87220c9bbb7cd2d96e1"
   integrity sha512-8qlpooP2QqPtZHQZRhx3x3OP5skEV1py/zUdMY28WNAocbafxdG2tRD1MWE7sp8obGMNYuLWanhhQ7EQvT1FBg==
+
+redux-formkit-redux-state-provider@^3.3.10:
+  version "3.8.1"
+  resolved "https://registry.yarnpkg.com/redux-formkit-redux-state-provider/-/redux-formkit-redux-state-provider-3.8.1.tgz#a4feb9362c277d0446c3ff6baa98bada5ed10947"
+  integrity sha512-JBXlNub55/taDdSUcoUjyIBiZOxvaoqEOL5ji3HjG7lvghS6SKri8PtGh6QgCOQfTKtkfD+X8VNdM4BjT+da3g==
+
+redux-formkit@^3.8.0:
+  version "3.8.1"
+  resolved "https://registry.yarnpkg.com/redux-formkit/-/redux-formkit-3.8.1.tgz#6a4d3405c321b29d343c0a055059b9c2030b8f9f"
+  integrity sha512-FYRCwCdLCwmcfT6lD5ZcKQ/P90xR4e7BKkPajETf2THdgeI855sPjLVUYRtex8jF0FaHVPbrUiA3yxe1We9N5g==
+  dependencies:
+    es6-error "^4.1.1"
+    is-promise "^2.1.0"
+    lodash.topath "^4.5.2"
 
 redux@^4.0.1:
   version "4.0.1"
