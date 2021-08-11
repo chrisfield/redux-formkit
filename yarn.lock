@@ -11114,9 +11114,9 @@ path-key@^2.0.0, path-key@^2.0.1:
   integrity sha1-QRyttXTFoUDTpLGRDUDYDMn0C0A=
 
 path-parse@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/path-parse/-/path-parse-1.0.6.tgz#d62dbb5679405d72c4737ec58600e9ddcf06d24c"
-  integrity sha512-GSmOT2EbHrINBf9SR7CDELwlJ8AENk3Qn7OikK4nFYAu3Ote2+JYNVvkpAEQm3/TLNEJFD/xZJjzyxg3KBWOzw==
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/path-parse/-/path-parse-1.0.7.tgz#fbc114b60ca42b30d9daf5858e4bd68bbedb6735"
+  integrity sha512-LDJzPVEEEPR+y48z93A0Ed0yXb8pAByGWo/k5YYdYgpY2/2EsOsksJrq7lOHxryrVOn1ejG6oAp8ahvOIQD8sw==
 
 path-to-regexp@0.1.7:
   version "0.1.7"
@@ -12334,6 +12334,20 @@ redux-devtools-extension@^2.13.8:
   version "2.13.8"
   resolved "https://registry.yarnpkg.com/redux-devtools-extension/-/redux-devtools-extension-2.13.8.tgz#37b982688626e5e4993ff87220c9bbb7cd2d96e1"
   integrity sha512-8qlpooP2QqPtZHQZRhx3x3OP5skEV1py/zUdMY28WNAocbafxdG2tRD1MWE7sp8obGMNYuLWanhhQ7EQvT1FBg==
+
+redux-formkit-redux-state-provider@^3.3.10:
+  version "3.8.1"
+  resolved "https://registry.yarnpkg.com/redux-formkit-redux-state-provider/-/redux-formkit-redux-state-provider-3.8.1.tgz#a4feb9362c277d0446c3ff6baa98bada5ed10947"
+  integrity sha512-JBXlNub55/taDdSUcoUjyIBiZOxvaoqEOL5ji3HjG7lvghS6SKri8PtGh6QgCOQfTKtkfD+X8VNdM4BjT+da3g==
+
+redux-formkit@^3.8.0:
+  version "3.8.1"
+  resolved "https://registry.yarnpkg.com/redux-formkit/-/redux-formkit-3.8.1.tgz#6a4d3405c321b29d343c0a055059b9c2030b8f9f"
+  integrity sha512-FYRCwCdLCwmcfT6lD5ZcKQ/P90xR4e7BKkPajETf2THdgeI855sPjLVUYRtex8jF0FaHVPbrUiA3yxe1We9N5g==
+  dependencies:
+    es6-error "^4.1.1"
+    is-promise "^2.1.0"
+    lodash.topath "^4.5.2"
 
 redux@^4.0.1:
   version "4.0.1"
