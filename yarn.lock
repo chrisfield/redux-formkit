@@ -12335,6 +12335,20 @@ redux-devtools-extension@^2.13.8:
   resolved "https://registry.yarnpkg.com/redux-devtools-extension/-/redux-devtools-extension-2.13.8.tgz#37b982688626e5e4993ff87220c9bbb7cd2d96e1"
   integrity sha512-8qlpooP2QqPtZHQZRhx3x3OP5skEV1py/zUdMY28WNAocbafxdG2tRD1MWE7sp8obGMNYuLWanhhQ7EQvT1FBg==
 
+redux-formkit-redux-state-provider@^3.3.10:
+  version "3.8.1"
+  resolved "https://registry.yarnpkg.com/redux-formkit-redux-state-provider/-/redux-formkit-redux-state-provider-3.8.1.tgz#a4feb9362c277d0446c3ff6baa98bada5ed10947"
+  integrity sha512-JBXlNub55/taDdSUcoUjyIBiZOxvaoqEOL5ji3HjG7lvghS6SKri8PtGh6QgCOQfTKtkfD+X8VNdM4BjT+da3g==
+
+redux-formkit@^3.8.0:
+  version "3.8.1"
+  resolved "https://registry.yarnpkg.com/redux-formkit/-/redux-formkit-3.8.1.tgz#6a4d3405c321b29d343c0a055059b9c2030b8f9f"
+  integrity sha512-FYRCwCdLCwmcfT6lD5ZcKQ/P90xR4e7BKkPajETf2THdgeI855sPjLVUYRtex8jF0FaHVPbrUiA3yxe1We9N5g==
+  dependencies:
+    es6-error "^4.1.1"
+    is-promise "^2.1.0"
+    lodash.topath "^4.5.2"
+
 redux@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/redux/-/redux-4.0.1.tgz#436cae6cc40fbe4727689d7c8fae44808f1bfef5"
@@ -13898,9 +13912,9 @@ tmp@^0.0.33:
     os-tmpdir "~1.0.2"
 
 tmpl@1.0.x:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/tmpl/-/tmpl-1.0.4.tgz#23640dd7b42d00433911140820e5cf440e521dd1"
-  integrity sha1-I2QN17QtAEM5ERQIIOXPRA5SHdE=
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/tmpl/-/tmpl-1.0.5.tgz#8683e0b902bb9c20c4f726e3c0b69f36518c07cc"
+  integrity sha512-3f0uOEAQwIqGuWW2MVzYg8fV/QNnc/IpuJNG837rLuczAaLVHslWHZQj4IGiEl5Hs3kkbhwL9Ab7Hrsmuj+Smw==
 
 to-arraybuffer@^1.0.0:
   version "1.0.1"
